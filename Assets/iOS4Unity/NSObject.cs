@@ -1,29 +1,49 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-public class NSObject : IDisposable 
+namespace iOS4Unity
 {
-	public static readonly IntPtr ClassHandle;
-
-	static NSObject()
+	public class NSObject : IDisposable 
 	{
-		ClassHandle = ObjC.GetClass("NSObject");
-	}
+		private static readonly IntPtr _classHandle;
 
-	public readonly IntPtr Handle;
-
-	public NSObject()
-	{
-		var alloc = ObjC.GetSelector("alloc");
-		Handle = ObjC.IntPtr_objc_msgSend(ClassHandle, alloc);
-	}
-
-	public void Dispose()
-	{
-		if (Handle != IntPtr.Zero)
+		static NSObject()
 		{
-			var release = ObjC.GetSelector ("release");
-			ObjC.void_objc_msgSend(Handle, release);
+			_classHandle = ObjC.GetClass("NSObject");
+		}
+
+		public virtual IntPtr ClassHandle
+		{
+			get { return _classHandle; }
+		}
+
+		~NSObject()
+		{
+			Dispose();
+		}
+
+		private readonly IntPtr _handle;
+
+		public virtual IntPtr Handle
+		{
+			get { return _handle; }
+		}
+
+		public NSObject()
+		{
+			var alloc = ObjC.GetSelector("alloc");
+			_handle = ObjC.IntPtr_objc_msgSend(ClassHandle, alloc);
+		}
+
+		public void Dispose()
+		{
+			GC.SuppressFinalize(this);
+
+			if (Handle != IntPtr.Zero)
+			{
+				var release = ObjC.GetSelector("release");
+				ObjC.void_objc_msgSend(Handle, release);
+			}
 		}
 	}
 }
