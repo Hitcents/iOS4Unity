@@ -28,4 +28,13 @@ public class UIAlertViewTests
 		alertView.AddButton ("TEST");
 		Assert.AreEqual(1, alertView.ButtonCount);
 	}
+
+	[Test, Ignore]
+	public void Show()
+	{
+		var alertView = new UIAlertView();
+		alertView.Message = "This is a test, n00bs!";
+		alertView.AddButton ("OK");
+		alertView.Show();
+	}
 }

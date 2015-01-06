@@ -46,5 +46,30 @@ namespace iOS4Unity
 				return ObjC.int_objc_msgSend(Handle, selector);
 			}
 		}
+
+		public virtual string Message
+		{
+			get
+			{
+				throw new NotImplementedException();
+//				if (this.IsDirectBinding)
+//				{
+//					return NSString.FromHandle(Messaging.IntPtr_objc_msgSend(base.Handle, Selector.GetHandle("message")));
+//				}
+//				return NSString.FromHandle(Messaging.IntPtr_objc_msgSendSuper(base.SuperHandle, Selector.GetHandle("message")));
+			}
+			set
+			{
+				IntPtr intPtr = ObjC.CreateNSString(value);
+				ObjC.void_objc_msgSend_IntPtr(Handle, ObjC.GetSelector("setMessage:"), intPtr);
+				ObjC.void_objc_msgSend(intPtr, ObjC.GetSelector("release"));
+			}
+		}
+
+		public virtual void Show()
+		{
+			IntPtr selector = ObjC.GetSelector("show");
+			ObjC.void_objc_msgSend(Handle, selector);
+		}
 	}
 }
