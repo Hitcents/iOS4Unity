@@ -35,9 +35,6 @@ using UnityEngine;
 
 public static class NUnitLiteUnityRunner
 {
-    private static readonly HashSet<Assembly> Tested =
-        new HashSet<Assembly>();
-
     public static Action<string, ResultSummary> Presenter { get; set; }
 
     static NUnitLiteUnityRunner()
@@ -45,21 +42,15 @@ public static class NUnitLiteUnityRunner
         Presenter = UnityConsolePresenter;
     }
 
-
     public static void RunTests()
     {
         RunTests(Assembly.GetCallingAssembly());
     }
 
-
     private static void RunTests(Assembly assembly)
     {
         if (assembly == null)
             throw new ArgumentNullException("assembly");
-
-        if (Tested.Contains(assembly))
-            return;
-        Tested.Add(assembly);
 
         using (var sw = new StringWriter())
         {
@@ -70,7 +61,6 @@ public static class NUnitLiteUnityRunner
             Presenter(resultText, resultSummary);
         }
     }
-
 
     private static void UnityConsolePresenter(string longResult, ResultSummary result)
     {
