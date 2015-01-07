@@ -38,7 +38,7 @@ namespace iOS4Unity
 			return result;
 		}
 
-		public virtual int ButtonCount
+		public int ButtonCount
 		{
 			get
 			{
@@ -66,7 +66,7 @@ namespace iOS4Unity
 			}
 		}
 
-		public virtual void Show()
+		public void Show()
 		{
 			IntPtr selector = ObjC.GetSelector("show");
 			ObjC.void_objc_msgSend(Handle, selector);
