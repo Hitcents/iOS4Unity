@@ -29,7 +29,7 @@ public class UIAlertViewTests
 		Assert.AreEqual(1, alertView.ButtonCount);
 	}
 
-	[Test, Ignore]
+	[Test]
 	public void Show()
 	{
 		var alertView = new UIAlertView();

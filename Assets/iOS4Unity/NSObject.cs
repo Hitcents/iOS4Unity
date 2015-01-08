@@ -35,6 +35,11 @@ namespace iOS4Unity
 			_handle = ObjC.IntPtr_objc_msgSend(ClassHandle, alloc);
 		}
 
+		public void PerformSelector(string selector, NSObject withObject, double delay)
+		{
+			ObjC.void_objc_msgSend_IntPtr_IntPtr_Double(this.Handle, ObjC.GetSelector("performSelector:withObject:afterDelay:"), ObjC.GetSelector(selector), (withObject != null) ? withObject.Handle : IntPtr.Zero, delay);
+		}
+
 		public void Dispose()
 		{
 			GC.SuppressFinalize(this);

@@ -27,6 +27,8 @@ namespace iOS4Unity
 		{
 			var init = ObjC.GetSelector("init");
 			_handle = ObjC.IntPtr_objc_msgSend(base.Handle, init);
+
+			Delegate = this;
 		}
 
 		public int AddButton(string title)
@@ -47,7 +49,16 @@ namespace iOS4Unity
 			}
 		}
 
-		public virtual string Message
+		public NSObject Delegate
+		{
+			set 
+			{
+				IntPtr selector = ObjC.GetSelector("setDelegate:");
+				ObjC.void_objc_msgSend_IntPtr(Handle, selector, value.Handle);
+			}
+		}
+
+		public string Message
 		{
 			get
 			{
