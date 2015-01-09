@@ -40,8 +40,12 @@ public class UIAlertViewDelegate : NSObject
 
 	private DidDismissDelegate _didDismiss;
 
-	public virtual void DidDismiss(IntPtr @this, IntPtr selector, IntPtr alertView, int buttonIndex)
+	[AOT.MonoPInvokeCallback(typeof(DidDismissDelegate))]
+	private static void DidDismiss(IntPtr @this, IntPtr selector, IntPtr alertView, int buttonIndex)
 	{
-		Console.WriteLine ("OMG, no way!");
+		Console.WriteLine ("This: " + @this);
+		Console.WriteLine ("Selector: " + selector);
+		Console.WriteLine ("AlertView: " + alertView);
+		Console.WriteLine ("Button: " + buttonIndex);
 	}
 }

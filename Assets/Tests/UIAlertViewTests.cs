@@ -35,6 +35,8 @@ public class UIAlertViewTests
 		var alertView = new UIAlertView();
 		alertView.Message = "This is a test, n00bs!";
 		alertView.AddButton ("OK");
+		alertView.AddButton ("Cancel");
+		alertView.Delegate = new UIAlertViewDelegate();
 		alertView.Show();
 	}
 }
