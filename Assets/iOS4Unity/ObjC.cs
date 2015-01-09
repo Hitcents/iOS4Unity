@@ -9,6 +9,9 @@ namespace iOS4Unity
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "sel_registerName")]
 		public static extern IntPtr GetSelector(string name);
 
+		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "sel_getName")]
+		public static extern string GetSelectorName(IntPtr selector);
+
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_getClass")]
 		public static extern IntPtr GetClass(string name);
 
@@ -16,7 +19,7 @@ namespace iOS4Unity
 		public static extern IntPtr AllocateClassPair(IntPtr superclass, string name, int extraBytes);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "class_addMethod")]
-		public static extern bool AddMethod(IntPtr cls, IntPtr name, DidDismissDelegate imp, string types);
+		public static extern bool AddMethod(IntPtr cls, IntPtr name, Delegate imp, string types);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern IntPtr IntPtr_objc_msgSend(IntPtr receiver, IntPtr selector);

@@ -40,7 +40,7 @@ namespace iOS4Unity
 			ObjC.void_objc_msgSend_IntPtr_IntPtr_Double(this.Handle, ObjC.GetSelector("performSelector:withObject:afterDelay:"), ObjC.GetSelector(selector), (withObject != null) ? withObject.Handle : IntPtr.Zero, delay);
 		}
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			GC.SuppressFinalize(this);
 

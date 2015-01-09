@@ -36,7 +36,10 @@ public class UIAlertViewTests
 		alertView.Message = "This is a test, n00bs!";
 		alertView.AddButton ("OK");
 		alertView.AddButton ("Cancel");
-		alertView.Delegate = new UIAlertViewDelegate();
+		alertView.Dismissed += (sender, e) => 
+		{
+			Console.WriteLine ("Button Clicked: " + e.Value);
+		};
 		alertView.Show();
 	}
 }
