@@ -35,11 +35,8 @@ namespace iOS4Unity
 
 		public UIAlertView()
 		{
-			var init = ObjC.GetSelector("init");
-			_handle = ObjC.IntPtr_objc_msgSend(base.Handle, init);
-
+			_handle = ObjC.MessageSendIntPtr(base.Handle, "init");
 			_alertViews.Add(Handle, this);
-
 			Delegate = this;
 		}
 
@@ -48,28 +45,19 @@ namespace iOS4Unity
 		public int AddButton(string title)
 		{
 			IntPtr intPtr = ObjC.CreateNSString(title);
-			IntPtr selector = ObjC.GetSelector("addButtonWithTitle:");
-			int result = ObjC.int_objc_msgSend_IntPtr(Handle, selector, intPtr);
-			ObjC.void_objc_msgSend(intPtr, ObjC.GetSelector("release"));
+			int result = ObjC.MessageSendInt(Handle, "addButtonWithTitle:", intPtr);
+			ObjC.MessageSend(intPtr, "release");
 			return result;
 		}
 
 		public int ButtonCount
 		{
-			get
-			{
-				IntPtr selector = ObjC.GetSelector("numberOfButtons");
-				return ObjC.int_objc_msgSend(Handle, selector);
-			}
+			get { return ObjC.MessageSendInt(Handle, "numberOfButtons"); }
 		}
 
 		private NSObject Delegate
 		{
-			set 
-			{
-				IntPtr selector = ObjC.GetSelector("setDelegate:");
-				ObjC.void_objc_msgSend_IntPtr(Handle, selector, value.Handle);
-			}
+			set { ObjC.MessageSend(Handle, "setDelegate:", value.Handle); }
 		}
 
 		public string Message
@@ -83,18 +71,12 @@ namespace iOS4Unity
 //				}
 //				return NSString.FromHandle(Messaging.IntPtr_objc_msgSendSuper(base.SuperHandle, Selector.GetHandle("message")));
 			}
-			set
-			{
-				IntPtr intPtr = ObjC.CreateNSString(value);
-				ObjC.void_objc_msgSend_IntPtr(Handle, ObjC.GetSelector("setMessage:"), intPtr);
-				ObjC.void_objc_msgSend(intPtr, ObjC.GetSelector("release"));
-			}
+			set { ObjC.MessageSend(Handle, "setMessage:", value); }
 		}
 
 		public void Show()
 		{
-			IntPtr selector = ObjC.GetSelector("show");
-			ObjC.void_objc_msgSend(Handle, selector);
+			ObjC.MessageSend(Handle, "show");
 		}
 
 		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, int>))]

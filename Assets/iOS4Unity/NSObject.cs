@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 
 namespace iOS4Unity
@@ -31,13 +31,7 @@ namespace iOS4Unity
 
 		public NSObject()
 		{
-			var alloc = ObjC.GetSelector("alloc");
-			_handle = ObjC.IntPtr_objc_msgSend(ClassHandle, alloc);
-		}
-
-		public void PerformSelector(string selector, NSObject withObject, double delay)
-		{
-			ObjC.void_objc_msgSend_IntPtr_IntPtr_Double(this.Handle, ObjC.GetSelector("performSelector:withObject:afterDelay:"), ObjC.GetSelector(selector), (withObject != null) ? withObject.Handle : IntPtr.Zero, delay);
+			_handle = ObjC.MessageSendIntPtr(ClassHandle, "alloc");
 		}
 
 		public virtual void Dispose()
@@ -46,8 +40,7 @@ namespace iOS4Unity
 
 			if (Handle != IntPtr.Zero)
 			{
-				var release = ObjC.GetSelector("release");
-				ObjC.void_objc_msgSend(Handle, release);
+				ObjC.MessageSend(Handle, "release");
 			}
 		}
 	}

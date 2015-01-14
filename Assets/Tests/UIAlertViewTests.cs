@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using iOS4Unity;
 
+#if !UNITY_EDITOR
+
 [TestFixture]
 public class UIAlertViewTests 
 {
@@ -43,3 +45,5 @@ public class UIAlertViewTests
 		alertView.Show();
 	}
 }
+
+#endif

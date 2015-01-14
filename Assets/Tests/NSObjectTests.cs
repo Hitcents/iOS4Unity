@@ -2,6 +2,9 @@
 using NUnit.Framework;
 using iOS4Unity;
 
+/// <summary>
+/// NOTE: these tests work in the editor on the Mac, since NSObject exists
+/// </summary>
 [TestFixture]
 public class NSObjectTests 
 {
