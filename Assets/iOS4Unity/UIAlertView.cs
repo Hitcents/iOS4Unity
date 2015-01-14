@@ -26,28 +26,18 @@ namespace iOS4Unity
 			get { return _classHandle; }
 		}
 
-		private readonly IntPtr _handle;
-
-		public override IntPtr Handle 
-		{
-			get { return _handle; }
-		}
-
 		public UIAlertView()
 		{
-			_handle = ObjC.MessageSendIntPtr(base.Handle, "init");
+			ObjC.MessageSendIntPtr(Handle, "init");
 			_alertViews.Add(Handle, this);
-			Delegate = this;
+			ObjC.MessageSend(Handle, "setDelegate:", Handle);
 		}
 
 		public event EventHandler<EventArgs<int>> Dismissed = delegate { };
 
 		public int AddButton(string title)
 		{
-			IntPtr intPtr = ObjC.CreateNSString(title);
-			int result = ObjC.MessageSendInt(Handle, "addButtonWithTitle:", intPtr);
-			ObjC.MessageSend(intPtr, "release");
-			return result;
+			return ObjC.MessageSendInt(Handle, "addButtonWithTitle:", title);
 		}
 
 		public int ButtonCount
@@ -55,23 +45,16 @@ namespace iOS4Unity
 			get { return ObjC.MessageSendInt(Handle, "numberOfButtons"); }
 		}
 
-		private NSObject Delegate
-		{
-			set { ObjC.MessageSend(Handle, "setDelegate:", value.Handle); }
-		}
-
 		public string Message
 		{
-			get
-			{
-				throw new NotImplementedException();
-//				if (this.IsDirectBinding)
-//				{
-//					return NSString.FromHandle(Messaging.IntPtr_objc_msgSend(base.Handle, Selector.GetHandle("message")));
-//				}
-//				return NSString.FromHandle(Messaging.IntPtr_objc_msgSendSuper(base.SuperHandle, Selector.GetHandle("message")));
-			}
+			get { return ObjC.MessageSendString(Handle, "message"); }
 			set { ObjC.MessageSend(Handle, "setMessage:", value); }
+		}
+
+		public string Title
+		{
+			get { return ObjC.MessageSendString(Handle, "title"); }
+			set { ObjC.MessageSend(Handle, "setTitle:", value); }
 		}
 
 		public void Show()

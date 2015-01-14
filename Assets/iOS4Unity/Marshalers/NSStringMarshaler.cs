@@ -17,10 +17,9 @@ namespace iOS4Unity.Marshalers
 			//Doesn't need to do anything
 		}
 		
-		public void CleanUpNativeData(IntPtr pNativeData)
+		public virtual void CleanUpNativeData(IntPtr pNativeData)
 		{
-			if (pNativeData != IntPtr.Zero)
-				ObjC.MessageSend(pNativeData, "release");
+			//Doesn't need to do anything
 		}
 		
 		public int GetNativeDataSize()
@@ -40,7 +39,24 @@ namespace iOS4Unity.Marshalers
 		{
 			if (pNativeData == IntPtr.Zero)
 				return default(string);
-			return ObjC.MessageSendString(pNativeData, "UTF8String");
+			IntPtr handle = ObjC.MessageSendIntPtr(pNativeData, "UTF8String");
+			return Marshal.PtrToStringAuto(handle);
+		}
+	}
+
+	public class NSStringReleaseMarshaler : NSStringMarshaler
+	{
+		private static readonly NSStringReleaseMarshaler _instance = new NSStringReleaseMarshaler();
+		
+		public static new ICustomMarshaler GetInstance(string cookie)
+		{
+			return _instance;
+		}
+
+		public override void CleanUpNativeData (IntPtr pNativeData)
+		{
+			if (pNativeData != IntPtr.Zero)
+				ObjC.MessageSend(pNativeData, "release");
 		}
 	}
 }

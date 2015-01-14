@@ -29,7 +29,7 @@ namespace iOS4Unity
 		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
-		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringMarshaler))] string arg1);
+		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1, IntPtr arg2, double arg3);
@@ -38,7 +38,7 @@ namespace iOS4Unity
 		public static extern int MessageSendInt(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
-		public static extern int MessageSendInt(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1);
+		public static extern int MessageSendInt(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
@@ -47,11 +47,12 @@ namespace iOS4Unity
 		public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1, int arg2);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+		[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringMarshaler))]
 		public static extern string MessageSendString(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
 		public unsafe static IntPtr CreateNSString(string str)
 		{
-			IntPtr handle = MessageSendIntPtr (GetClass("NSString"), "alloc");
+			IntPtr handle = MessageSendIntPtr(GetClass("NSString"), "alloc");
 			fixed (char* value = str + (IntPtr)(RuntimeHelpers.OffsetToStringData / 2))
 			{
 				handle = MessageSendIntPtr(handle, "initWithCharacters:length:", (IntPtr)((void*)value), str.Length);

@@ -32,6 +32,15 @@ public class UIAlertViewTests
 	}
 
 	[Test]
+	public void Message()
+	{
+		string text = Guid.NewGuid().ToString("N");
+		var alertView = new UIAlertView();
+		alertView.Message = text;
+		Assert.AreEqual(text, alertView.Message);
+	}
+
+	[Test]
 	public void Show()
 	{
 		var alertView = new UIAlertView();

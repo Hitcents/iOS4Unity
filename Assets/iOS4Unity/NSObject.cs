@@ -22,16 +22,21 @@ namespace iOS4Unity
 			Dispose();
 		}
 
-		private readonly IntPtr _handle;
-
-		public virtual IntPtr Handle
-		{
-			get { return _handle; }
-		}
+		public readonly IntPtr Handle;
 
 		public NSObject()
 		{
-			_handle = ObjC.MessageSendIntPtr(ClassHandle, "alloc");
+			Handle = ObjC.MessageSendIntPtr(ClassHandle, "alloc");
+		}
+
+		public string Description
+		{
+			get { return ObjC.MessageSendString(Handle, "description"); }
+		}
+
+		public override string ToString ()
+		{
+			return Description;
 		}
 
 		public virtual void Dispose()

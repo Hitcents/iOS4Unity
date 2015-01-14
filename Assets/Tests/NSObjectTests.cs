@@ -2,9 +2,6 @@
 using NUnit.Framework;
 using iOS4Unity;
 
-/// <summary>
-/// NOTE: these tests work in the editor on the Mac, since NSObject exists
-/// </summary>
 [TestFixture]
 public class NSObjectTests 
 {
@@ -22,5 +19,19 @@ public class NSObjectTests
 	{
 		var obj = new NSObject();
 		obj.Dispose();
+	}
+
+	[Test]
+	public void Description()
+	{
+		var obj = new NSObject();
+		Assert.AreEqual(string.Format("<NSObject: 0x{0:x}>", (int)obj.Handle), obj.Description);
+	}
+
+	[Test]
+	public void DescriptionToString()
+	{
+		var obj = new NSObject();
+		Assert.AreEqual(obj.Description, obj.ToString ());
 	}
 }
