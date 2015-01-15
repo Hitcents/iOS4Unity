@@ -126,26 +126,6 @@ public class UIAlertViewTests
 		alertView.Show ();
 		alertView.Dismiss(0, false);
 	}
-
-	[Test]
-	public void ShouldEnableFirstOtherButton()
-	{
-		bool fired = false;
-
-		var alertView = new UIAlertView();
-		alertView.ShouldEnableFirstOtherButton = _ =>
-		{
-			Console.WriteLine("ShouldEnableFirstOtherButton!");
-			fired = true;
-			return false;
-		};
-		alertView.Message = "This is a test, n00bs!";
-		alertView.AddButton ("OK");
-		alertView.AddButton ("Cancel");
-		alertView.Show ();
-
-		Console.WriteLine("Fired: " + fired);
-	}
 }
 
 #endif

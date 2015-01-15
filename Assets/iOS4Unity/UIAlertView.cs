@@ -13,7 +13,6 @@ namespace iOS4Unity
 		#pragma warning disable 414
 		private static Action<IntPtr, IntPtr, IntPtr, int> _onClicked, _onDismissed, _onWillDismiss;
 		private static Action<IntPtr, IntPtr, IntPtr> _onCanceled, _onPresented, _onWillPresent;
-		private static Func<IntPtr, IntPtr, IntPtr, bool> _onShouldEnableFirstOtherButton;
 		#pragma warning restore 414
 
 		static UIAlertView()
@@ -27,7 +26,6 @@ namespace iOS4Unity
 			ObjC.AddMethod(_classHandle, "didPresentAlertView:", _onPresented = OnPresented, "v@:@");
 			ObjC.AddMethod(_classHandle, "alertView:willDismissWithButtonIndex:", _onWillDismiss = OnWillDismiss, "v@:@l");
 			ObjC.AddMethod(_classHandle, "willPresentAlertView:", _onWillPresent = OnWillPresent, "v@:@");
-			ObjC.AddMethod(_classHandle, "alertViewShouldEnableFirstOtherButton:", _onShouldEnableFirstOtherButton = OnShouldEnableFirstOtherButton, "c@:@");
 		}
 
 		public override IntPtr ClassHandle 
@@ -48,15 +46,6 @@ namespace iOS4Unity
 		public event EventHandler Canceled = delegate { };
 		public event EventHandler Presented = delegate { };
 		public event EventHandler WillPresent = delegate { };
-
-		/// <summary>
-		/// TODO: should eventually subscribe/unsubscribe, otherwise cases the callback would return true when it should just *not exist*
-		/// </summary>
-		public Func<UIAlertView, bool> ShouldEnableFirstOtherButton
-		{
-			get;
-			set;
-		}
 
 		public UIAlertViewStyle AlertViewStyle
 		{
@@ -175,17 +164,6 @@ namespace iOS4Unity
 			{
 				instance.WillPresent(instance, EventArgs.Empty);
 			}
-		}
-
-		[MonoPInvokeCallback(typeof(Func<IntPtr, IntPtr, IntPtr, bool>))]
-		private static bool OnShouldEnableFirstOtherButton(IntPtr @this, IntPtr selector, IntPtr alertView)
-		{
-			UIAlertView instance;
-			if (_alertViews.TryGetValue (@this, out instance) && instance.ShouldEnableFirstOtherButton != null)
-			{
-				return instance.ShouldEnableFirstOtherButton(instance);
-			}
-			return true;
 		}
 
 		public override void Dispose ()
