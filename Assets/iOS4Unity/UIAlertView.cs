@@ -8,24 +8,10 @@ namespace iOS4Unity
 	public class UIAlertView : NSObject 
 	{
 		private static readonly IntPtr _classHandle;
-		private static readonly Dictionary<IntPtr, UIAlertView> _alertViews = new Dictionary<IntPtr, UIAlertView>();
-
-		#pragma warning disable 414
-		private static Action<IntPtr, IntPtr, IntPtr, int> _onClicked, _onDismissed, _onWillDismiss;
-		private static Action<IntPtr, IntPtr, IntPtr> _onCanceled, _onPresented, _onWillPresent;
-		#pragma warning restore 414
 
 		static UIAlertView()
 		{
 			_classHandle = ObjC.GetClass("UIAlertView");
-
-			//Setup callbacks
-			ObjC.AddMethod(_classHandle, "alertViewCancel:", _onCanceled = OnCanceled, "v@:@");
-			ObjC.AddMethod(_classHandle, "alertView:clickedButtonAtIndex:", _onClicked = OnClicked, "v@:@l");
-			ObjC.AddMethod(_classHandle, "alertView:didDismissWithButtonIndex:", _onDismissed = OnDismissed, "v@:@l");
-			ObjC.AddMethod(_classHandle, "didPresentAlertView:", _onPresented = OnPresented, "v@:@");
-			ObjC.AddMethod(_classHandle, "alertView:willDismissWithButtonIndex:", _onWillDismiss = OnWillDismiss, "v@:@l");
-			ObjC.AddMethod(_classHandle, "willPresentAlertView:", _onWillPresent = OnWillPresent, "v@:@");
 		}
 
 		public override IntPtr ClassHandle 
@@ -36,16 +22,99 @@ namespace iOS4Unity
 		public UIAlertView()
 		{
 			ObjC.MessageSendIntPtr(Handle, "init");
-			_alertViews.Add(Handle, this);
 			ObjC.MessageSend(Handle, "setDelegate:", Handle);
 		}
 
-		public event EventHandler<EventArgs<int>> Clicked = delegate { };
-		public event EventHandler<EventArgs<int>> Dismissed = delegate { };
-		public event EventHandler<EventArgs<int>> WillDismiss = delegate { };
-		public event EventHandler Canceled = delegate { };
-		public event EventHandler Presented = delegate { };
-		public event EventHandler WillPresent = delegate { };
+		private EventHandler<EventArgs<int>> _clicked = delegate { };
+		private EventHandler<EventArgs<int>> _dismissed = delegate { };
+		private EventHandler<EventArgs<int>> _willDismiss = delegate { };
+		private EventHandler _canceled = delegate { };
+		private EventHandler _presented = delegate { };
+		private EventHandler _willPresent = delegate { };
+
+		public event EventHandler<EventArgs<int>> Clicked
+		{
+			add
+			{
+				Callbacks.SubscribeIntPtrInt(this, "alertView:clickedButtonAtIndex:", (_, i) => _clicked(this, new EventArgs<int> { Value = i }));
+				_clicked += value;
+			}
+			remove
+			{
+				Callbacks.UnsubscribeIntPtrInt(this);
+				_clicked -= value;
+			}
+		}
+
+		public event EventHandler<EventArgs<int>> Dismissed
+		{
+			add
+			{
+				Callbacks.SubscribeIntPtrInt(this, "alertView:didDismissWithButtonIndex:", (_, i) => _dismissed(this, new EventArgs<int> { Value = i }));
+				_dismissed += value;
+			}
+			remove
+			{
+				Callbacks.UnsubscribeIntPtrInt(this);
+				_dismissed -= value;
+			}
+		}
+
+		public event EventHandler<EventArgs<int>> WillDismiss
+		{
+			add
+			{
+				Callbacks.SubscribeIntPtrInt(this, "alertView:willDismissWithButtonIndex:", (_, i) => _willDismiss(this, new EventArgs<int> { Value = i }));
+				_willDismiss += value;
+			}
+			remove
+			{
+				Callbacks.UnsubscribeIntPtrInt(this);
+				_willDismiss -= value;
+			}
+		}
+
+		public event EventHandler Canceled
+		{
+			add
+			{
+				Callbacks.SubscribeIntPtr(this, "alertViewCancel:", _ => _canceled(this, EventArgs.Empty));
+				_canceled += value;
+			}
+			remove
+			{
+				Callbacks.UnsubscribeIntPtr(this);
+				_canceled -= value;
+			}
+		}
+
+		public event EventHandler Presented
+		{
+			add
+			{
+				Callbacks.SubscribeIntPtr(this, "didPresentAlertView:", _ => _presented(this, EventArgs.Empty));
+				_presented += value;
+			}
+			remove
+			{
+				Callbacks.UnsubscribeIntPtr(this);
+				_presented -= value;
+			}
+		}
+
+		public event EventHandler WillPresent
+		{
+			add
+			{
+				Callbacks.SubscribeIntPtr(this, "willPresentAlertView:", _ => _willPresent(this, EventArgs.Empty));
+				_willPresent += value;
+			}
+			remove
+			{
+				Callbacks.UnsubscribeIntPtr(this);
+				_willPresent -= value;
+			}
+		}
 
 		public UIAlertViewStyle AlertViewStyle
 		{
@@ -106,71 +175,11 @@ namespace iOS4Unity
 			ObjC.MessageSend(Handle, "dismissWithClickedButtonIndex:animated:", buttonIndex, animated);
 		}
 
-		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr>))]
-		private static void OnCanceled(IntPtr @this, IntPtr selector, IntPtr alertView)
-		{
-			UIAlertView instance;
-			if (_alertViews.TryGetValue (@this, out instance))
-			{
-				instance.Canceled(instance, EventArgs.Empty);
-			}
-		}
-
-		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, int>))]
-		private static void OnClicked(IntPtr @this, IntPtr selector, IntPtr alertView, int buttonIndex)
-		{
-			UIAlertView instance;
-			if (_alertViews.TryGetValue (@this, out instance))
-			{
-				instance.Clicked(instance, new EventArgs<int> { Value = buttonIndex });
-			}
-		}
-
-		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, int>))]
-		private static void OnDismissed(IntPtr @this, IntPtr selector, IntPtr alertView, int buttonIndex)
-		{
-			UIAlertView instance;
-			if (_alertViews.TryGetValue (@this, out instance))
-			{
-				instance.Dismissed(instance, new EventArgs<int> { Value = buttonIndex });
-			}
-		}
-
-		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, int>))]
-		private static void OnWillDismiss(IntPtr @this, IntPtr selector, IntPtr alertView, int buttonIndex)
-		{
-			UIAlertView instance;
-			if (_alertViews.TryGetValue (@this, out instance))
-			{
-				instance.WillDismiss(instance, new EventArgs<int> { Value = buttonIndex });
-			}
-		}
-
-		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr>))]
-		private static void OnPresented(IntPtr @this, IntPtr selector, IntPtr alertView)
-		{
-			UIAlertView instance;
-			if (_alertViews.TryGetValue (@this, out instance))
-			{
-				instance.Presented(instance, EventArgs.Empty);
-			}
-		}
-
-		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr>))]
-		private static void OnWillPresent(IntPtr @this, IntPtr selector, IntPtr alertView)
-		{
-			UIAlertView instance;
-			if (_alertViews.TryGetValue (@this, out instance))
-			{
-				instance.WillPresent(instance, EventArgs.Empty);
-			}
-		}
-
 		public override void Dispose ()
 		{
 			base.Dispose ();
 
-			_alertViews.Remove (Handle);
+			Callbacks.UnsubscribeAll(this);
 		}
 	}
 
