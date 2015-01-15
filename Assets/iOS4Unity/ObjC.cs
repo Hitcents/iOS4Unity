@@ -20,7 +20,7 @@ namespace iOS4Unity
 		public static extern IntPtr AllocateClassPair(IntPtr superclass, string name, int extraBytes);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "class_addMethod")]
-		public static extern bool AddMethod(IntPtr cls, IntPtr name, Delegate imp, string types);
+		public static extern bool AddMethod(IntPtr cls, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, Delegate imp, string types);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);

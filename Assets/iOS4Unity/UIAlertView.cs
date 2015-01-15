@@ -10,15 +10,22 @@ namespace iOS4Unity
 		private static readonly IntPtr _classHandle;
 		private static readonly Dictionary<IntPtr, UIAlertView> _alertViews = new Dictionary<IntPtr, UIAlertView>();
 
-		private static Action<IntPtr, IntPtr, IntPtr, int> _didDismiss;
+		#pragma warning disable 414
+		private static Action<IntPtr, IntPtr, IntPtr, int> _onClicked, _onDismissed, _onWillDismiss;
+		private static Action<IntPtr, IntPtr, IntPtr> _onCanceled, _onPresented, _onWillPresent;
+		#pragma warning restore 414
 
 		static UIAlertView()
 		{
 			_classHandle = ObjC.GetClass("UIAlertView");
 
 			//Setup callbacks
-			_didDismiss = DidDismiss;
-			ObjC.AddMethod(_classHandle, ObjC.GetSelector ("alertView:didDismissWithButtonIndex:"), _didDismiss, "v@:@l");
+			ObjC.AddMethod(_classHandle, "alertViewCancel:", _onCanceled = OnCanceled, "v@:@");
+			ObjC.AddMethod(_classHandle, "alertView:clickedButtonAtIndex:", _onClicked = OnClicked, "v@:@l");
+			ObjC.AddMethod(_classHandle, "alertView:didDismissWithButtonIndex:", _onDismissed = OnDismissed, "v@:@l");
+			ObjC.AddMethod(_classHandle, "didPresentAlertView:", _onPresented = OnPresented, "v@:@");
+			ObjC.AddMethod(_classHandle, "alertView:willDismissWithButtonIndex:", _onWillDismiss = OnWillDismiss, "v@:@l");
+			ObjC.AddMethod(_classHandle, "willPresentAlertView::", _onWillPresent = OnWillPresent, "v@:@");
 		}
 
 		public override IntPtr ClassHandle 
@@ -33,7 +40,12 @@ namespace iOS4Unity
 			ObjC.MessageSend(Handle, "setDelegate:", Handle);
 		}
 
+		public event EventHandler<EventArgs<int>> Clicked = delegate { };
 		public event EventHandler<EventArgs<int>> Dismissed = delegate { };
+		public event EventHandler<EventArgs<int>> WillDismiss = delegate { };
+		public event EventHandler Canceled = delegate { };
+		public event EventHandler Presented = delegate { };
+		public event EventHandler WillPresent = delegate { };
 
 		public UIAlertViewStyle AlertViewStyle
 		{
@@ -94,8 +106,28 @@ namespace iOS4Unity
 			ObjC.MessageSend(Handle, "dismissWithClickedButtonIndex:animated:", buttonIndex, animated);
 		}
 
+		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr>))]
+		private static void OnCanceled(IntPtr @this, IntPtr selector, IntPtr alertView)
+		{
+			UIAlertView instance;
+			if (_alertViews.TryGetValue (@this, out instance))
+			{
+				instance.Canceled(instance, EventArgs.Empty);
+			}
+		}
+
 		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, int>))]
-		private static void DidDismiss(IntPtr @this, IntPtr selector, IntPtr alertView, int buttonIndex)
+		private static void OnClicked(IntPtr @this, IntPtr selector, IntPtr alertView, int buttonIndex)
+		{
+			UIAlertView instance;
+			if (_alertViews.TryGetValue (@this, out instance))
+			{
+				instance.Clicked(instance, new EventArgs<int> { Value = buttonIndex });
+			}
+		}
+
+		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, int>))]
+		private static void OnDismissed(IntPtr @this, IntPtr selector, IntPtr alertView, int buttonIndex)
 		{
 			UIAlertView instance;
 			if (_alertViews.TryGetValue (@this, out instance))
@@ -103,6 +135,40 @@ namespace iOS4Unity
 				instance.Dismissed(instance, new EventArgs<int> { Value = buttonIndex });
 			}
 		}
+
+		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, int>))]
+		private static void OnWillDismiss(IntPtr @this, IntPtr selector, IntPtr alertView, int buttonIndex)
+		{
+			UIAlertView instance;
+			if (_alertViews.TryGetValue (@this, out instance))
+			{
+				instance.WillDismiss(instance, new EventArgs<int> { Value = buttonIndex });
+			}
+		}
+
+		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr>))]
+		private static void OnPresented(IntPtr @this, IntPtr selector, IntPtr alertView)
+		{
+			UIAlertView instance;
+			if (_alertViews.TryGetValue (@this, out instance))
+			{
+				instance.Presented(instance, EventArgs.Empty);
+			}
+		}
+
+		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr>))]
+		private static void OnWillPresent(IntPtr @this, IntPtr selector, IntPtr alertView)
+		{
+			UIAlertView instance;
+			if (_alertViews.TryGetValue (@this, out instance))
+			{
+				instance.WillPresent(instance, EventArgs.Empty);
+			}
+		}
+
+//TODO: need to implement this callback
+//		[Export("alertViewShouldEnableFirstOtherButton:")]
+//		public bool ShouldEnableFirstOtherButton(UIAlertView alertView)
 
 		public override void Dispose ()
 		{

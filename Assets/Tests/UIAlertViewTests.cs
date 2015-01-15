@@ -91,7 +91,27 @@ public class UIAlertViewTests
 		alertView.AddButton ("Cancel");
 		alertView.Dismissed += (sender, e) => 
 		{
-			Console.WriteLine ("Button Clicked: " + e.Value);
+			Console.WriteLine("Dismissed: " + e.Value);
+		};
+		alertView.Clicked += (sender, e) => 
+		{
+			Console.WriteLine("Clicked: " + e.Value);
+		};
+		alertView.Canceled += (sender, e) => 
+		{
+			Console.WriteLine("Canceled!");
+		};
+		alertView.Presented += (sender, e) => 
+		{
+			Console.WriteLine("Presented!");
+		};
+		alertView.WillDismiss += (sender, e) => 
+		{
+			Console.WriteLine("WillDismiss: " + e.Value);
+		};
+		alertView.WillPresent += (sender, e) => 
+		{
+			Console.WriteLine("WillPresent!");
 		};
 		alertView.Show();
 	}
