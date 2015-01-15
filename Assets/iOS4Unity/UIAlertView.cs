@@ -35,6 +35,12 @@ namespace iOS4Unity
 
 		public event EventHandler<EventArgs<int>> Dismissed = delegate { };
 
+		public UIAlertViewStyle AlertViewStyle
+		{
+			get { return (UIAlertViewStyle)ObjC.MessageSendInt(Handle, "alertViewStyle"); }
+			set { ObjC.MessageSend(Handle, "setAlertViewStyle:", (int)value); }
+		}
+
 		public int AddButton(string title)
 		{
 			return ObjC.MessageSendInt(Handle, "addButtonWithTitle:", title);
@@ -43,6 +49,27 @@ namespace iOS4Unity
 		public int ButtonCount
 		{
 			get { return ObjC.MessageSendInt(Handle, "numberOfButtons"); }
+		}
+
+		public int CancelButtonIndex
+		{
+			get { return ObjC.MessageSendInt (Handle, "cancelButtonIndex"); }
+			set { ObjC.MessageSend(Handle, "setCancelButtonIndex:", value); }
+		}
+
+		public int FirstOtherButtonIndex
+		{
+			get { return ObjC.MessageSendInt(Handle, "firstOtherButtonIndex"); }
+		}
+
+		public string ButtonTitle(int index)
+		{
+			return ObjC.MessageSendString(Handle, "buttonTitleAtIndex:", index);
+		}
+
+		public bool Visible
+		{
+			get { return ObjC.MessageSendBool(Handle, "isVisible"); }
 		}
 
 		public string Message
@@ -62,6 +89,11 @@ namespace iOS4Unity
 			ObjC.MessageSend(Handle, "show");
 		}
 
+		public void Dismiss(int buttonIndex, bool animated = true)
+		{
+			ObjC.MessageSend(Handle, "dismissWithClickedButtonIndex:animated:", buttonIndex, animated);
+		}
+
 		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, int>))]
 		private static void DidDismiss(IntPtr @this, IntPtr selector, IntPtr alertView, int buttonIndex)
 		{
@@ -78,5 +110,13 @@ namespace iOS4Unity
 
 			_alertViews.Remove (Handle);
 		}
+	}
+
+	public enum UIAlertViewStyle
+	{
+		Default,
+		SecureTextInput,
+		PlainTextInput,
+		LoginAndPasswordInput
 	}
 }
