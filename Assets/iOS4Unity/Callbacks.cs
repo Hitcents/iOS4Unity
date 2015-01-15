@@ -8,22 +8,41 @@ namespace iOS4Unity
 	public static class Callbacks
 	{
 		private static readonly Dictionary<string, Delegate> _delegates = new Dictionary<string, Delegate>();
-		private static readonly Dictionary<IntPtr, Dictionary<IntPtr, Action<IntPtr>>> _callbacksIntPtr = new Dictionary<IntPtr, Dictionary<IntPtr, Action<IntPtr>>>();
-		private static readonly Dictionary<IntPtr, Dictionary<IntPtr, Action<IntPtr, int>>> _callbacksIntPtrInt = new Dictionary<IntPtr, Dictionary<IntPtr, Action<IntPtr, int>>>();
+		private static readonly Dictionary<IntPtr, Dictionary<IntPtr, Methods>> _callbacks = new Dictionary<IntPtr, Dictionary<IntPtr, Methods>>();
 
-		public static void SubscribeIntPtr(NSObject obj, string selector, Action<IntPtr> callback)
+		private class Methods
 		{
-			Dictionary<IntPtr, Action<IntPtr>> dictionary;
-			if (!_callbacksIntPtr.TryGetValue(obj.Handle, out dictionary))
+			public Action Action;
+			public Action<int> ActionInt;
+		}
+
+		private static Methods GetMethods(NSObject obj, string selector)
+		{
+			Dictionary<IntPtr, Methods> dictionary;
+			if (!_callbacks.TryGetValue(obj.Handle, out dictionary))
 			{
-				_callbacksIntPtr[obj.Handle] =
-					dictionary = new Dictionary<IntPtr, Action<IntPtr>>();
+				_callbacks[obj.Handle] = dictionary = new Dictionary<IntPtr, Methods>();
 			}
-			dictionary[ObjC.GetSelector(selector)] = callback;
+
+			IntPtr selectorHandle = ObjC.GetSelector(selector);
+
+			Methods methods;
+			if (!dictionary.TryGetValue(selectorHandle, out methods))
+			{
+				dictionary[selectorHandle] = methods = new Methods();
+			}
+
+			return methods;
+		}
+
+		public static void Subscribe(NSObject obj, string selector, EventHandler callback)
+		{
+			var methods = GetMethods(obj, selector);
+			methods.Action = () => callback(obj, EventArgs.Empty);
 
 			if (!_delegates.ContainsKey(selector))
 			{
-				Action<IntPtr, IntPtr, IntPtr> del = OnCallbackIntPtr;
+				Action<IntPtr, IntPtr, IntPtr> del = OnCallback;
 				if (!ObjC.AddMethod(obj.ClassHandle, selector, del, "v@:@"))
 				{
 					throw new InvalidOperationException("AddMethod failed for selector " + selector);
@@ -35,19 +54,14 @@ namespace iOS4Unity
 			}
 		}
 
-		public static void SubscribeIntPtrInt(NSObject obj, string selector, Action<IntPtr, int> callback)
+		public static void Subscribe(NSObject obj, string selector, EventHandler<EventArgs<int>> callback)
 		{
-			Dictionary<IntPtr, Action<IntPtr, int>> dictionary;
-			if (!_callbacksIntPtrInt.TryGetValue(obj.Handle, out dictionary))
-			{
-				_callbacksIntPtrInt[obj.Handle] =
-					dictionary = new Dictionary<IntPtr, Action<IntPtr, int>>();
-			}
-			dictionary[ObjC.GetSelector(selector)] = callback;
+			var methods = GetMethods(obj, selector);
+			methods.ActionInt = i => callback(obj, new EventArgs<int> { Value = i });
 			
 			if (!_delegates.ContainsKey(selector))
 			{
-				Action<IntPtr, IntPtr, IntPtr, int> del = OnCallbackIntPtrInt;
+				Action<IntPtr, IntPtr, IntPtr, int> del = OnCallbackInt;
 				if (!ObjC.AddMethod(obj.ClassHandle, selector, del, "v@:@l"))
 				{
 					throw new InvalidOperationException("AddMethod failed for selector " + selector);
@@ -59,46 +73,47 @@ namespace iOS4Unity
 			}
 		}
 
-		public static void UnsubscribeIntPtr(NSObject obj)
+		public static void Unsubscribe(NSObject obj, string selector)
 		{
-			_callbacksIntPtr.Remove(obj.Handle);
+			var methods = GetMethods(obj, selector);
+			methods.Action = null;
 		}
 
-		public static void UnsubscribeIntPtrInt(NSObject obj)
+		public static void UnsubscribeInt(NSObject obj, string selector)
 		{
-			_callbacksIntPtr.Remove(obj.Handle);
+			var methods = GetMethods(obj, selector);
+			methods.ActionInt = null;
 		}
 
 		public static void UnsubscribeAll(NSObject obj)
 		{
-			_callbacksIntPtr.Remove(obj.Handle);
-			_callbacksIntPtr.Remove(obj.Handle);
+			_callbacks.Remove(obj.Handle);
 		}
 
 		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr>))]
-		private static void OnCallbackIntPtr(IntPtr @this, IntPtr selector, IntPtr arg1)
+		private static void OnCallback(IntPtr @this, IntPtr selector, IntPtr arg1)
 		{
-			Dictionary<IntPtr, Action<IntPtr>> dictionary;
-			if (_callbacksIntPtr.TryGetValue(@this, out dictionary))
+			Dictionary<IntPtr, Methods> dictionary;
+			if (_callbacks.TryGetValue(@this, out dictionary))
 			{
-				Action<IntPtr> callback;
-				if (dictionary.TryGetValue(selector, out callback))
+				Methods methods;
+				if (dictionary.TryGetValue(selector, out methods) && methods.Action != null)
 				{
-					callback(arg1);
+					methods.Action();
 				}
 			}
 		}
 
 		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, int>))]
-		private static void OnCallbackIntPtrInt(IntPtr @this, IntPtr selector, IntPtr arg1, int arg2)
+		private static void OnCallbackInt(IntPtr @this, IntPtr selector, IntPtr arg1, int arg2)
 		{
-			Dictionary<IntPtr, Action<IntPtr, int>> dictionary;
-			if (_callbacksIntPtrInt.TryGetValue(@this, out dictionary))
+			Dictionary<IntPtr, Methods> dictionary;
+			if (_callbacks.TryGetValue(@this, out dictionary))
 			{
-				Action<IntPtr, int> callback;
-				if (dictionary.TryGetValue(selector, out callback))
+				Methods methods;
+				if (dictionary.TryGetValue(selector, out methods) && methods.ActionInt != null)
 				{
-					callback(arg1, arg2);
+					methods.ActionInt(arg2);
 				}
 			}
 		}
