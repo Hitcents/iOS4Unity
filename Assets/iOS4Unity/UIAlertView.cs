@@ -25,7 +25,7 @@ namespace iOS4Unity
 			ObjC.AddMethod(_classHandle, "alertView:didDismissWithButtonIndex:", _onDismissed = OnDismissed, "v@:@l");
 			ObjC.AddMethod(_classHandle, "didPresentAlertView:", _onPresented = OnPresented, "v@:@");
 			ObjC.AddMethod(_classHandle, "alertView:willDismissWithButtonIndex:", _onWillDismiss = OnWillDismiss, "v@:@l");
-			ObjC.AddMethod(_classHandle, "willPresentAlertView::", _onWillPresent = OnWillPresent, "v@:@");
+			ObjC.AddMethod(_classHandle, "willPresentAlertView:", _onWillPresent = OnWillPresent, "v@:@");
 		}
 
 		public override IntPtr ClassHandle 
