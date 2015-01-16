@@ -6,10 +6,16 @@ namespace iOS4Unity
 	public struct BlockLiteral
 	{
 		private static readonly IntPtr _classHandle;
+		private static readonly IntPtr _blockDescriptor;
 
 		static BlockLiteral()
 		{
 			_classHandle = ObjC.GetClass("__NSStackBlock");
+
+			_blockDescriptor = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(BlockDescriptor)));
+			var descriptor = new BlockDescriptor();
+			descriptor.LiteralSize = Marshal.SizeOf(typeof(BlockLiteral));
+			Marshal.StructureToPtr(descriptor, _blockDescriptor, false);
 		}
 
 		public IntPtr ISA;
@@ -30,7 +36,7 @@ namespace iOS4Unity
 		{
 			get
 			{
-				if (this.GlobalHandle != IntPtr.Zero)
+				if (GlobalHandle != IntPtr.Zero)
 				{
 					return GCHandle.FromIntPtr(this.GlobalHandle).Target;
 				}
@@ -55,8 +61,14 @@ namespace iOS4Unity
 			LocalHandle = (IntPtr)GCHandle.Alloc(userDelegate);
 			GlobalHandle = IntPtr.Zero;
 			Flags = (BlockFlags.BLOCK_HAS_COPY_DISPOSE | BlockFlags.BLOCK_HAS_DESCRIPTOR);
-			//Descriptor = BlockLiteral.xamarin_get_block_descriptor();
+			Descriptor = _blockDescriptor;
 		}
+	}
+
+	public struct BlockDescriptor
+	{
+		public int Reserved1;
+		public int LiteralSize;
 	}
 
 	[Flags]
