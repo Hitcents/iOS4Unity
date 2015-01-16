@@ -22,7 +22,7 @@ namespace iOS4Unity
 			Dispose();
 		}
 
-		public readonly IntPtr Handle;
+		public IntPtr Handle;
 
 		public NSObject()
 		{
