@@ -45,6 +45,7 @@ namespace iOS4Unity
 
 			if (Handle != IntPtr.Zero)
 			{
+				Callbacks.UnsubscribeAll(this);
 				ObjC.MessageSend(Handle, "release");
 			}
 		}

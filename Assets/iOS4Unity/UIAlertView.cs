@@ -126,13 +126,6 @@ namespace iOS4Unity
 		{
 			ObjC.MessageSend(Handle, "dismissWithClickedButtonIndex:animated:", buttonIndex, animated);
 		}
-
-		public override void Dispose ()
-		{
-			base.Dispose ();
-
-			Callbacks.UnsubscribeAll(this);
-		}
 	}
 
 	public enum UIAlertViewStyle
