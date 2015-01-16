@@ -25,46 +25,39 @@ namespace iOS4Unity
 			ObjC.MessageSend(Handle, "setDelegate:", Handle);
 		}
 
-		private EventHandler<EventArgs<int>> _clicked = delegate { };
-		private EventHandler<EventArgs<int>> _dismissed = delegate { };
-		private EventHandler<EventArgs<int>> _willDismiss = delegate { };
-		private EventHandler _canceled = delegate { };
-		private EventHandler _presented = delegate { };
-		private EventHandler _willPresent = delegate { };
-
 		public event EventHandler<EventArgs<int>> Clicked
 		{
-			add { Callbacks.Subscribe(this, "alertView:clickedButtonAtIndex:", _clicked); }
+			add { Callbacks.Subscribe(this, "alertView:clickedButtonAtIndex:", value); }
 			remove { Callbacks.UnsubscribeInt(this, "alertView:clickedButtonAtIndex:"); }
 		}
 
 		public event EventHandler<EventArgs<int>> Dismissed
 		{
-			add { Callbacks.Subscribe(this, "alertView:didDismissWithButtonIndex:", _dismissed); }
+			add { Callbacks.Subscribe(this, "alertView:didDismissWithButtonIndex:", value); }
 			remove { Callbacks.UnsubscribeInt(this, "alertView:didDismissWithButtonIndex:"); }
 		}
 
 		public event EventHandler<EventArgs<int>> WillDismiss
 		{
-			add { Callbacks.Subscribe(this, "alertView:willDismissWithButtonIndex:", _willDismiss); }
+			add { Callbacks.Subscribe(this, "alertView:willDismissWithButtonIndex:", value); }
 			remove { Callbacks.UnsubscribeInt(this, "alertView:willDismissWithButtonIndex:"); }
 		}
 
 		public event EventHandler Canceled
 		{
-			add { Callbacks.Subscribe(this, "alertViewCancel:", _canceled); }
+			add { Callbacks.Subscribe(this, "alertViewCancel:", value); }
 			remove { Callbacks.Unsubscribe(this, "alertViewCancel:"); }
 		}
 
 		public event EventHandler Presented
 		{
-			add { Callbacks.Subscribe(this, "didPresentAlertView:", _presented); }
+			add { Callbacks.Subscribe(this, "didPresentAlertView:", value); }
 			remove { Callbacks.Unsubscribe(this, "didPresentAlertView:"); }
 		}
 
 		public event EventHandler WillPresent
 		{
-			add { Callbacks.Subscribe(this, "willPresentAlertView:", _willPresent); }
+			add { Callbacks.Subscribe(this, "willPresentAlertView:", value); }
 			remove { Callbacks.Unsubscribe(this, "willPresentAlertView:"); }
 		}
 
