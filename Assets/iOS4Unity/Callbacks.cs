@@ -12,8 +12,8 @@ namespace iOS4Unity
 
 		private class Methods
 		{
-			public Action Action;
-			public Action<int> ActionInt;
+			public Action<IntPtr> Action;
+			public Action<IntPtr, int> ActionInt;
 		}
 
 		private static Methods GetMethods(NSObject obj, string selector)
@@ -35,10 +35,29 @@ namespace iOS4Unity
 			return methods;
 		}
 
+		public static void Subscribe(NSObject obj, string selector, Action<IntPtr> callback)
+		{
+			var methods = GetMethods(obj, selector);
+			methods.Action = callback;
+			
+			if (!_delegates.ContainsKey(selector))
+			{
+				Action<IntPtr, IntPtr, IntPtr> del = OnCallback;
+				if (!ObjC.AddMethod(obj.ClassHandle, selector, del, "v@:@"))
+				{
+					throw new InvalidOperationException("AddMethod failed for selector " + selector);
+				}
+				else
+				{
+					_delegates[selector] = del;
+				}
+			}
+		}
+
 		public static void Subscribe(NSObject obj, string selector, EventHandler callback)
 		{
 			var methods = GetMethods(obj, selector);
-			methods.Action = () => callback(obj, EventArgs.Empty);
+			methods.Action = _ => callback(obj, EventArgs.Empty);
 
 			if (!_delegates.ContainsKey(selector))
 			{
@@ -57,7 +76,7 @@ namespace iOS4Unity
 		public static void Subscribe(NSObject obj, string selector, EventHandler<EventArgs<int>> callback)
 		{
 			var methods = GetMethods(obj, selector);
-			methods.ActionInt = i => callback(obj, new EventArgs<int> { Value = i });
+			methods.ActionInt = (_, i) => callback(obj, new EventArgs<int> { Value = i });
 			
 			if (!_delegates.ContainsKey(selector))
 			{
@@ -99,7 +118,7 @@ namespace iOS4Unity
 				Methods methods;
 				if (dictionary.TryGetValue(selector, out methods) && methods.Action != null)
 				{
-					methods.Action();
+					methods.Action(arg1);
 				}
 			}
 		}
@@ -113,7 +132,7 @@ namespace iOS4Unity
 				Methods methods;
 				if (dictionary.TryGetValue(selector, out methods) && methods.ActionInt != null)
 				{
-					methods.ActionInt(arg2);
+					methods.ActionInt(arg1, arg2);
 				}
 			}
 		}

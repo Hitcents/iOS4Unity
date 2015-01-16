@@ -29,8 +29,10 @@ public class NSNotificationCenterTests
 		var center = NSNotificationCenter.DefaultCenter;
 
 		bool fired = false;
-		center.AddObserver(notification, null, () =>
+		center.AddObserver(notification, n =>
 		{
+			Assert.AreEqual(notification, n.Name);
+
 			fired = true;
 		});
 

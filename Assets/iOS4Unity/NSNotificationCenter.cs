@@ -1,13 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using AOT;
 
 namespace iOS4Unity
 {
 	public sealed class NSNotificationCenter : NSObject
 	{
+		private const string SelectorName = "__onNotification:";
 		private static readonly IntPtr _classHandle;
-		private static readonly Action<IntPtr, IntPtr> _onNotification = OnNotification;
-		
+		private static readonly Dictionary<IntPtr, Observer> _observers = new Dictionary<IntPtr, Observer>();
+
+		private class Observer : NSObject
+		{
+			private static readonly IntPtr _classHandle;
+			
+			static Observer()
+			{
+				_classHandle = ObjC.AllocateClassPair(ObjC.GetClass ("NSObject"), "__Observer", 0);
+			}
+			
+			public override IntPtr ClassHandle
+			{
+				get { return _classHandle; }
+			}
+
+			public Observer(Action<NSNotification> action)
+			{
+				Action = action;
+			}
+
+			public readonly Action<NSNotification> Action;
+		}
+
 		static NSNotificationCenter()
 		{
 			_classHandle = ObjC.GetClass("NSNotificationCenter");
@@ -28,15 +52,12 @@ namespace iOS4Unity
 			get { return new NSNotificationCenter(ObjC.MessageSendIntPtr(_classHandle, "defaultCenter")); }
 		}
 
-		public unsafe NSObject AddObserver(string name, NSObject obj, Action handler)
+		public NSObject AddObserver(string name, Action<NSNotification> action, NSObject fromObject = null)
 		{
-			var block = new BlockLiteral();
-			block.Setup(_onNotification, handler);
-
-			var handle = ObjC.MessageSendIntPtr(Handle, "addObserverForName:object:queue:usingBlock:", name, obj == null ? IntPtr.Zero : obj.Handle, IntPtr.Zero, (IntPtr)((void*)(&block)));
-			block.Cleanup();
-
-			return new NSObject(handle);
+			var handler = new Observer(action);
+			Callbacks.Subscribe(handler, SelectorName, n => action(new NSNotification(n)));
+			ObjC.MessageSend(Handle, "addObserver:selector:name:object:", handler.Handle, ObjC.GetSelector(SelectorName), name, fromObject == null ? IntPtr.Zero : fromObject.Handle); 
+			return handler;
 		}
 
 		public void PostNotificationName(string name, NSObject obj = null)
@@ -44,14 +65,14 @@ namespace iOS4Unity
 			ObjC.MessageSend(Handle, "postNotificationName:object:", name, obj == null ? IntPtr.Zero : obj.Handle);
 		}
 
-		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr>))]
-		private unsafe static void OnNotification(IntPtr block, IntPtr notification)
+		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr>))]
+		private static void OnNotification(IntPtr @this, IntPtr selector, IntPtr hNotification)
 		{
-			var ptr = (BlockLiteral*)((void*)block);
-			Action action = (Action)ptr->Target;
-			if (action != null)
+			Observer observer;
+			if (_observers.TryGetValue(@this, out observer))
 			{
-				action();
+				var notification = new NSNotification(hNotification);
+				observer.Action(notification);
 			}
 		}
 
