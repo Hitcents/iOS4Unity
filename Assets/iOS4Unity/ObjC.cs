@@ -2,11 +2,14 @@
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using iOS4Unity.Marshalers;
+using System.Collections.Generic;
 
 namespace iOS4Unity
 {
 	public static class ObjC
 	{
+		private static readonly Dictionary<IntPtr, Delegate> _blockCache = new Dictionary<IntPtr, Delegate>();
+
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "sel_registerName")]
 		public static extern IntPtr GetSelector(string name);
 
@@ -35,6 +38,9 @@ namespace iOS4Unity
 		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1, IntPtr arg2);
+
+		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1, IntPtr arg2, double arg3);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
@@ -51,6 +57,9 @@ namespace iOS4Unity
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1, int arg2);
+
+		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+		public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, string arg1, IntPtr arg2, IntPtr arg3, IntPtr arg4);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern bool MessageSendBool(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
@@ -76,6 +85,20 @@ namespace iOS4Unity
 			{
 				handle = MessageSendIntPtr(handle, "initWithCharacters:length:", (IntPtr)((void*)value), str.Length);
 				return handle;
+			}
+		}
+
+		public static Delegate GetDelegateForBlock(IntPtr methodPtr, Type type)
+		{
+			lock (_blockCache)
+			{
+				Delegate del;
+				if (!_blockCache.TryGetValue(methodPtr, out del))
+				{
+					_blockCache[methodPtr] =
+						del = Marshal.GetDelegateForFunctionPointer(methodPtr, type);
+				}
+				return del;
 			}
 		}
 	}

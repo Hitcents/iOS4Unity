@@ -21,6 +21,23 @@ public class NSNotificationCenterTests
 		var center = NSNotificationCenter.DefaultCenter;
 		center.Dispose();
 	}
+
+	[Test]
+	public void AddObserverAndPost()
+	{
+		string notification = "WOOT_OMG";
+		var center = NSNotificationCenter.DefaultCenter;
+
+		bool fired = false;
+		center.AddObserver(notification, null, () =>
+		{
+			fired = true;
+		});
+
+		center.PostNotificationName(notification);
+
+		Assert.IsTrue (fired);
+	}
 }
 
 #endif
