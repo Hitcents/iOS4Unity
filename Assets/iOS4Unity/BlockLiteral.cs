@@ -22,7 +22,7 @@ namespace iOS4Unity
 		
 		public IntPtr Invoke;
 		
-		public int reserved;
+		public int Reserved;
 		
 		public BlockFlags Flags;
 		
