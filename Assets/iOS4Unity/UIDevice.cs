@@ -31,6 +31,12 @@ namespace iOS4Unity
 			get { return ObjC.MessageSendFloat(Handle, "batteryLevel"); }
 		}
 
+		public bool BatteryMonitoringEnabled
+        {
+            get { return  ObjC.MessageSendBool(Handle, "isBatteryMonitoringEnabled"); }
+            set  { ObjC.MessageSendBool(Handle, "setBatteryMonitoringEnabled:", value); }
+        }
+
 		public override void Dispose ()
 		{
 			//Doesn't need to release

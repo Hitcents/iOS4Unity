@@ -28,6 +28,14 @@ public class UIDeviceTests
 		float level = UIDevice.CurrentDevice.BatteryLevel;
 		Assert.AreNotEqual (0, level);
 	}
+
+    [Test]
+    public void BatteryMonitoringEnabled()
+    {
+        var device = UIDevice.CurrentDevice;
+        device.BatteryMonitoringEnabled = true;
+        Assert.AreEqual(true, device.BatteryMonitoringEnabled);
+    }
 }
 
 #endif
