@@ -37,9 +37,43 @@ namespace iOS4Unity
             set  { ObjC.MessageSendBool(Handle, "setBatteryMonitoringEnabled:", value); }
         }
 
+        public UIDeviceBatteryState BatteryState
+        {
+            get { return (UIDeviceBatteryState)ObjC.MessageSendInt(Handle, "batteryState"); }
+        }
+
+        public bool GeneratesDeviceOrientationNotifications
+        {
+            get { return  ObjC.MessageSendBool(Handle, "isGeneratingDeviceOrientationNotifications"); }
+        }
+
+        public UIDeviceOrientation Orientation
+        {
+            get { return  (UIDeviceOrientation)ObjC.MessageSendBool(Handle, "orientation"); }
+        }
+
 		public override void Dispose ()
 		{
-			//Doesn't need to release
+			//Don't dispose
 		}
+
+        public enum UIDeviceBatteryState
+        {
+            Unknown,
+            Unplugged,
+            Charging,
+            Full
+        }
+
+        public enum UIDeviceOrientation
+        {
+            Unknown,
+            Portrait,
+            PortraitUpsideDown,
+            LandscapeLeft,
+            LandscapeRight,
+            FaceUp,
+            FaceDown
+        }
 	}
 }
