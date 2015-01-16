@@ -16,6 +16,26 @@ namespace iOS4Unity
 			get { return _classHandle; }
 		}
 
+		public static string BatteryLevelDidChangeNotification
+		{
+			get	{ return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceBatteryLevelDidChangeNotification"); }
+		}
+		
+		public static string BatteryStateDidChangeNotification
+		{
+			get	{ return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceBatteryStateDidChangeNotification"); }
+		}
+		
+		public static string OrientationDidChangeNotification
+		{
+			get	{ return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceOrientationDidChangeNotification"); }
+		}
+		
+		public static string ProximityStateDidChangeNotification
+		{
+			get	{ return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceProximityStateDidChangeNotification"); }
+		}
+
 		private UIDevice(IntPtr handle)
 		{
 			Handle = handle;

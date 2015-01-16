@@ -32,15 +32,14 @@ namespace iOS4Unity.Marshalers
 			string text = managedObj as string;
 			if (text == null)
 				return IntPtr.Zero;
-			return ObjC.CreateNSString(text);
+			return ObjC.ToNSString(text);
 		}
 		
 		public object MarshalNativeToManaged (IntPtr pNativeData)
 		{
 			if (pNativeData == IntPtr.Zero)
 				return default(string);
-			IntPtr handle = ObjC.MessageSendIntPtr(pNativeData, "UTF8String");
-			return Marshal.PtrToStringAuto(handle);
+			return ObjC.FromNSString(pNativeData);
 		}
 	}
 

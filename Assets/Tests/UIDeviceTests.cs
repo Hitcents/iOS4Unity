@@ -36,6 +36,15 @@ public class UIDeviceTests
         device.BatteryMonitoringEnabled = true;
         Assert.AreEqual(true, device.BatteryMonitoringEnabled);
     }
+
+	[Test]
+	public void Notifications()
+	{
+		Assert.IsNotNull(UIDevice.BatteryLevelDidChangeNotification);
+		Assert.IsNotNull(UIDevice.BatteryStateDidChangeNotification);
+		Assert.IsNotNull(UIDevice.OrientationDidChangeNotification);
+		Assert.IsNotNull(UIDevice.ProximityStateDidChangeNotification);
+	}
 }
 
 #endif

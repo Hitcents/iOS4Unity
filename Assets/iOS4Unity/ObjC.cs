@@ -81,7 +81,19 @@ namespace iOS4Unity
 		[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringMarshaler))]
 		public static extern string MessageSendString(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, int arg1);
 
-		public unsafe static IntPtr CreateNSString(string str)
+		[DllImport("/usr/lib/libSystem.dylib")]
+		private static extern IntPtr dlsym(IntPtr handle, string symbol);
+		
+		[DllImport("/usr/lib/libSystem.dylib")]
+		private static extern IntPtr dlopen(string path, int mode);
+
+		public static class Libraries
+		{
+			public static readonly IntPtr Foundation = dlopen("/System/Library/Frameworks/Foundation.framework/Foundation", 0);
+			public static readonly IntPtr UIKit = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 0);
+		}
+
+		public unsafe static IntPtr ToNSString(string str)
 		{
 			IntPtr handle = MessageSendIntPtr(GetClass("NSString"), "alloc");
 			fixed (char* value = str + (IntPtr)(RuntimeHelpers.OffsetToStringData / 2))
@@ -103,6 +115,26 @@ namespace iOS4Unity
 				}
 				return del;
 			}
+		}
+
+		public static string FromNSString(IntPtr handle)
+		{
+			return Marshal.PtrToStringAuto(ObjC.MessageSendIntPtr(handle, "UTF8String"));
+		}
+
+		public static string GetStringConstant(IntPtr handle, string symbol)
+		{
+			IntPtr intPtr = dlsym(handle, symbol);
+			if (intPtr == IntPtr.Zero)
+			{
+				return null;
+			}
+			intPtr = Marshal.ReadIntPtr(intPtr);
+			if (intPtr == IntPtr.Zero)
+			{
+				return null;
+			}
+			return FromNSString(intPtr);
 		}
 	}
 }
