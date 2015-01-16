@@ -38,7 +38,21 @@ public class NSNotificationCenterTests
 
 		center.PostNotificationName(notification);
 
-		Assert.IsTrue (fired);
+		Assert.IsTrue(fired);
+	}
+
+	[Test]
+	public void AddRemoveObserver()
+	{
+		string notification = "WOOT_OMG";
+		var center = NSNotificationCenter.DefaultCenter;
+		
+		bool fired = false;
+		var observer = center.AddObserver(notification, n => fired = true);
+		center.RemoveObserver(observer);
+		center.PostNotificationName(notification);
+		
+		Assert.IsFalse(fired);
 	}
 }
 

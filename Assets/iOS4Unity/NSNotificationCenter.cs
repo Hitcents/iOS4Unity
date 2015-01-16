@@ -8,7 +8,6 @@ namespace iOS4Unity
 	{
 		private const string SelectorName = "__onNotification:";
 		private static readonly IntPtr _classHandle;
-		private static readonly Dictionary<IntPtr, Observer> _observers = new Dictionary<IntPtr, Observer>();
 
 		private class Observer : NSObject
 		{
@@ -65,15 +64,9 @@ namespace iOS4Unity
 			ObjC.MessageSend(Handle, "postNotificationName:object:", name, obj == null ? IntPtr.Zero : obj.Handle);
 		}
 
-		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr>))]
-		private static void OnNotification(IntPtr @this, IntPtr selector, IntPtr hNotification)
+		public void RemoveObserver(NSObject observer)
 		{
-			Observer observer;
-			if (_observers.TryGetValue(@this, out observer))
-			{
-				var notification = new NSNotification(hNotification);
-				observer.Action(notification);
-			}
+			ObjC.MessageSend(Handle, "removeObserver:", observer.Handle);
 		}
 
 		public override void Dispose()
