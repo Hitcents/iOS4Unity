@@ -54,21 +54,21 @@ public class UIDeviceTests
     public void LocalizedModel()
     {
         string localizedModel = UIDevice.CurrentDevice.LocalizedModel;
-        Assert.AreNotEqual(string.Empty, localizedModel);
+		Assert.IsNotNull(localizedModel);
     }
 
     [Test]
     public void Model()
     {
         string model = UIDevice.CurrentDevice.Model;
-        Assert.AreNotEqual(string.Empty, model);
+		Assert.IsNotNull(model);
     }
 
     [Test]
     public void Name()
     {
         string name = UIDevice.CurrentDevice.Name;
-        Assert.AreNotEqual(string.Empty, name);
+		Assert.IsNotNull(name);
     }
     
     [Test]
@@ -89,6 +89,7 @@ public class UIDeviceTests
     [Test]
     public void ProximityState()
     {
+		//Just make sure this doesn't crash
         bool proximityState = UIDevice.CurrentDevice.ProximityState;
     }
 
@@ -96,14 +97,14 @@ public class UIDeviceTests
     public void SystemName()
     {
         string systemName = UIDevice.CurrentDevice.SystemName;
-        Assert.AreNotEqual(string.Empty, systemName);
+		Assert.IsNotNull(systemName);
     }
 
     [Test]
     public void SystemVersion()
     {
         string systemVersion = UIDevice.CurrentDevice.SystemVersion;
-        Assert.AreNotEqual(string.Empty, systemVersion);
+		Assert.IsNotNull(systemVersion);
     }
 
     [Test]
@@ -112,7 +113,6 @@ public class UIDeviceTests
         var device = UIDevice.CurrentDevice;
         Assert.AreNotEqual(UIUserInterfaceIdiom.Unspecified, device.Orientation);
     }
-
 }
 
 #endif
