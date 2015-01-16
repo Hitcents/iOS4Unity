@@ -24,6 +24,11 @@ namespace iOS4Unity
 
 		public IntPtr Handle;
 
+		public NSObject(IntPtr handle)
+		{
+			Handle = handle;
+		}
+
 		public NSObject()
 		{
 			Handle = ObjC.MessageSendIntPtr(ClassHandle, "alloc");
