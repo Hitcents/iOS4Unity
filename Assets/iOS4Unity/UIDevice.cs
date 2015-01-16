@@ -33,7 +33,7 @@ namespace iOS4Unity
 
 		public override void Dispose ()
 		{
-			//Don't dispose
+			//Doesn't need to release
 		}
 	}
 }
