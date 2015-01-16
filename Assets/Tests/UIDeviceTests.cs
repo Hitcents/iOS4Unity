@@ -53,6 +53,13 @@ public class UIDeviceTests
     }
 
     [Test]
+    public void CheckSystemVersion()
+    {
+        bool iOS8 = UIDevice.CurrentDevice.CheckSystemVersion(8, 0);
+        Assert.IsTrue(iOS8);
+    }
+    
+    [Test]
     public void GeneratesDeviceOrientationNotifications()
     {
 		//Just make sure this doesn't crash
@@ -87,6 +94,13 @@ public class UIDeviceTests
 		Assert.AreNotEqual(UIDeviceOrientation.Unknown, device.Orientation);
     }
 
+    [Test]
+    public void PlayInputClick()
+    {
+        //Just to make sure this doesn't crash
+        UIDevice.CurrentDevice.PlayInputClick();
+    }
+    
     [Test]
     public void ProximityMonitoringEnabled()
     {
