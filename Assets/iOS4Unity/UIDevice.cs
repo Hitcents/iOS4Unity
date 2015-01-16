@@ -47,9 +47,50 @@ namespace iOS4Unity
             get { return ObjC.MessageSendBool(Handle, "isGeneratingDeviceOrientationNotifications"); }
         }
 
+        public string LocalizedModel
+        {
+            get { return ObjC.MessageSendString(Handle, "localizedModel"); }
+        }
+
+        public string Model
+        {
+            get { return ObjC.MessageSendString(Handle, "model"); }
+        }
+
+        public string Name
+        {
+            get { return ObjC.MessageSendString(Handle, "name"); }
+        }
+
         public UIDeviceOrientation Orientation
         {
             get { return (UIDeviceOrientation)ObjC.MessageSendInt(Handle, "orientation"); }
+        }
+
+        public bool ProximityMonitoringEnabled
+        {
+            get { return  ObjC.MessageSendBool(Handle, "isProximityMonitoringEnabled"); }
+            set  { ObjC.MessageSendBool(Handle, "setProximityMonitoringEnabled:", value); }
+        }
+
+        public bool ProximityState
+        {
+            get { return ObjC.MessageSendBool(Handle, "proximityState"); }
+        }
+
+        public string SystemName
+        {
+            get { return ObjC.MessageSendString(Handle, "systemName"); }
+        }
+
+        public string SystemVersion
+        {
+            get { return ObjC.MessageSendString(Handle, "systemVersion"); }
+        }
+
+        public UIUserInterfaceIdiom UserInterfaceIdiom
+        {
+            get { return (UIUserInterfaceIdiom)ObjC.MessageSendInt(Handle, "userInterfaceIdiom"); }
         }
 
 		public override void Dispose ()
@@ -76,4 +117,11 @@ namespace iOS4Unity
 		FaceUp,
 		FaceDown
 	}
+
+    public enum UIUserInterfaceIdiom
+    {
+        Unspecified = -1,
+        Phone,
+        Pad
+    }
 }
