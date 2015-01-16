@@ -44,36 +44,36 @@ namespace iOS4Unity
 
         public bool GeneratesDeviceOrientationNotifications
         {
-            get { return  ObjC.MessageSendBool(Handle, "isGeneratingDeviceOrientationNotifications"); }
+            get { return ObjC.MessageSendBool(Handle, "isGeneratingDeviceOrientationNotifications"); }
         }
 
         public UIDeviceOrientation Orientation
         {
-            get { return  (UIDeviceOrientation)ObjC.MessageSendBool(Handle, "orientation"); }
+            get { return (UIDeviceOrientation)ObjC.MessageSendInt(Handle, "orientation"); }
         }
 
 		public override void Dispose ()
 		{
 			//Don't dispose
 		}
+	}
 
-        public enum UIDeviceBatteryState
-        {
-            Unknown,
-            Unplugged,
-            Charging,
-            Full
-        }
-
-        public enum UIDeviceOrientation
-        {
-            Unknown,
-            Portrait,
-            PortraitUpsideDown,
-            LandscapeLeft,
-            LandscapeRight,
-            FaceUp,
-            FaceDown
-        }
+	public enum UIDeviceBatteryState
+	{
+		Unknown,
+		Unplugged,
+		Charging,
+		Full
+	}
+	
+	public enum UIDeviceOrientation
+	{
+		Unknown,
+		Portrait,
+		PortraitUpsideDown,
+		LandscapeLeft,
+		LandscapeRight,
+		FaceUp,
+		FaceDown
 	}
 }

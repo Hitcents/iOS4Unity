@@ -11,7 +11,6 @@ public class UIDeviceTests
 	public void CurrentDevice()
 	{
 		var device = UIDevice.CurrentDevice;
-
 		Assert.AreNotEqual(IntPtr.Zero, device.Handle);
 	}
 
@@ -41,31 +40,21 @@ public class UIDeviceTests
     public void BatteryState()
     {
         var device = UIDevice.CurrentDevice;
-        Assert.AreEqual(device.BatteryState, UIDevice.UIDeviceBatteryState.Charging | UIDevice.UIDeviceBatteryState.Full | UIDevice.UIDeviceBatteryState.Unknown | UIDevice.UIDeviceBatteryState.Unplugged);
+		Assert.AreNotEqual(UIDeviceBatteryState.Unknown, device.BatteryState);
     }
 
     [Test]
-    public void GeneratesDeviceOrientationNotifications ()
+    public void GeneratesDeviceOrientationNotifications()
     {
+		//Just make sure this doesn't crash
         bool generatesNotifications = UIDevice.CurrentDevice.GeneratesDeviceOrientationNotifications;
-        Assert.IsFalse(generatesNotifications);
     }
 
     [Test]
-    public void UIDeviceOrientation()
+    public void Orientation()
     {
         var device = UIDevice.CurrentDevice;
-        Assert.AreEqual
-        (   
-            device.BatteryState, 
-            UIDevice.UIDeviceOrientation.FaceDown 
-            | UIDevice.UIDeviceOrientation.FaceUp 
-            | UIDevice.UIDeviceOrientation.LandscapeLeft 
-            | UIDevice.UIDeviceOrientation.LandscapeRight 
-            | UIDevice.UIDeviceOrientation.Portrait 
-            | UIDevice.UIDeviceOrientation.PortraitUpsideDown 
-            | UIDevice.UIDeviceOrientation.Unknown
-         );
+		Assert.AreNotEqual(UIDeviceOrientation.Unknown, device.Orientation);
     }
 }
 
