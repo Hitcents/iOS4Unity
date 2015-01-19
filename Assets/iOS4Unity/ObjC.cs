@@ -13,6 +13,7 @@ namespace iOS4Unity
         {
             { typeof(NSObject), h => new NSObject(h) },
             { typeof(UIScreenMode), h => new UIScreenMode(h) },
+            { typeof(UIScreen), h => new UIScreen(h) }
         };
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "sel_registerName")]
