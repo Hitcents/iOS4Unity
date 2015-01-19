@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using iOS4Unity.Marshalers;
-using System.Collections.Generic;
 
 namespace iOS4Unity
 {
 	public static class ObjC
 	{
-		private static readonly Dictionary<IntPtr, Delegate> _blockCache = new Dictionary<IntPtr, Delegate>();
+        private static readonly Dictionary<Type, Func<IntPtr, object>> _constructors = new Dictionary<Type, Func<IntPtr, object>>
+        {
+            { typeof(NSObject), h => new NSObject(h) },
+        };
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "sel_registerName")]
 		public static extern IntPtr GetSelector(string name);
@@ -69,6 +73,9 @@ namespace iOS4Unity
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, uint arg1);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1);
@@ -142,20 +149,6 @@ namespace iOS4Unity
             return ObjC.MessageSendIntPtr(GetClass("NSURL"), "URLWithString:", str);
         }
 
-		public static Delegate GetDelegateForBlock(IntPtr methodPtr, Type type)
-		{
-			lock (_blockCache)
-			{
-				Delegate del;
-				if (!_blockCache.TryGetValue(methodPtr, out del))
-				{
-					_blockCache[methodPtr] =
-						del = Marshal.GetDelegateForFunctionPointer(methodPtr, type);
-				}
-				return del;
-			}
-		}
-
 		public static string FromNSString(IntPtr handle)
 		{
 			return Marshal.PtrToStringAuto(ObjC.MessageSendIntPtr(handle, "UTF8String"));
@@ -164,6 +157,31 @@ namespace iOS4Unity
         public static string FromNSUrl(IntPtr handle)
         {
             return FromNSString(ObjC.MessageSendIntPtr(handle, "absoluteString"));
+        }
+
+        internal static T[] ArrayFromHandle<T>(IntPtr handle) where T : NSObject
+        {
+            if (handle == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            //First get the constructor
+            Func<IntPtr, object> constructor;
+            if (!_constructors.TryGetValue(typeof(T), out constructor))
+            {
+                throw new NotImplementedException("ArrayFromHandle not implemented for: " + typeof(T));
+            }
+
+            uint count =  ObjC.MessageSendUInt(handle, "count");
+            T[] array = new T[count];
+            IntPtr obj;
+            for (uint num = 0; num < count; num += 1)
+            {
+                obj = ObjC.MessageSendIntPtr(handle, "objectAtIndex:", num);
+                array[(int)num] = (T)constructor(obj);
+            }
+            return array;
         }
 
 		public static string GetStringConstant(IntPtr handle, string symbol)
