@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+#if XAMARIN
+using MonoTouch;
+#else
 using AOT;
-
+#endif
 
 namespace iOS4Unity
 {
