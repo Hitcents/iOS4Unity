@@ -89,6 +89,15 @@ public class NSDataTests
     }
 
     [Test]
+    public void FromUrlWithError()
+    {
+        NSError error;
+        var data = NSData.FromUrl("http://www.google.com", NSDataReadingOptions.Coordinated, out error);
+        Assert.AreNotEqual(IntPtr.Zero, data.Handle);
+        Assert.IsNull(error);
+    }
+
+    [Test]
     public void Bytes()
     {
         var data = NSData.FromArray(new byte[] { 0 });

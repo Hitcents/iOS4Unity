@@ -69,6 +69,14 @@ namespace iOS4Unity
             return new NSData(ObjC.MessageSendIntPtr_NSUrl(_classHandle, "dataWithContentsOfURL:", url));
         }
 
+        public static NSData FromUrl(string url, NSDataReadingOptions mask, out NSError error)
+        {
+            IntPtr errorHandle;
+            var data = new NSData(ObjC.MessageSendIntPtr_NSUrl(_classHandle, "dataWithContentsOfURL:options:error:", url, (uint)mask, out errorHandle));
+            error = errorHandle == IntPtr.Zero ? null : new NSError(errorHandle);
+            return data;
+        }
+
         public IntPtr Bytes
         {
             get { return ObjC.MessageSendIntPtr(Handle, "bytes"); }
