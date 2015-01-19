@@ -7,28 +7,16 @@ namespace iOS4Unity
     {
         public static readonly CGRect Empty;
 
-        private float x;
-        private float height;
-        private float width;
-        private float y;
+        public float X;
+        public float Height;
+        public float Width;
+        public float Y;
 
         public float Bottom
         {
             get
             {
-                return this.Y + this.Height;
-            }
-        }
-
-        public float Height
-        {
-            get
-            {
-                return this.height;
-            }
-            set
-            {
-                this.height = value;
+                return Y + Height;
             }
         }
 
@@ -36,15 +24,7 @@ namespace iOS4Unity
         {
             get
             {
-                return this.Width <= 0 || this.Height <= 0;
-            }
-        }
-
-        public float Left
-        {
-            get
-            {
-                return this.X;
+                return Width <= 0 || Height <= 0;
             }
         }
 
@@ -52,12 +32,12 @@ namespace iOS4Unity
         {
             get
             {
-                return new CGPoint(this.X, this.Y);
+                return new CGPoint(X, Y);
             }
             set
             {
-                this.X = value.X;
-                this.Y = value.Y;
+                X = value.X;
+                Y = value.Y;
             }
         }
 
@@ -65,83 +45,37 @@ namespace iOS4Unity
         {
             get
             {
-                return this.X + this.Width;
+                return X + Width;
             }
         }
 
-//        public CGSize Size
-//        {
-//            get
-//            {
-//                return new CGSize(this.Width, this.Height);
-//            }
-//            set
-//            {
-//                this.Width = value.Width;
-//                this.Height = value.Height;
-//            }
-//        }
-
-        public float Top
+        public CGSize Size
         {
             get
             {
-                return this.Y;
-            }
-        }
-
-        public float Width
-        {
-            get
-            {
-                return this.width;
+                return new CGSize(Width, Height);
             }
             set
             {
-                this.width = value;
-            }
-        }
-
-        public float X
-        {
-            get
-            {
-                return this.x;
-            }
-            set
-            {
-                this.x = value;
-            }
-        }
-
-        public float Y
-        {
-            get
-            {
-                return this.y;
-            }
-            set
-            {
-                this.y = value;
+                Width = value.Width;
+                Height = value.Height;
             }
         }
 
         public CGRect(CGPoint location, CGSize size)
         {
-            this = default(CGRect);
-            this.X = location.X;
-            this.Y = location.Y;
-            this.Width = size.Width;
-            this.Height = size.Height;
+            X = location.X;
+            Y = location.Y;
+            Width = size.Width;
+            Height = size.Height;
         }
 
         public CGRect(float x, float y, float width, float height)
         {
-            this = default(CGRect);
-            this.X = x;
-            this.Y = y;
-            this.Width = width;
-            this.Height = height;
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
         }
 
         public static CGRect FromLTRB(float left, float top, float right, float bottom)
@@ -162,27 +96,27 @@ namespace iOS4Unity
             {
                 return CGRect.Empty;
             }
-            return CGRect.FromLTRB(Math.Max(a.Left, b.Left), Math.Max(a.Top, b.Top), Math.Min(a.Right, b.Right), Math.Min(a.Bottom, b.Bottom));
+            return CGRect.FromLTRB(Math.Max(a.X, b.X), Math.Max(a.Y, b.Y), Math.Min(a.Right, b.Right), Math.Min(a.Bottom, b.Bottom));
         }
 
         public static CGRect Union(CGRect a, CGRect b)
         {
-            return CGRect.FromLTRB(Math.Min(a.Left, b.Left), Math.Min(a.Top, b.Top), Math.Max(a.Right, b.Right), Math.Max(a.Bottom, b.Bottom));
+            return CGRect.FromLTRB(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y), Math.Max(a.Right, b.Right), Math.Max(a.Bottom, b.Bottom));
         }
 
         public bool Contains(float x, float y)
         {
-            return x >= this.Left && x < this.Right && y >= this.Top && y < this.Bottom;
+            return x >= X && x < Right && y >= Y && y < Bottom;
         }
 
         public bool Contains(CGRect rect)
         {
-            return this.x <= rect.x && this.Right >= rect.Right && this.y <= rect.y && this.Bottom >= rect.Bottom;
+            return X <= rect.X && Right >= rect.Right && Y <= rect.Y && Bottom >= rect.Bottom;
         }
 
         public bool Contains(CGPoint pt)
         {
-            return this.Contains(pt.X, pt.Y);
+            return Contains(pt.X, pt.Y);
         }
 
         public override bool Equals(object obj)
@@ -192,20 +126,20 @@ namespace iOS4Unity
 
         public override int GetHashCode()
         {
-            return (int)(this.X + this.Y + this.Width + this.Height);
+            return (int)(X + Y + Width + Height);
         }
 
         public void Inflate(CGSize size)
         {
-            this.X -= size.Width;
-            this.Y -= size.Height;
-            this.Width += size.Width * 2;
-            this.Height += size.Height * 2;
+            X -= size.Width;
+            Y -= size.Height;
+            Width += size.Width * 2;
+            Height += size.Height * 2;
         }
 
         public void Inflate(float x, float y)
         {
-            this.Inflate(new CGSize(x, y));
+            Inflate(new CGSize(x, y));
         }
 
         public void Intersect(CGRect rect)
@@ -215,28 +149,28 @@ namespace iOS4Unity
 
         public bool IntersectsWith(CGRect rect)
         {
-            return this.Left < rect.Right && this.Right > rect.Left && this.Top < rect.Bottom && this.Bottom > rect.Top;
+            return X < rect.Right && Right > rect.X && Y < rect.Bottom && Bottom > rect.Y;
         }
 
         private bool IntersectsWithInclusive(CGRect r)
         {
-            return this.Left <= r.Right && this.Right >= r.Left && this.Top <= r.Bottom && this.Bottom >= r.Top;
+            return X <= r.Right && Right >= r.X && Y <= r.Bottom && Bottom >= r.Y;
         }
 
         public void Offset(float x, float y)
         {
-            this.X += x;
-            this.Y += y;
+            X += x;
+            Y += y;
         }
 
         public void Offset(CGPoint pos)
         {
-            this.Offset(pos.X, pos.Y);
+            Offset(pos.X, pos.Y);
         }
 
         public override string ToString()
         {
-            return string.Format("{{X={0},Y={1},Width={2},Height={3}}}", x, y, width, height);
+            return string.Format("{{X={0},Y={1},Width={2},Height={3}}}", X, Y, Width, Height);
         }
 
         public static bool operator ==(CGRect left, CGRect right)

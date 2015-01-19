@@ -8,46 +8,21 @@ namespace iOS4Unity
     {
         public static readonly CGPoint Empty;
 
-        private float x;
-        private float y;
+        public float X;
+        public float Y;
 
         public bool IsEmpty
         {
             get
             {
-                return (double)this.X == 0 && (double)this.Y == 0;
-            }
-        }
-
-        public float X
-        {
-            get
-            {
-                return this.x;
-            }
-            set
-            {
-                this.x = value;
-            }
-        }
-
-        public float Y
-        {
-            get
-            {
-                return this.y;
-            }
-            set
-            {
-                this.y = value;
+                return (double)X == 0 && (double)Y == 0;
             }
         }
 
         public CGPoint(float x, float y)
         {
-            this = default(CGPoint);
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         public static CGPoint Add(CGPoint pt, CGSize sz)
@@ -67,12 +42,12 @@ namespace iOS4Unity
 
         public override int GetHashCode()
         {
-            return (int)this.X ^ (int)this.Y;
+            return (int)X ^ (int)Y;
         }
 
         public override string ToString()
         {
-            return string.Format("{{X={0}, Y={1}}}", x.ToString(CultureInfo.CurrentCulture), y.ToString(CultureInfo.CurrentCulture));
+            return string.Format("{{X={0}, Y={1}}}", X.ToString(CultureInfo.CurrentCulture), Y.ToString(CultureInfo.CurrentCulture));
         }
 
         public static CGPoint operator +(CGPoint pt, CGSize sz)

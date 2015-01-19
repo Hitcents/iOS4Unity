@@ -7,60 +7,33 @@ namespace iOS4Unity
     {
         public static readonly CGSize Empty;
 
-        private float width;
-        private float height;
-
-        public float Height
-        {
-            get
-            {
-                return this.height;
-            }
-            set
-            {
-                this.height = value;
-            }
-        }
+        public float Width;
+        public float Height;
 
         public bool IsEmpty
         {
             get
             {
-                return (double)this.Width == 0 && (double)this.Height == 0;
-            }
-        }
-
-        public float Width
-        {
-            get
-            {
-                return this.width;
-            }
-            set
-            {
-                this.width = value;
+                return (double)Width == 0 && (double)Height == 0;
             }
         }
 
         public CGSize(CGPoint pt)
         {
-            this = default(CGSize);
-            this.Width = pt.X;
-            this.Height = pt.Y;
+            Width = pt.X;
+            Height = pt.Y;
         }
 
         public CGSize(CGSize size)
         {
-            this = default(CGSize);
-            this.Width = size.Width;
-            this.Height = size.Height;
+            Width = size.Width;
+            Height = size.Height;
         }
 
         public CGSize(float width, float height)
         {
-            this = default(CGSize);
-            this.Width = width;
-            this.Height = height;
+            Width = width;
+            Height = height;
         }
 
         public static CGSize Add(CGSize sz1, CGSize sz2)
@@ -80,32 +53,19 @@ namespace iOS4Unity
 
         public override int GetHashCode()
         {
-            return (int)this.Width ^ (int)this.Height;
+            return (int)Width ^ (int)Height;
         }
 
         public CGPoint ToCGPoint()
         {
-            return new CGPoint(this.Width, this.Height);
+            return new CGPoint(Width, Height);
         }
-
-//        public Size ToSize()
-//        {
-//            checked
-//            {
-//                int num = (int)this.Width;
-//                int num2 = (int)this.Height;
-//                return new Size(num, num2);
-//            }
-//        }
 
         public override string ToString()
         {
-            return string.Format("{{Width={0}, Height={1}}}", width.ToString(CultureInfo.CurrentCulture), height.ToString(CultureInfo.CurrentCulture));
+            return string.Format("{{Width={0}, Height={1}}}", Width.ToString(CultureInfo.CurrentCulture), Height.ToString(CultureInfo.CurrentCulture));
         }
 
-        //
-        // Operators
-        //
         public static CGSize operator +(CGSize sz1, CGSize sz2)
         {
             return new CGSize(sz1.Width + sz2.Width, sz1.Height + sz2.Height);
