@@ -69,11 +69,11 @@ namespace iOS4Unity
             }
         }
 
-//        public SizeF Size
+//        public CGSize Size
 //        {
 //            get
 //            {
-//                return new SizeF(this.Width, this.Height);
+//                return new CGSize(this.Width, this.Height);
 //            }
 //            set
 //            {
@@ -126,14 +126,14 @@ namespace iOS4Unity
             }
         }
 
-//        public CGRect(CGPoint location, SizeF size)
-//        {
-//            this = default(CGRect);
-//            this.X = location.X;
-//            this.Y = location.Y;
-//            this.Width = size.Width;
-//            this.Height = size.Height;
-//        }
+        public CGRect(CGPoint location, CGSize size)
+        {
+            this = default(CGRect);
+            this.X = location.X;
+            this.Y = location.Y;
+            this.Width = size.Width;
+            this.Height = size.Height;
+        }
 
         public CGRect(float x, float y, float width, float height)
         {
@@ -149,12 +149,12 @@ namespace iOS4Unity
             return new CGRect(left, top, right - left, bottom - top);
         }
 
-//        public static CGRect Inflate(CGRect rect, float x, float y)
-//        {
-//            CGRect result = new CGRect(rect.X, rect.Y, rect.Width, rect.Height);
-//            result.Inflate(x, y);
-//            return result;
-//        }
+        public static CGRect Inflate(CGRect rect, float x, float y)
+        {
+            CGRect result = new CGRect(rect.X, rect.Y, rect.Width, rect.Height);
+            result.Inflate(x, y);
+            return result;
+        }
 
         public static CGRect Intersect(CGRect a, CGRect b)
         {
@@ -195,18 +195,18 @@ namespace iOS4Unity
             return (int)(this.X + this.Y + this.Width + this.Height);
         }
 
-//        public void Inflate(SizeF size)
-//        {
-//            this.X -= size.Width;
-//            this.Y -= size.Height;
-//            this.Width += size.Width * 2;
-//            this.Height += size.Height * 2;
-//        }
+        public void Inflate(CGSize size)
+        {
+            this.X -= size.Width;
+            this.Y -= size.Height;
+            this.Width += size.Width * 2;
+            this.Height += size.Height * 2;
+        }
 
-//        public void Inflate(float x, float y)
-//        {
-//            this.Inflate(new SizeF(x, y));
-//        }
+        public void Inflate(float x, float y)
+        {
+            this.Inflate(new CGSize(x, y));
+        }
 
         public void Intersect(CGRect rect)
         {
@@ -229,28 +229,20 @@ namespace iOS4Unity
             this.Y += y;
         }
 
-//        public void Offset(CGPoint pos)
-//        {
-//            this.Offset(pos.X, pos.Y);
-//        }
+        public void Offset(CGPoint pos)
+        {
+            this.Offset(pos.X, pos.Y);
+        }
 
         public override string ToString()
         {
             return string.Format("{{X={0},Y={1},Width={2},Height={3}}}", x, y, width, height);
         }
 
-        //
-        // Operators
-        //
         public static bool operator ==(CGRect left, CGRect right)
         {
             return left.X == right.X && left.Y == right.Y && left.Width == right.Width && left.Height == right.Height;
         }
-
-//        public static implicit operator CGRect(Rectangle r)
-//        {
-//            return new CGRect((float)r.X, (float)r.Y, (float)r.Width, (float)r.Height);
-//        }
 
         public static bool operator !=(CGRect left, CGRect right)
         {
