@@ -36,6 +36,12 @@ namespace iOS4Unity
             set { ObjC.MessageSendFloat(Handle, "setBrightness", value); }
         }
 
+        public UIScreenMode CurrentMode
+        {
+            get { return ObjC.MessageSendUIScreenMode(Handle, "currentMode"); }
+            set { ObjC.MessageSendUIScreenMode(Handle, "setCurrentMode", value); }
+        }
+
         public static UIScreen MainScreen
         {
             get { return new UIScreen(ObjC.MessageSendIntPtr(_classHandle, "mainScreen")); }
