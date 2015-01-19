@@ -2,6 +2,7 @@
 using iOS4Unity;
 using NUnit.Framework;
 using System.Runtime.InteropServices;
+using System.IO;
 
 [TestFixture]
 public class NSDataTests 
@@ -117,5 +118,36 @@ public class NSDataTests
         byte value = 121;
         var data = NSData.FromArray(new byte[] { value });
         Assert.AreEqual(value, data[0]);
+    }
+
+    [Test]
+    public void ToArray()
+    {
+        byte value = 121;
+        var data = NSData.FromArray(new byte[] { value });
+        var result = data.ToArray();
+        Assert.AreEqual(value, result[0]);
+    }
+
+    [Test]
+    public void AsStream()
+    {
+        byte value = 121;
+        var data = NSData.FromArray(new byte[] { value });
+        using (var stream = data.AsStream())
+        {
+            Assert.AreEqual(value, stream.ReadByte());
+        }
+    }
+
+    [Test]
+    public void Save()
+    {
+        string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Guid.NewGuid().ToString("N") + ".txt");
+        byte value = 121;
+        var data = NSData.FromArray(new byte[] { value });
+        data.Save(path);
+        var result = File.ReadAllBytes(path);
+        Assert.AreEqual(value, result[0]);
     }
 }

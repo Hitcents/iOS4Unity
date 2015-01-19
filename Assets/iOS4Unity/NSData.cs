@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace iOS4Unity
 {
@@ -15,6 +16,25 @@ namespace iOS4Unity
         public override IntPtr ClassHandle 
         {
             get { return _classHandle; }
+        }
+
+        private class UnmanagedMemoryStreamWithRef : UnmanagedMemoryStream
+        {
+            #pragma warning disable 414
+            private NSData _data;
+            #pragma warning restore 414
+
+            public unsafe UnmanagedMemoryStreamWithRef(NSData source) : base((byte*)((void*)source.Bytes), (long)((ulong)source.Length))
+            {
+                _data = source;
+            }
+
+            protected override void Dispose(bool disposing)
+            {
+                _data = null;
+
+                base.Dispose(disposing);
+            }
         }
 
         internal NSData(IntPtr handle) : base(handle) { }
@@ -102,6 +122,28 @@ namespace iOS4Unity
             {
                 throw new NotImplementedException("NSData arrays can not be modified, use an NSMutableData instead");
             }
+        }
+
+        public bool Save(string path, bool atomically = true)
+        {
+            return ObjC.MessageSendBool(Handle, "writeToFile:atomically:", path, atomically);
+        }
+
+        public Stream AsStream()
+        {
+            //TODO: if we ever implement NSMutableData
+//            if (this is NSMutableData)
+//            {
+//                return new NSData.UnmanagedMemoryStreamWithMutableRef(this);
+//            }
+            return new NSData.UnmanagedMemoryStreamWithRef(this);
+        }
+
+        public byte[] ToArray()
+        {
+            byte[] array = new byte[this.Length];
+            Marshal.Copy(Bytes, array, 0, array.Length);
+            return array;
         }
     }
 
