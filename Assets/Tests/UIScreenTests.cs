@@ -85,6 +85,18 @@ public class UIScreenTests
         //Just to make sure this doesn't crash
         bool wantsSoftwareDimming = UIScreen.MainScreen.WantsSoftwareDimming;
     }
+
+    [Test]
+    public void AvailableModes()
+    {
+        var modes = UIScreen.MainScreen.AvailableModes;
+        Assert.AreNotEqual(0, modes.Length);
+        foreach (var mode in modes)
+        {
+            Assert.AreNotEqual(0, mode.PixelAspectRatio);
+            Assert.AreNotEqual(CGSize.Empty, mode.Size);
+        }
+    }
 }
 
 #endif

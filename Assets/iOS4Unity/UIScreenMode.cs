@@ -17,16 +17,16 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
-        private UIScreenMode(IntPtr handle) : base(handle) { }
+        internal UIScreenMode(IntPtr handle) : base(handle) { }
 
         public float PixelAspectRatio
         {
-            get { return ObjC.MessageSendFloat( Handle, "pixelAspectRatio"); }
+            get { return ObjC.MessageSendFloat(Handle, "pixelAspectRatio"); }
         }
 
         public CGSize Size
         {
-            get{ return ObjC.MessageSendCGSize( Handle, "size"); }
+            get{ return ObjC.MessageSendCGSize(Handle, "size"); }
         }
     }
 }

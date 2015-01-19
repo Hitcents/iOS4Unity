@@ -12,6 +12,7 @@ namespace iOS4Unity
         private static readonly Dictionary<Type, Func<IntPtr, object>> _constructors = new Dictionary<Type, Func<IntPtr, object>>
         {
             { typeof(NSObject), h => new NSObject(h) },
+            { typeof(UIScreenMode), h => new UIScreenMode(h) },
         };
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "sel_registerName")]
@@ -124,14 +125,24 @@ namespace iOS4Unity
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
         public static extern CGRect MessageSendCGRect(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
-        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
-        public static extern CGSize MessageSendCGSize(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern CGSize _MessageSendCGSize(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
-        public static extern UIScreenMode MessageSendUIScreenMode(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
+        public static extern CGSize _MessageSendStretCGSize(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
-        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
-        public static extern UIScreenMode MessageSendUIScreenMode(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, UIScreenMode arg1);
+        public static CGSize MessageSendCGSize(IntPtr receiver, string selector)
+        {
+            //HACK: do this better later on
+            if (UIDevice.CurrentDevice.Model.ToLowerInvariant().Contains("simulator"))
+            {
+                return _MessageSendCGSize(receiver, selector);
+            }
+            else
+            {
+                return _MessageSendStretCGSize(receiver, selector);
+            }
+        }
 
 		[DllImport("/usr/lib/libSystem.dylib")]
 		private static extern IntPtr dlsym(IntPtr handle, string symbol);
