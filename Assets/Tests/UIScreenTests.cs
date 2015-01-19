@@ -15,6 +15,18 @@ public class UIScreenTests
     }
 
     [Test]
+    public void AvailableModes()
+    {
+        var modes = UIScreen.MainScreen.AvailableModes;
+        Assert.AreNotEqual(0, modes.Length);
+        foreach (var mode in modes)
+        {
+            Assert.AreNotEqual(0, mode.PixelAspectRatio);
+            Assert.AreNotEqual(CGSize.Empty, mode.Size);
+        }
+    }
+
+    [Test]
     public void Bounds()
     {
         var bounds = UIScreen.MainScreen.Bounds;
@@ -80,22 +92,22 @@ public class UIScreenTests
     }
 
     [Test]
+    public void Screens()
+    {
+        var screens = UIScreen.Screens;
+        Assert.AreNotEqual(0, screens.Length);
+        foreach (var screen in screens)
+        {
+            Assert.AreNotEqual(0, screen.Scale);
+            Assert.AreNotEqual(CGSize.Empty, screen.Bounds);
+        }
+    }
+
+    [Test]
     public void WantsSoftwareDimming()
     {
         //Just to make sure this doesn't crash
         bool wantsSoftwareDimming = UIScreen.MainScreen.WantsSoftwareDimming;
-    }
-
-    [Test]
-    public void AvailableModes()
-    {
-        var modes = UIScreen.MainScreen.AvailableModes;
-        Assert.AreNotEqual(0, modes.Length);
-        foreach (var mode in modes)
-        {
-            Assert.AreNotEqual(0, mode.PixelAspectRatio);
-            Assert.AreNotEqual(CGSize.Empty, mode.Size);
-        }
     }
 }
 

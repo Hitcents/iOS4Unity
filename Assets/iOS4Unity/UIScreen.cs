@@ -17,11 +17,16 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
-        private UIScreen(IntPtr handle) : base(handle) { }
+        internal UIScreen(IntPtr handle) : base(handle) { }
 
         public CGRect ApplicationFrame
         {
             get { return ObjC.MessageSendCGRect(Handle, "applicationFrame"); }
+        }
+
+        public UIScreenMode[] AvailableModes
+        {
+            get { return ObjC.ArrayFromHandle<UIScreenMode>(ObjC.MessageSendIntPtr(Handle, "availableModes")); }
         }
 
         public CGRect Bounds
@@ -67,20 +72,25 @@ namespace iOS4Unity
             get { return ObjC.MessageSendFloat(Handle, "nativeScale"); }
         }
 
+        public UIScreenMode PreferredMode
+        {
+            get { return new UIScreenMode(ObjC.MessageSendIntPtr(Handle, "preferredMode")); }
+        }
+
         public float Scale
         {
             get { return ObjC.MessageSendFloat(Handle, "scale"); }
+        }
+
+        public static UIScreen[] Screens
+        {
+            get { return ObjC.ArrayFromHandle<UIScreen>(ObjC.MessageSendIntPtr(_classHandle, "screens")); }
         }
 
         public bool WantsSoftwareDimming
         {
             get { return ObjC.MessageSendBool(Handle, "wantsSoftwareDimming"); }
             set{ ObjC.MessageSendBool(Handle, "setWantsSoftwareDimming", value); }
-        }
-
-        public UIScreenMode[] AvailableModes
-        {
-            get { return ObjC.ArrayFromHandle<UIScreenMode>(ObjC.MessageSendIntPtr(Handle, "availableModes")); }
         }
     }
 }
