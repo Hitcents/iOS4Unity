@@ -13,6 +13,7 @@
 /*.userprefs
 /*.pidb
 /*.booproj
+!/*.Xamarin.sln
 
 #Unity3D Generated File On Crash Reports
 sysinfo.txt
