@@ -2,8 +2,6 @@
 using iOS4Unity;
 using NUnit.Framework;
 
-#if !UNITY_EDITOR
-
 [TestFixture]
 public class NSNotificationCenterTests 
 {
@@ -57,5 +55,4 @@ public class NSNotificationCenterTests
 		Assert.IsFalse(fired);
 	}
 }
-
-#endif
+    

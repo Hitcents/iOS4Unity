@@ -84,6 +84,9 @@
     <Compile Include="..\Assets\iOS4Unity\UIScreen.cs">
       <Link>UIScreen.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSError.cs">
+      <Link>NSError.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
