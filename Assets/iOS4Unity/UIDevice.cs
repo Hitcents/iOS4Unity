@@ -39,10 +39,7 @@ namespace iOS4Unity
 			get	{ return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceProximityStateDidChangeNotification"); }
 		}
 
-		private UIDevice(IntPtr handle)
-		{
-			Handle = handle;
-		}
+        private UIDevice(IntPtr handle) : base(handle) { }
 
 		public static UIDevice CurrentDevice
 		{
@@ -139,11 +136,6 @@ namespace iOS4Unity
         {
             get { return (UIUserInterfaceIdiom)ObjC.MessageSendInt(Handle, "userInterfaceIdiom"); }
         }
-
-		public override void Dispose ()
-		{
-			//Don't dispose
-		}
 	}
 
 	public enum UIDeviceBatteryState

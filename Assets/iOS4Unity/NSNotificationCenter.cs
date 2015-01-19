@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AOT;
 
 namespace iOS4Unity
 {
@@ -15,7 +14,7 @@ namespace iOS4Unity
 			
 			static Observer()
 			{
-				_classHandle = ObjC.AllocateClassPair(ObjC.GetClass ("NSObject"), "__Observer", 0);
+				_classHandle = ObjC.AllocateClassPair(ObjC.GetClass("NSObject"), "__Observer", 0);
 			}
 			
 			public override IntPtr ClassHandle
@@ -41,10 +40,7 @@ namespace iOS4Unity
 			get { return _classHandle; }
 		}
 		
-		private NSNotificationCenter(IntPtr handle)
-		{
-			Handle = handle;
-		}
+        private NSNotificationCenter(IntPtr handle) : base(handle) { }
 
 		public static NSNotificationCenter DefaultCenter
 		{
@@ -67,11 +63,6 @@ namespace iOS4Unity
 		public void RemoveObserver(NSObject observer)
 		{
 			ObjC.MessageSend(Handle, "removeObserver:", observer.Handle);
-		}
-
-		public override void Dispose()
-		{
-			//Doesn't need to release
 		}
 	}
 }

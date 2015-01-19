@@ -21,10 +21,7 @@ namespace iOS4Unity
 			return new NSNotification(ObjC.MessageSendIntPtr(_classHandle, "notificationWithName:object:", name, obj == null ? IntPtr.Zero : obj.Handle));
 		}
 
-		internal NSNotification(IntPtr handle)
-		{
-			Handle = handle;
-		}
+        internal NSNotification(IntPtr handle) : base(handle) { }
 
 		public string Name
 		{
@@ -34,11 +31,6 @@ namespace iOS4Unity
 		public NSObject Object
 		{
 			get { return new NSObject(ObjC.MessageSendIntPtr(Handle, "object")); }
-		}
-
-		public override void Dispose()
-		{
-			//Doesn't need to release
 		}
 	}
 }

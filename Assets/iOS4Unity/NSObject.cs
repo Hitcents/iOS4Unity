@@ -22,7 +22,8 @@ namespace iOS4Unity
 			Dispose();
 		}
 
-		public IntPtr Handle;
+		public readonly IntPtr Handle;
+        private readonly bool _shouldRelease;
 
 		public NSObject(IntPtr handle)
 		{
@@ -32,6 +33,7 @@ namespace iOS4Unity
 		public NSObject()
 		{
 			Handle = ObjC.MessageSendIntPtr(ClassHandle, "alloc");
+            _shouldRelease = true;
 		}
 
 		public string Description
@@ -44,14 +46,14 @@ namespace iOS4Unity
 			return Description;
 		}
 
-		public virtual void Dispose()
+		public void Dispose()
 		{
 			GC.SuppressFinalize(this);
 
-			if (Handle != IntPtr.Zero)
+			if (Handle != IntPtr.Zero && _shouldRelease)
 			{
 				Callbacks.UnsubscribeAll(this);
-				ObjC.MessageSend(Handle, "release");
+                ObjC.MessageSend(Handle, "release");
 			}
 		}
 	}
