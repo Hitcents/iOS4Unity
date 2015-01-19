@@ -82,5 +82,10 @@ namespace iOS4Unity
             get { return ObjC.MessageSendFloat(Handle, "alpha"); }
             set { ObjC.MessageSend(Handle, "setAlpha:", value); }
         }
+
+        public UIWindow Window
+        {
+            get { return new UIWindow(ObjC.MessageSendIntPtr(Handle, "window")); }
+        }
     }
 }
