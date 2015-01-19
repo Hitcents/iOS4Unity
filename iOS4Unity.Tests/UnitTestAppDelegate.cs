@@ -28,7 +28,7 @@ namespace iOS4Unity.Tests
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             // create a new window instance based on the screen size
-            window = new UIWindow(UIScreen.MainScreen.Bounds);
+            window = new UIWindow(MonoTouch.UIKit.UIScreen.MainScreen.Bounds);
             runner = new TouchRunner(window);
 
             // register every tests included in the main application/assembly
