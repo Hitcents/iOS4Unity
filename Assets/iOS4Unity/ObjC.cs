@@ -124,6 +124,15 @@ namespace iOS4Unity
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
         public static extern CGRect MessageSendCGRect(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
+        public static extern CGSize MessageSendCGSize(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
+        public static extern UIScreenMode MessageSendUIScreenMode(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
+        public static extern UIScreenMode MessageSendUIScreenMode(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, UIScreenMode arg1);
+
 		[DllImport("/usr/lib/libSystem.dylib")]
 		private static extern IntPtr dlsym(IntPtr handle, string symbol);
 		
