@@ -11,7 +11,7 @@ public class UIScreenTests
     public void ApplicationFrame()
     {
         var applicationFrame = UIScreen.MainScreen.ApplicationFrame;
-        Assert.AreNotEqual(CGRect.Empty,applicationFrame);
+        Assert.AreNotEqual(CGRect.Empty, applicationFrame);
     }
 
     [Test]
