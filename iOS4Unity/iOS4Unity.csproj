@@ -72,6 +72,9 @@
     <Compile Include="..\Assets\iOS4Unity\Marshalers\NSUrlMarshaler.cs">
       <Link>Marshalers\NSUrlMarshaler.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\CGRect.cs">
+      <Link>CGRect.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
