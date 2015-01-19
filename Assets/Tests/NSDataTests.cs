@@ -51,8 +51,6 @@ public class NSDataTests
         var data = NSData.FromBytesNoCopy(ptr, (uint)bytes.Length);
         Assert.AreEqual(bytes.Length, data.Length);
         Assert.AreEqual(ptr, data.Bytes);
-
-        Marshal.FreeHGlobal(ptr);
     }
 
     [Test]
@@ -62,7 +60,7 @@ public class NSDataTests
         IntPtr ptr = Marshal.AllocHGlobal(bytes.Length);
         Marshal.Copy(bytes, 0, ptr, bytes.Length);
 
-        var data = NSData.FromBytesNoCopy(ptr, (uint)bytes.Length, true);
+        var data = NSData.FromBytesNoCopy(ptr, (uint)bytes.Length, false);
         Assert.AreEqual(bytes.Length, data.Length);
         Assert.AreEqual(ptr, data.Bytes);
     }
