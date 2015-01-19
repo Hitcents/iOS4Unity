@@ -85,6 +85,15 @@ public class UIScreenTests
     }
 
     [Test]
+    public void Notifications()
+    {
+        Assert.IsNotNull(UIScreen.BrightnessDidChangeNotification);
+        Assert.IsNotNull(UIScreen.DidConnectNotification);
+        Assert.IsNotNull(UIScreen.DidDisconnectNotification);
+        Assert.IsNotNull(UIScreen.ModeDidChangeNotification);
+    }
+
+    [Test]
     public void Scale()
     {
         var scale = UIScreen.MainScreen.NativeScale;
