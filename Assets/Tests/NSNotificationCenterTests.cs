@@ -29,7 +29,7 @@ public class NSNotificationCenterTests
 		var center = NSNotificationCenter.DefaultCenter;
 
 		bool fired = false;
-		center.AddObserver(notification, n =>
+		var observer = center.AddObserver(notification, n =>
 		{
 			Assert.AreEqual(notification, n.Name);
 
@@ -39,12 +39,14 @@ public class NSNotificationCenterTests
 		center.PostNotificationName(notification);
 
 		Assert.IsTrue(fired);
+
+        observer.Dispose();
 	}
 
 	[Test]
 	public void AddRemoveObserver()
 	{
-		string notification = "WOOT_OMG";
+		string notification = "WOOT_OMG_2";
 		var center = NSNotificationCenter.DefaultCenter;
 		
 		bool fired = false;

@@ -28,6 +28,13 @@ namespace iOS4Unity
 			}
 
 			public readonly Action<NSNotification> Action;
+
+            public override void Dispose()
+            {
+                NSNotificationCenter.DefaultCenter.RemoveObserver(this);
+
+                base.Dispose();
+            }
 		}
 
 		static NSNotificationCenter()

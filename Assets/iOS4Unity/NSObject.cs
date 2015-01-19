@@ -46,7 +46,7 @@ namespace iOS4Unity
 			return Description;
 		}
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			GC.SuppressFinalize(this);
 
