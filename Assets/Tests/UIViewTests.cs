@@ -52,6 +52,85 @@ public class UIViewTests
         };
         Assert.AreEqual(bounds, obj.Bounds);
     }
+
+    [Test]
+    public void Center()
+    {
+        var point = new CGPoint(12, 3);
+        var obj = new UIView
+        {
+            Center = point,
+        };
+        Assert.AreEqual(point, obj.Center);
+    }
+
+    [Test]
+    public void AddSubview()
+    {
+        var view = new UIView();
+        view.AddSubview(new UIView());
+        Assert.AreEqual(1, view.Subviews.Length);
+    }
+
+    [Test]
+    public void Superview()
+    {
+        var view = new UIView();
+        var subview = new UIView();
+        view.AddSubview(subview);
+        Assert.AreEqual(view.Handle, subview.Superview.Handle);
+    }
+
+    [Test]
+    public void BringSubviewToFront()
+    {
+        var view = new UIView();
+        view.AddSubview(new UIView());
+        var subview = new UIView();
+        view.AddSubview(subview);
+        view.AddSubview(new UIView());
+        view.BringSubviewToFront(subview);
+
+        var subviews = view.Subviews;
+        Assert.AreEqual(subview.Handle, subviews[subviews.Length - 1].Handle);
+    }
+
+    [Test]
+    public void SendSubviewToBack()
+    {
+        var view = new UIView();
+        view.AddSubview(new UIView());
+        var subview = new UIView();
+        view.AddSubview(subview);
+        view.AddSubview(new UIView());
+        view.SendSubviewToBack(subview);
+
+        var subviews = view.Subviews;
+        Assert.AreEqual(subview.Handle, subviews[0].Handle);
+    }
+
+    [Test]
+    public void Hidden()
+    {
+        var view = new UIView
+        {
+            Hidden = false,
+        };
+        Assert.IsFalse(view.Hidden);
+        view.Hidden = true;
+        Assert.IsTrue(view.Hidden);
+    }
+
+    [Test]
+    public void Alpha()
+    {
+        float value = 0.85f;
+        var view = new UIView
+        {
+            Alpha = value,
+        };
+        Assert.AreEqual(value, view.Alpha);
+    }
 }
 
 #endif
