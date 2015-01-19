@@ -19,6 +19,17 @@ namespace iOS4Unity
 
         private UIScreen(IntPtr handle) : base(handle) { }
 
+
+        public CGRect ApplicationFrame
+        {
+            get { return ObjC.MessageSendCGRect(Handle, "applicationFrame"); }
+        }
+
+        public CGRect Bounds
+        {
+            get { return ObjC.MessageSendCGRect(Handle, "bounds"); }
+        }
+
         public float Brightness
         {
             get { return ObjC.MessageSendFloat(Handle, "brightness"); }
@@ -28,6 +39,34 @@ namespace iOS4Unity
         public static UIScreen MainScreen
         {
             get { return new UIScreen(ObjC.MessageSendIntPtr(_classHandle, "mainScreen")); }
+        }
+
+        public UIScreen MirroredScreen
+        {
+            get { return new UIScreen(ObjC.MessageSendIntPtr(Handle, "mirroredScreen")); }
+        }
+
+        public CGRect NativeBounds
+        {
+            //SUMMARY: iOS 8 only
+            get { return ObjC.MessageSendCGRect(Handle, "nativeBounds"); }
+        }
+
+        public float NativeScale
+        {
+            //SUMMARY: iOS 8 only
+            get { return ObjC.MessageSendFloat(Handle, "nativeScale"); }
+        }
+
+        public float Scale
+        {
+            get { return ObjC.MessageSendFloat(Handle, "scale"); }
+        }
+
+        public bool WantsSoftwareDimming
+        {
+            get { return ObjC.MessageSendBool(Handle, "wantsSoftwareDimming"); }
+            set{ ObjC.MessageSendBool(Handle, "setWantsSoftwareDimming", value); }
         }
     }
 }
