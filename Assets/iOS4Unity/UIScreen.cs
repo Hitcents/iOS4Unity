@@ -40,10 +40,25 @@ namespace iOS4Unity
             set { ObjC.MessageSendFloat(Handle, "setBrightness", value); }
         }
 
+        public static string BrightnessDidChangeNotification
+        {
+            get { return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIScreenBrightnessDidChangeNotification"); }
+        }
+
         public UIScreenMode CurrentMode
         {
             get { return new UIScreenMode(ObjC.MessageSendIntPtr(Handle, "currentMode")); }
             set { ObjC.MessageSend(Handle, "setCurrentMode", value.Handle); }
+        }
+            
+        public static string DidConnectNotification
+        {
+            get { return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIScreenDidConnectNotification"); }
+        }
+
+        public static string DidDisconnectNotification
+        {
+            get { return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIScreenDidDisconnectNotification"); }
         }
 
         public static UIScreen MainScreen
@@ -54,6 +69,11 @@ namespace iOS4Unity
         public UIScreen MirroredScreen
         {
             get { return new UIScreen(ObjC.MessageSendIntPtr(Handle, "mirroredScreen")); }
+        }
+
+        public static string ModeDidChangeNotification
+        {
+            get { return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIScreenModeDidChangeNotification"); }
         }
 
         /// <summary>
