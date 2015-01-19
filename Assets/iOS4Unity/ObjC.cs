@@ -125,20 +125,24 @@ namespace iOS4Unity
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
         public static extern CGRect MessageSendCGRect(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
+        #if XAMARIN
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern CGSize _MessageSendCGSize(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
+        #endif
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
         public static extern CGSize _MessageSendStretCGSize(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
         public static CGSize MessageSendCGSize(IntPtr receiver, string selector)
         {
-            //HACK: do this better later on
-            if (UIDevice.CurrentDevice.Model.ToLowerInvariant().Contains("simulator"))
+            //HACK: works for now, Unity will most likely only be on devices anyway
+            #if XAMARIN
+            if (UIDevice.CurrentDevice.Model.Contains("Simulator"))
             {
                 return _MessageSendCGSize(receiver, selector);
             }
             else
+            #endif
             {
                 return _MessageSendStretCGSize(receiver, selector);
             }
