@@ -3,6 +3,7 @@ using System.Globalization;
 
 namespace iOS4Unity
 {
+    [Serializable]
     public struct CGSize 
     {
         public static readonly CGSize Empty;
