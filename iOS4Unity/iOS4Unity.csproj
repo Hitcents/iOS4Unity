@@ -75,6 +75,9 @@
     <Compile Include="..\Assets\iOS4Unity\CGRect.cs">
       <Link>CGRect.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\CGPoint.cs">
+      <Link>CGPoint.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

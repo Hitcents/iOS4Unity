@@ -2,6 +2,7 @@
 
 namespace iOS4Unity
 {
+    [Serializable]
     public struct CGRect 
     {
         public static readonly CGRect Empty;
@@ -47,18 +48,18 @@ namespace iOS4Unity
             }
         }
 
-//        public PointF Location
-//        {
-//            get
-//            {
-//                return new PointF(this.X, this.Y);
-//            }
-//            set
-//            {
-//                this.X = value.X;
-//                this.Y = value.Y;
-//            }
-//        }
+        public CGPoint Location
+        {
+            get
+            {
+                return new CGPoint(this.X, this.Y);
+            }
+            set
+            {
+                this.X = value.X;
+                this.Y = value.Y;
+            }
+        }
 
         public float Right
         {
@@ -125,7 +126,7 @@ namespace iOS4Unity
             }
         }
 
-//        public CGRect(PointF location, SizeF size)
+//        public CGRect(CGPoint location, SizeF size)
 //        {
 //            this = default(CGRect);
 //            this.X = location.X;
@@ -179,10 +180,10 @@ namespace iOS4Unity
             return this.x <= rect.x && this.Right >= rect.Right && this.y <= rect.y && this.Bottom >= rect.Bottom;
         }
 
-//        public bool Contains(PointF pt)
-//        {
-//            return this.Contains(pt.X, pt.Y);
-//        }
+        public bool Contains(CGPoint pt)
+        {
+            return this.Contains(pt.X, pt.Y);
+        }
 
         public override bool Equals(object obj)
         {
@@ -228,7 +229,7 @@ namespace iOS4Unity
             this.Y += y;
         }
 
-//        public void Offset(PointF pos)
+//        public void Offset(CGPoint pos)
 //        {
 //            this.Offset(pos.X, pos.Y);
 //        }
