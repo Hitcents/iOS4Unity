@@ -45,6 +45,16 @@ namespace iOS4Unity
             return new UIImage(ObjC.MessageSendIntPtr(_classHandle, "imageWithContentsOfFile:", filename));
         }
 
+        public static UIImage LoadFromData(NSData data)
+        {
+            return new UIImage(ObjC.MessageSendIntPtr(_classHandle, "imageWithData:", data.Handle));
+        }
+
+        public static UIImage LoadFromData(NSData data, float scale)
+        {
+            return new UIImage(ObjC.MessageSendIntPtr(_classHandle, "imageWithData:scale:", data.Handle, scale));
+        }
+
         public CGSize Size
         {
             get { return new CGSize(ObjC.MessageSendCGSize(Handle, "size")); }

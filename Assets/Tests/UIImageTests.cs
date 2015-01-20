@@ -15,6 +15,13 @@ public class UIImageTests
     }
 
     [Test]
+    public void AsJPEGWithQuality()
+    {
+        var jpgImage = UIImage.FromFile("chuck.jpg").AsJPEG(0.8f);
+        Assert.AreNotEqual(0, jpgImage.Length);
+    }
+
+    [Test]
     public void AsPNG()
     {
         var pngImage = UIImage.FromFile("chuck.jpg").AsPNG();
@@ -26,8 +33,7 @@ public class UIImageTests
     {
         var image = UIImage.FromBundle("chuck.jpg");
         Assert.IsNotNull(image);
-        Assert.AreNotEqual(0, image.Size.Height);
-        Assert.AreNotEqual(0, image.Size.Width);
+        Assert.AreNotEqual(IntPtr.Zero, image.Handle);
     }
 
     [Test]
@@ -35,8 +41,7 @@ public class UIImageTests
     {
         var image = UIImage.FromFile("chuck.jpg");
         Assert.IsNotNull(image);
-        Assert.AreNotEqual(0, image.Size.Height);
-        Assert.AreNotEqual(0, image.Size.Width);
+        Assert.AreNotEqual(IntPtr.Zero, image.Handle);
     }
 
     [Test]
@@ -45,6 +50,24 @@ public class UIImageTests
         var size = UIImage.FromFile("chuck.jpg").Size;
         Assert.AreNotEqual(0, size.Height);
         Assert.AreNotEqual(0, size.Width);
+    }
+
+    [Test]
+    public void LoadFromData()
+    {
+        var data = NSData.FromFile("chuck.jpg");
+        var image = UIImage.LoadFromData(data);
+        Assert.IsNotNull(image);
+        Assert.AreNotEqual(IntPtr.Zero, image.Handle);
+    }
+
+    [Test]
+    public void LoadFromDataWithScale()
+    {
+        var data = NSData.FromFile("chuck.jpg");
+        var image = UIImage.LoadFromData(data, 2);
+        Assert.IsNotNull(image);
+        Assert.AreNotEqual(IntPtr.Zero, image.Handle);
     }
 }
 
