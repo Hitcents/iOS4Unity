@@ -108,6 +108,9 @@
     <Compile Include="..\Assets\iOS4Unity\AdBannerView.cs">
       <Link>AdBannerView.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIActionSheet.cs">
+      <Link>UIActionSheet.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
