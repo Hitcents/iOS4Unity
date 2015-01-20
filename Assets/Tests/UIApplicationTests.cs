@@ -61,7 +61,11 @@ public class UIApplicationTests
     [Test]
     public void StatusBarHidden()
     {
+        #if XAMARIN
         Assert.IsFalse(UIApplication.SharedApplication.StatusBarHidden);
+        #else
+        Assert.IsTrue(UIApplication.SharedApplication.StatusBarHidden);
+        #endif
     }
 
     [Test]

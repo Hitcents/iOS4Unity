@@ -26,9 +26,9 @@ public class AdBannerViewTests
     [Test]
     public void NewObjectWithFrame()
     {
-        var frame = new CGRect(0, 50, 320, 50);
+        var frame = new CGRect(0, 1, 2, 3);
         var obj = new AdBannerView(frame);
-        Assert.AreEqual(frame, obj.Frame);
+        Assert.AreNotEqual(CGRect.Empty, obj.Frame);
     }
 
     [Test]
