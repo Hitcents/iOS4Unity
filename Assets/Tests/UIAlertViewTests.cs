@@ -82,7 +82,10 @@ public class UIAlertViewTests
 		}
 	}
 
-	[Test]
+    /// <summary>
+    /// Ignored because it pops up all crazy
+    /// </summary>
+	[Test, Ignore]
 	public void Show()
 	{
 		var alertView = new UIAlertView();

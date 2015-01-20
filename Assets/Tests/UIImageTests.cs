@@ -69,6 +69,24 @@ public class UIImageTests
         Assert.IsNotNull(image);
         Assert.AreNotEqual(IntPtr.Zero, image.Handle);
     }
+
+    [Test]
+    public void SaveToPhotoAlbum()
+    {
+        var image = UIImage.FromFile("chuck.jpg");
+        image.SaveToPhotosAlbum();
+    }
+
+    [Test]
+    public void SaveToPhotoAlbumWithCallback()
+    {
+        var image = UIImage.FromFile("chuck.jpg");
+        image.SaveToPhotosAlbum(error =>
+        {
+            Assert.IsNull(error);
+            Console.WriteLine("Saved photo!");
+        });
+    }
 }
 
 #endif

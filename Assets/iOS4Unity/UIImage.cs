@@ -6,12 +6,38 @@ namespace iOS4Unity
 {
     public class UIImage : NSObject
     {
+        private const string SelectorName = "__onSaveToPhotoAlbum:";
+
         [DllImport("/System/Library/Frameworks/UIKit.framework/UIKit")]
         private static extern IntPtr UIImageJPEGRepresentation(IntPtr image, float compressionQuality);
         [DllImport("/System/Library/Frameworks/UIKit.framework/UIKit")]
         private static extern IntPtr UIImagePNGRepresentation(IntPtr image);
+        [DllImport("/System/Library/Frameworks/UIKit.framework/UIKit")]
+        private static extern void UIImageWriteToSavedPhotosAlbum(IntPtr image, IntPtr obj, IntPtr selector, IntPtr ctx);
 
         private static readonly IntPtr _classHandle;
+
+        private class UIImageDispatcher : NSObject
+        {
+            private static readonly IntPtr _classHandle;
+
+            static UIImageDispatcher()
+            {
+                _classHandle = ObjC.AllocateClassPair(ObjC.GetClass("NSObject"), "__UIImageDispatcher", 0);
+            }
+
+            public override IntPtr ClassHandle
+            {
+                get { return _classHandle; }
+            }
+
+            public UIImageDispatcher(Action<NSError> action)
+            {
+                Action = action;
+            }
+
+            public readonly Action<NSError> Action;
+        }
 
         static UIImage()
         {
@@ -58,6 +84,24 @@ namespace iOS4Unity
         public CGSize Size
         {
             get { return new CGSize(ObjC.MessageSendCGSize(Handle, "size")); }
+        }
+
+        public void SaveToPhotosAlbum(Action<NSError> callback = null)
+        {
+            if (callback == null)
+            {
+                UIImageWriteToSavedPhotosAlbum(Handle, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+            }
+            else
+            {
+                var dispatcher = new UIImageDispatcher(callback);
+                Callbacks.Subscribe(dispatcher, SelectorName, (IntPtr obj, IntPtr e, IntPtr ctx) => 
+                {
+                    callback(e == IntPtr.Zero ? null : new NSError(e));
+                    dispatcher.Dispose();
+                });
+                UIImageWriteToSavedPhotosAlbum(Handle, dispatcher.Handle, ObjC.GetSelector(SelectorName), IntPtr.Zero);
+            }
         }
     }
 }
