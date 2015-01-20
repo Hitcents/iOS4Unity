@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections;
 using System.Runtime.InteropServices;
 
@@ -73,6 +74,10 @@ namespace iOS4Unity
 
         public static UIImage FromFile(string filename)
         {
+            #if !XAMARIN
+            filename = Path.Combine(UnityEngine.Application.streamingAssetsPath, filename);
+            #endif
+
             return new UIImage(ObjC.MessageSendIntPtr(_classHandle, "imageWithContentsOfFile:", filename));
         }
 

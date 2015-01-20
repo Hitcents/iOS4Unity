@@ -73,6 +73,10 @@ namespace iOS4Unity
 
         public static NSData FromFile(string path, NSDataReadingOptions mask, out NSError error)
         {
+            #if !XAMARIN
+            path = Path.Combine(UnityEngine.Application.streamingAssetsPath, path);
+            #endif
+
             IntPtr errorHandle;
             var data = new NSData(ObjC.MessageSendIntPtr(_classHandle, "dataWithContentsOfFile:options:error:", path, (uint)mask, out errorHandle));
             error = errorHandle == IntPtr.Zero ? null : new NSError(errorHandle);
@@ -81,6 +85,10 @@ namespace iOS4Unity
 
         public static NSData FromFile(string path)
         {
+            #if !XAMARIN
+            path = Path.Combine(UnityEngine.Application.streamingAssetsPath, path);
+            #endif
+
             return new NSData(ObjC.MessageSendIntPtr(_classHandle, "dataWithContentsOfFile:", path));
         }
 

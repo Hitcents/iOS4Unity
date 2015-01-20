@@ -69,7 +69,7 @@ public class NSDataTests
     [Test]
     public void FromFile()
     {
-        var data = NSData.FromFile("Info.plist");
+        var data = NSData.FromFile("chuck.jpg");
         Assert.AreNotEqual(0, data.Length);
     }
 
@@ -77,7 +77,7 @@ public class NSDataTests
     public void FromFileWithError()
     {
         NSError error;
-        var data = NSData.FromFile("Info.plist", NSDataReadingOptions.Coordinated, out error);
+        var data = NSData.FromFile("chuck.jpg", NSDataReadingOptions.Coordinated, out error);
         Assert.AreNotEqual(0, data.Length);
         Assert.IsNull(error);
     }

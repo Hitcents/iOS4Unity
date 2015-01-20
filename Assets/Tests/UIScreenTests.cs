@@ -8,6 +8,21 @@ using NUnit.Framework;
 public class UIScreenTests
 {
     [Test]
+    public void MainScreen()
+    {
+        var screen = UIScreen.MainScreen;
+
+        Assert.AreNotEqual(IntPtr.Zero, screen.Handle);
+    }
+
+    [Test]
+    public void MainScreenDispose()
+    {
+        var screen = UIScreen.MainScreen;
+        screen.Dispose();
+    }
+
+    [Test]
     public void ApplicationFrame()
     {
         var applicationFrame = UIScreen.MainScreen.ApplicationFrame;
@@ -38,13 +53,6 @@ public class UIScreenTests
     {
         var screen = UIScreen.MainScreen;
         Assert.AreNotEqual(0, screen.Brightness);
-    }
-
-    [Test]
-    public void MainScreen()
-    {
-        var screen = UIScreen.MainScreen;
-        Assert.AreNotEqual(IntPtr.Zero, screen.Handle);
     }
 
     [Test]

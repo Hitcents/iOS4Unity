@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using iOS4Unity;
 using NUnit.Framework;
 
@@ -10,28 +11,28 @@ public class UIImageTests
     [Test]
     public void AsJPEG()
     {
-        var jpgImage = UIImage.FromBundle("chuck.jpg").AsJPEG();
+        var jpgImage = UIImage.FromFile("chuck.jpg").AsJPEG();
         Assert.AreNotEqual(0, jpgImage.Length);
     }
 
     [Test]
     public void AsJPEGWithQuality()
     {
-        var jpgImage = UIImage.FromBundle("chuck.jpg").AsJPEG(0.8f);
+        var jpgImage = UIImage.FromFile("chuck.jpg").AsJPEG(0.8f);
         Assert.AreNotEqual(0, jpgImage.Length);
     }
 
     [Test]
     public void AsPNG()
     {
-        var pngImage = UIImage.FromBundle("chuck.jpg").AsPNG();
+        var pngImage = UIImage.FromFile("chuck.jpg").AsPNG();
         Assert.AreNotEqual(0, pngImage.Length);
     }
 
     [Test]
     public void CurrentScale()
     {
-        var image = UIImage.FromBundle("chuck.jpg");
+        var image = UIImage.FromFile("chuck.jpg");
         float scale = image.CurrentScale;
         Assert.AreNotEqual(0, scale);
     }
@@ -39,7 +40,11 @@ public class UIImageTests
     [Test]
     public void FromBundle()
     {
-        var image = UIImage.FromBundle("chuck.jpg");
+        string path = "chuck.jpg";
+        #if !XAMARIN
+        path = Path.Combine(UnityEngine.Application.streamingAssetsPath, path);
+        #endif
+        var image = UIImage.FromBundle(path);
         Assert.IsNotNull(image);
         Assert.AreNotEqual(IntPtr.Zero, image.Handle);
     }
@@ -55,7 +60,7 @@ public class UIImageTests
     [Test]
     public void Size()
     {
-        var size = UIImage.FromBundle("chuck.jpg").Size;
+        var size = UIImage.FromFile("chuck.jpg").Size;
         Assert.AreNotEqual(0, size.Height);
         Assert.AreNotEqual(0, size.Width);
     }

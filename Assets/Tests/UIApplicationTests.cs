@@ -15,7 +15,7 @@ public class UIApplicationTests
     }
 
     [Test]
-    public void DefaultCenterDispose()
+    public void SharedApplicationDispose()
     {
         var app = UIApplication.SharedApplication;
         app.Dispose();
