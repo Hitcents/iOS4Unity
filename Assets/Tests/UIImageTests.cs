@@ -10,11 +10,15 @@ public class UIImageTests
     [Test]
     public void AsJPEG()
     {
+        var jpgImage = UIImage.FromFile("chuck.jpg").AsJPEG();
+        Assert.AreNotEqual(0, jpgImage.Length);
     }
 
     [Test]
     public void AsPNG()
     {
+        var pngImage = UIImage.FromFile("chuck.jpg").AsPNG();
+        Assert.AreNotEqual(0, pngImage.Length);
     }
 
     [Test]
