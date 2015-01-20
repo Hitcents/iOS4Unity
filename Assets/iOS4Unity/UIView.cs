@@ -87,5 +87,10 @@ namespace iOS4Unity
         {
             get { return new UIWindow(ObjC.MessageSendIntPtr(Handle, "window")); }
         }
+
+        public void RemoveFromSuperview()
+        {
+            ObjC.MessageSend(Handle, "removeFromSuperview");
+        }
     }
 }

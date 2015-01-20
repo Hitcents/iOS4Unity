@@ -22,6 +22,42 @@ public class AdBannerViewTests
         var obj = new AdBannerView();
         obj.Dispose();
     }   
+
+    [Test]
+    public void NewObjectWithFrame()
+    {
+        var frame = new CGRect(0, 50, 320, 50);
+        var obj = new AdBannerView(frame);
+        Assert.AreEqual(frame, obj.Frame);
+    }
+
+    [Test]
+    public void NewObjectWithType()
+    {
+        var type = AdType.MediumRectangle;
+        var obj = new AdBannerView(type);
+        Assert.AreEqual(type, obj.AdType);
+    }
+
+    [Test]
+    public void LoadAd()
+    {
+        var bannerView = new AdBannerView();
+        bannerView.AdLoaded += (sender, e) => 
+        {
+            Console.WriteLine("AdLoaded!");
+
+            bannerView.RemoveFromSuperview();
+        };
+        bannerView.FailedToReceiveAd += (sender, e) => 
+        {
+            Console.WriteLine("AdFailed: " + e.Value.LocalizedDescription);
+
+            bannerView.RemoveFromSuperview();
+        };
+
+        UIApplication.SharedApplication.KeyWindow.RootViewController.View.AddSubview(bannerView);
+    }
 }
 
 #endif

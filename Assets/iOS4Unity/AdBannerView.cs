@@ -26,6 +26,12 @@ namespace iOS4Unity
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 
+        public AdBannerView(AdType type)
+        {
+            ObjC.MessageSendIntPtr(Handle, "initWithAdType:", (int)type);
+            ObjC.MessageSend(Handle, "setDelegate:", Handle);
+        }
+
         public AdType AdType
         {
             get { return (AdType)ObjC.MessageSendInt(Handle, "adType"); }
@@ -58,6 +64,11 @@ namespace iOS4Unity
         {
             add { Callbacks.Subscribe(this, "bannerViewWillLoadAd:", value); }
             remove { Callbacks.Unsubscribe(this, "bannerViewWillLoadAd:", value); }
+        }
+
+        public void CancelBannerViewAction()
+        {
+            ObjC.MessageSend(Handle, "cancelBannerViewAction");
         }
     }
 
