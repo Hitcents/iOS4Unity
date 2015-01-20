@@ -126,6 +126,47 @@ public class UIAlertViewTests
 		alertView.Show ();
 		alertView.Dismiss(0, false);
 	}
+
+    [Test]
+    public void DoubleSubscribe()
+    {
+        int count = 0;
+        EventHandler callback = (sender, e) => 
+        {
+            count++;
+        };
+
+        var alertView = new UIAlertView();
+        alertView.Message = "Click OK";
+        alertView.AddButton("OK");
+        alertView.WillPresent += callback;
+        alertView.WillPresent += callback;
+        alertView.Show();
+        alertView.Dismiss(-1, false);
+
+        Assert.AreEqual(2, count);
+    }
+
+    [Test]
+    public void Unsubscribe()
+    {
+        int count = 0;
+        EventHandler callback = (sender, e) => 
+        {
+            count++;
+        };
+
+        var alertView = new UIAlertView();
+        alertView.Message = "Click OK";
+        alertView.AddButton("OK");
+        alertView.WillPresent += callback;
+        alertView.WillPresent += callback;
+        alertView.WillPresent -= callback;
+        alertView.Show();
+        alertView.Dismiss(-1, false);
+
+        Assert.AreEqual(1, count);
+    }
 }
 
 #endif

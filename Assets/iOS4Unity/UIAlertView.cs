@@ -27,37 +27,37 @@ namespace iOS4Unity
 		public event EventHandler<EventArgs<int>> Clicked
 		{
 			add { Callbacks.Subscribe(this, "alertView:clickedButtonAtIndex:", value); }
-			remove { Callbacks.UnsubscribeInt(this, "alertView:clickedButtonAtIndex:"); }
+			remove { Callbacks.Unsubscribe(this, "alertView:clickedButtonAtIndex:", value); }
 		}
 
 		public event EventHandler<EventArgs<int>> Dismissed
 		{
 			add { Callbacks.Subscribe(this, "alertView:didDismissWithButtonIndex:", value); }
-			remove { Callbacks.UnsubscribeInt(this, "alertView:didDismissWithButtonIndex:"); }
+            remove { Callbacks.Unsubscribe(this, "alertView:didDismissWithButtonIndex:", value); }
 		}
 
 		public event EventHandler<EventArgs<int>> WillDismiss
 		{
 			add { Callbacks.Subscribe(this, "alertView:willDismissWithButtonIndex:", value); }
-			remove { Callbacks.UnsubscribeInt(this, "alertView:willDismissWithButtonIndex:"); }
+            remove { Callbacks.Unsubscribe(this, "alertView:willDismissWithButtonIndex:", value); }
 		}
 
 		public event EventHandler Canceled
 		{
 			add { Callbacks.Subscribe(this, "alertViewCancel:", value); }
-			remove { Callbacks.Unsubscribe(this, "alertViewCancel:"); }
+            remove { Callbacks.Unsubscribe(this, "alertViewCancel:", value); }
 		}
 
 		public event EventHandler Presented
 		{
 			add { Callbacks.Subscribe(this, "didPresentAlertView:", value); }
-			remove { Callbacks.Unsubscribe(this, "didPresentAlertView:"); }
+            remove { Callbacks.Unsubscribe(this, "didPresentAlertView:", value); }
 		}
 
 		public event EventHandler WillPresent
 		{
 			add { Callbacks.Subscribe(this, "willPresentAlertView:", value); }
-			remove { Callbacks.Unsubscribe(this, "willPresentAlertView:"); }
+            remove { Callbacks.Unsubscribe(this, "willPresentAlertView:", value); }
 		}
 
 		public UIAlertViewStyle AlertViewStyle

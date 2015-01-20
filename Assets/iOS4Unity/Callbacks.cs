@@ -15,8 +15,17 @@ namespace iOS4Unity
 
 		private class Methods
 		{
-			public Action<IntPtr> Action;
-			public Action<IntPtr, int> ActionInt;
+			public Action Action;
+            public Action<IntPtr> ActionIntPtr;
+            public EventHandler EventHandler;
+            public EventHandler<EventArgs<int>> EventHandlerInt;
+            public EventHandler<EventArgs<NSError>> EventHandlerNSError;
+            public readonly object Object;
+
+            public Methods(object obj)
+            {
+                Object = obj;
+            }
 		}
 
 		private static Methods GetMethods(NSObject obj, string selector)
@@ -32,7 +41,7 @@ namespace iOS4Unity
 			Methods methods;
 			if (!dictionary.TryGetValue(selectorHandle, out methods))
 			{
-				dictionary[selectorHandle] = methods = new Methods();
+                dictionary[selectorHandle] = methods = new Methods(obj);
 			}
 
 			return methods;
@@ -41,7 +50,7 @@ namespace iOS4Unity
 		public static void Subscribe(NSObject obj, string selector, Action<IntPtr> callback)
 		{
 			var methods = GetMethods(obj, selector);
-			methods.Action = callback;
+			methods.ActionIntPtr += callback;
 			
 			if (!_delegates.ContainsKey(selector))
 			{
@@ -60,7 +69,7 @@ namespace iOS4Unity
 		public static void Subscribe(NSObject obj, string selector, EventHandler callback)
 		{
 			var methods = GetMethods(obj, selector);
-			methods.Action = _ => callback(obj, EventArgs.Empty);
+            methods.EventHandler += callback;
 
 			if (!_delegates.ContainsKey(selector))
 			{
@@ -79,7 +88,7 @@ namespace iOS4Unity
 		public static void Subscribe(NSObject obj, string selector, EventHandler<EventArgs<int>> callback)
 		{
 			var methods = GetMethods(obj, selector);
-			methods.ActionInt = (_, i) => callback(obj, new EventArgs<int> { Value = i });
+            methods.EventHandlerInt += callback;
 			
 			if (!_delegates.ContainsKey(selector))
 			{
@@ -95,17 +104,54 @@ namespace iOS4Unity
 			}
 		}
 
-		public static void Unsubscribe(NSObject obj, string selector)
+        public static void Subscribe(NSObject obj, string selector, EventHandler<EventArgs<NSError>> callback)
+        {
+            var methods = GetMethods(obj, selector);
+            methods.EventHandlerNSError += callback;
+
+            if (!_delegates.ContainsKey(selector))
+            {
+                Action<IntPtr, IntPtr, IntPtr, NSError> del = OnCallbackNSError;
+                if (!ObjC.AddMethod(obj.ClassHandle, selector, del, "v@:@@"))
+                {
+                    throw new InvalidOperationException("AddMethod failed for selector " + selector);
+                }
+                else
+                {
+                    _delegates[selector] = del;
+                }
+            }
+        }
+
+		public static void Unsubscribe(NSObject obj, string selector, Action callback)
 		{
 			var methods = GetMethods(obj, selector);
-			methods.Action = null;
+            methods.Action -= callback;
 		}
 
-		public static void UnsubscribeInt(NSObject obj, string selector)
+        public static void Unsubscribe(NSObject obj, string selector, Action<IntPtr> callback)
 		{
 			var methods = GetMethods(obj, selector);
-			methods.ActionInt = null;
+            methods.ActionIntPtr -= callback;
 		}
+
+        public static void Unsubscribe(NSObject obj, string selector, EventHandler callback)
+        {
+            var methods = GetMethods(obj, selector);
+            methods.EventHandler -= callback;
+        }
+
+        public static void Unsubscribe(NSObject obj, string selector, EventHandler<EventArgs<int>> callback)
+        {
+            var methods = GetMethods(obj, selector);
+            methods.EventHandlerInt -= callback;
+        }
+
+        public static void Unsubscribe(NSObject obj, string selector, EventHandler<EventArgs<NSError>> callback)
+        {
+            var methods = GetMethods(obj, selector);
+            methods.EventHandlerNSError -= callback;
+        }
 
 		public static void UnsubscribeAll(NSObject obj)
 		{
@@ -119,9 +165,19 @@ namespace iOS4Unity
 			if (_callbacks.TryGetValue(@this, out dictionary))
 			{
 				Methods methods;
-				if (dictionary.TryGetValue(selector, out methods) && methods.Action != null)
+				if (dictionary.TryGetValue(selector, out methods))
 				{
-					methods.Action(arg1);
+                    var action = methods.Action;
+                    if (action != null)
+                        action();
+
+                    var actionIntPtr = methods.ActionIntPtr;
+                    if (actionIntPtr != null)
+                        actionIntPtr(arg1);
+
+                    var eventHandler = methods.EventHandler;
+                    if (eventHandler != null)
+                        eventHandler(methods.Object, EventArgs.Empty);
 				}
 			}
 		}
@@ -133,11 +189,33 @@ namespace iOS4Unity
 			if (_callbacks.TryGetValue(@this, out dictionary))
 			{
 				Methods methods;
-				if (dictionary.TryGetValue(selector, out methods) && methods.ActionInt != null)
+				if (dictionary.TryGetValue(selector, out methods))
 				{
-					methods.ActionInt(arg1, arg2);
+                    var eventHandler = methods.EventHandlerInt;
+                    if (eventHandler != null)
+                    {
+                        eventHandler(methods.Object, new EventArgs<int> { Value = arg2 });
+                    }
 				}
 			}
 		}
+
+        [MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, NSError>))]
+        private static void OnCallbackNSError(IntPtr @this, IntPtr selector, IntPtr arg1, NSError arg2)
+        {
+            Dictionary<IntPtr, Methods> dictionary;
+            if (_callbacks.TryGetValue(@this, out dictionary))
+            {
+                Methods methods;
+                if (dictionary.TryGetValue(selector, out methods))
+                {
+                    var eventHandler = methods.EventHandlerNSError;
+                    if (eventHandler != null)
+                    {
+                        eventHandler(methods.Object, new EventArgs<NSError> { Value = arg2 });
+                    }
+                }
+            }
+        }
 	}
 }
