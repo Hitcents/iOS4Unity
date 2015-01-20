@@ -78,14 +78,14 @@ public class UIImageTests
         Assert.AreNotEqual(IntPtr.Zero, image.Handle);
     }
 
-    [Test]
+    [Test, Ignore]
     public void SaveToPhotoAlbum()
     {
         var image = UIImage.FromFile("chuck.jpg");
         image.SaveToPhotosAlbum();
     }
 
-    [Test]
+    [Test, Ignore]
     public void SaveToPhotoAlbumWithCallback()
     {
         var image = UIImage.FromFile("chuck.jpg");
