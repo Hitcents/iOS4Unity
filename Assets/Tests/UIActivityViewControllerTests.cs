@@ -39,10 +39,11 @@ public class UIActivityViewControllerTests
         Assert.AreNotEqual(IntPtr.Zero, obj.Handle);
     }
 
-	[Test]
+	[Test, Ignore]
 	public void ShareChuck()
     {
-        var activityController = new UIActivityViewController("CHUCK");
+        var image = UIImage.FromFile("chuck.jpg");
+        var activityController = new UIActivityViewController(image);
         var controller = UIApplication.SharedApplication.KeyWindow.RootViewController;
         controller.PresentViewController(activityController);
     }
