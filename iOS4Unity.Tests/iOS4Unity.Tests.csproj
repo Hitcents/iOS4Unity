@@ -140,7 +140,7 @@
     </Compile>
     <Compile Include="..\Assets\Tests\AdBannerViewTests.cs">
       <Link>Tests\AdBannerViewTests.cs</Link>
-	</Compile>
+    </Compile>
     <Compile Include="..\Assets\Tests\UIImageTests.cs">
       <Link>Tests\UIImageTests.cs</Link>
     </Compile>
@@ -154,5 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tests\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\chuck.jpg" />
   </ItemGroup>
 </Project>
