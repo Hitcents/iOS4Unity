@@ -29,6 +29,14 @@ public class UIImageTests
     }
 
     [Test]
+    public void CurrentScale()
+    {
+        var image = UIImage.FromFile("chuck.jpg");
+        float scale = image.CurrentScale;
+        Assert.AreNotEqual(0, scale);
+    }
+
+    [Test]
     public void FromBundle()
     {
         var image = UIImage.FromBundle("chuck.jpg");

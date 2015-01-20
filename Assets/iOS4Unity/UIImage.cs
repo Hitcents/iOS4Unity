@@ -61,6 +61,11 @@ namespace iOS4Unity
             return new NSData(UIImagePNGRepresentation(Handle));
         }
 
+        public float CurrentScale
+        {
+            get { return ObjC.MessageSendFloat(Handle, "scale"); }
+        }
+
         public static UIImage FromBundle(string name)
         {
             return new UIImage(ObjC.MessageSendIntPtr(_classHandle, "imageNamed:", name));
