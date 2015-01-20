@@ -13,7 +13,9 @@ namespace iOS4Unity
         {
             { typeof(NSObject), h => new NSObject(h) },
             { typeof(UIScreenMode), h => new UIScreenMode(h) },
-            { typeof(UIScreen), h => new UIScreen(h) }
+            { typeof(UIScreen), h => new UIScreen(h) },
+            { typeof(UIView), h => new UIView(h) },
+            { typeof(UIWindow), h => new UIWindow(h) },
         };
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "sel_registerName")]
@@ -34,11 +36,23 @@ namespace iOS4Unity
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, bool arg1);
+
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1);
 
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, CGRect arg1);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, CGPoint arg1);
+
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, int arg1);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, float arg1);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1);
@@ -62,6 +76,9 @@ namespace iOS4Unity
 		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, int arg1, bool arg2);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, bool arg1, bool arg2);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern uint MessageSendUInt(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
@@ -75,6 +92,9 @@ namespace iOS4Unity
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, CGRect arg1);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, uint arg1);
@@ -126,16 +146,27 @@ namespace iOS4Unity
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern IntPtr MessageSendIntPtr_NSUrl(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSUrlMarshaler))] string arg1, uint arg2, out IntPtr arg3);
 
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern bool MessageSendBool_NSUrl(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSUrlMarshaler))] string arg1);
+
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
         public static extern CGRect MessageSendCGRect(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
-        #if XAMARIN
-        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
-        public static extern CGSize _MessageSendCGSize(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
-        #endif
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
+        public static extern CGPoint _MessageSendStretCGPoint(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend_stret")]
         public static extern CGSize _MessageSendStretCGSize(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
+
+        #if XAMARIN
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern CGPoint _MessageSendCGPoint(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern CGSize _MessageSendCGSize(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
+
+        #endif
 
         public static CGSize MessageSendCGSize(IntPtr receiver, string selector)
         {
@@ -149,6 +180,21 @@ namespace iOS4Unity
             #endif
             {
                 return _MessageSendStretCGSize(receiver, selector);
+            }
+        }
+
+        public static CGPoint MessageSendCGPoint(IntPtr receiver, string selector)
+        {
+            //HACK: works for now, Unity will most likely only be on devices anyway
+            #if XAMARIN
+            if (UIDevice.CurrentDevice.Model.Contains("Simulator"))
+            {
+                return _MessageSendCGPoint(receiver, selector);
+            }
+            else
+            #endif
+            {
+                return _MessageSendStretCGPoint(receiver, selector);
             }
         }
 

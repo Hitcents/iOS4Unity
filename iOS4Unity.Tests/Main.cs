@@ -5,7 +5,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
-namespace iOS4Unity.Tests
+namespace Tests
 {
     public class Application
     {

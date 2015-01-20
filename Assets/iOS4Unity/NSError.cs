@@ -23,5 +23,25 @@ namespace iOS4Unity
         }
 
         internal NSError(IntPtr handle) : base(handle) { }
+
+        public int Code
+        {
+            get { return ObjC.MessageSendInt(Handle, "code"); }
+        }
+
+        public string Domain
+        {
+            get { return ObjC.MessageSendString(Handle, "domain"); }
+        }
+
+        public string LocalizedDescription
+        {
+            get { return ObjC.MessageSendString(Handle, "localizedDescription"); }
+        }
+
+        public override string ToString()
+        {
+            return LocalizedDescription;
+        }
     }
 }
