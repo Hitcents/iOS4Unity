@@ -8,7 +8,7 @@ namespace iOS4Unity
 
         static NSBundle()
         {
-            _classHandle = ObjC.GetClass("UIActionSheet");
+            _classHandle = ObjC.GetClass("NSBundle");
         }
 
         public override IntPtr ClassHandle 
@@ -43,7 +43,7 @@ namespace iOS4Unity
             get { return new NSBundle(ObjC.MessageSendIntPtr(_classHandle, "mainBundle")); }
         }
 
-        public string LocalizedString(string key, string value, string table)
+        public string LocalizedString(string key, string value = "", string table = "")
         {
             return ObjC.MessageSendString(Handle, "localizedStringForKey:value:table:", key, value, table);
         }
