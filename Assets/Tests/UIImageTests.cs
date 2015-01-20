@@ -10,28 +10,28 @@ public class UIImageTests
     [Test]
     public void AsJPEG()
     {
-        var jpgImage = UIImage.FromFile("chuck.jpg").AsJPEG();
+        var jpgImage = UIImage.FromBundle("chuck.jpg").AsJPEG();
         Assert.AreNotEqual(0, jpgImage.Length);
     }
 
     [Test]
     public void AsJPEGWithQuality()
     {
-        var jpgImage = UIImage.FromFile("chuck.jpg").AsJPEG(0.8f);
+        var jpgImage = UIImage.FromBundle("chuck.jpg").AsJPEG(0.8f);
         Assert.AreNotEqual(0, jpgImage.Length);
     }
 
     [Test]
     public void AsPNG()
     {
-        var pngImage = UIImage.FromFile("chuck.jpg").AsPNG();
+        var pngImage = UIImage.FromBundle("chuck.jpg").AsPNG();
         Assert.AreNotEqual(0, pngImage.Length);
     }
 
     [Test]
     public void CurrentScale()
     {
-        var image = UIImage.FromFile("chuck.jpg");
+        var image = UIImage.FromBundle("chuck.jpg");
         float scale = image.CurrentScale;
         Assert.AreNotEqual(0, scale);
     }
@@ -55,7 +55,7 @@ public class UIImageTests
     [Test]
     public void Size()
     {
-        var size = UIImage.FromFile("chuck.jpg").Size;
+        var size = UIImage.FromBundle("chuck.jpg").Size;
         Assert.AreNotEqual(0, size.Height);
         Assert.AreNotEqual(0, size.Width);
     }
