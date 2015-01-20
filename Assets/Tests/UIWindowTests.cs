@@ -37,5 +37,20 @@ namespace iOS4Unity
             var obj = new UIWindow();
             Assert.IsFalse(obj.IsKeyWindow);
         }
+
+        [Test]
+        public void WindowLevel()
+        {
+            var window = UIApplication.SharedApplication.KeyWindow;
+            Assert.AreEqual(UIWindowLevel.Normal, window.WindowLevel);
+        }
+
+        [Test]
+        public void Screen()
+        {
+            var screen = UIApplication.SharedApplication.KeyWindow.Screen;
+            Assert.IsNotNull(screen);
+            Assert.AreNotEqual(IntPtr.Zero, screen.Handle);
+        }
     }
 }

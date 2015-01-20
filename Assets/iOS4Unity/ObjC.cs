@@ -275,5 +275,16 @@ namespace iOS4Unity
 			}
 			return FromNSString(intPtr);
 		}
+
+        public unsafe static float GetFloatConstant(IntPtr handle, string symbol)
+        {
+            IntPtr intPtr = dlsym(handle, symbol);
+            if (intPtr == IntPtr.Zero)
+            {
+                return 0;
+            }
+            float* ptr = (float*)((void*)intPtr);
+            return *ptr;
+        }
 	}
 }
