@@ -16,6 +16,7 @@ namespace iOS4Unity
             { typeof(UIScreen), h => new UIScreen(h) },
             { typeof(UIView), h => new UIView(h) },
             { typeof(UIWindow), h => new UIWindow(h) },
+            { typeof(UIViewController), h => new UIViewController(h) },
         };
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "sel_registerName")]

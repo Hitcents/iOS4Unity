@@ -52,5 +52,13 @@ namespace iOS4Unity
             Assert.IsNotNull(screen);
             Assert.AreNotEqual(IntPtr.Zero, screen.Handle);
         }
+
+        [Test]
+        public void RootViewController()
+        {
+            var controller = UIApplication.SharedApplication.KeyWindow.RootViewController;
+            Assert.IsNotNull(controller);
+            Assert.AreNotEqual(IntPtr.Zero, controller.Handle);
+        }
     }
 }
