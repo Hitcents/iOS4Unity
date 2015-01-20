@@ -90,6 +90,9 @@
     <Compile Include="..\Assets\iOS4Unity\UIScreenMode.cs">
       <Link>UIScreenMode.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIImage.cs">
+      <Link>UIImage.cs</Link>
+    </Compile>
     <Compile Include="..\Assets\iOS4Unity\UIView.cs">
       <Link>UIView.cs</Link>
     </Compile>
