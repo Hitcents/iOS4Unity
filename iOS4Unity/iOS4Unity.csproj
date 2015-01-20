@@ -114,6 +114,9 @@
     <Compile Include="..\Assets\iOS4Unity\UIActionSheet.cs">
       <Link>UIActionSheet.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSBundle.cs">
+      <Link>NSBundle.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
