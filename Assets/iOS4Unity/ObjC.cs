@@ -112,6 +112,9 @@ namespace iOS4Unity
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1);
 
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1, IntPtr arg2);
+
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1, int arg2);
 
@@ -298,6 +301,19 @@ namespace iOS4Unity
             }
             float* ptr = (float*)((void*)intPtr);
             return *ptr;
+        }
+
+        public static IntPtr ToNSArray(IntPtr[] items)
+        {
+            IntPtr intPtr = Marshal.AllocHGlobal((IntPtr)(items.Length * IntPtr.Size));
+            for (int i = 0; i < items.Length; i++)
+            {
+                Marshal.WriteIntPtr(intPtr, i * IntPtr.Size, items[i]);
+            }
+
+            IntPtr array = ObjC.MessageSendIntPtr(ObjC.GetClass("NSArray"), "arrayWithObjects:count:", intPtr, items.Length);
+            Marshal.FreeHGlobal(intPtr);
+            return array;
         }
 	}
 }
