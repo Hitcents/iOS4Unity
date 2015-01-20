@@ -2,6 +2,8 @@
 using iOS4Unity;
 using NUnit.Framework;
 
+#if !UNITY_EDITOR
+
 [TestFixture]
 public class UIViewControllerTests 
 {
@@ -52,3 +54,5 @@ public class UIViewControllerTests
         Assert.IsTrue(controller.IsViewLoaded);
     }
 }
+
+#endif

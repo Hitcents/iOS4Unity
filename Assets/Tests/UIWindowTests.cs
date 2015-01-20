@@ -2,6 +2,8 @@
 using iOS4Unity;
 using NUnit.Framework;
 
+#if !UNITY_EDITOR
+
 namespace iOS4Unity
 {
     [TestFixture]
@@ -62,3 +64,5 @@ namespace iOS4Unity
         }
     }
 }
+
+#endif
