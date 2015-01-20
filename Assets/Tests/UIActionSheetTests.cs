@@ -122,6 +122,7 @@ public class UIActionSheetTests
         actionSheet.WillPresent += callback;
         actionSheet.ShowInView(UIApplication.SharedApplication.KeyWindow.RootViewController.View);
         actionSheet.DismissWithClickedButtonIndex(-1, false);
+        System.Threading.Thread.Sleep(500);
 
         Assert.AreEqual(2, count);
     }
@@ -142,6 +143,7 @@ public class UIActionSheetTests
         actionSheet.WillPresent -= callback;
         actionSheet.ShowInView(UIApplication.SharedApplication.KeyWindow.RootViewController.View);
         actionSheet.DismissWithClickedButtonIndex(-1, false);
+        System.Threading.Thread.Sleep(500);
 
         Assert.AreEqual(1, count);
     }

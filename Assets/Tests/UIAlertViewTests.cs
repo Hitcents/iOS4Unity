@@ -146,6 +146,7 @@ public class UIAlertViewTests
         alertView.WillPresent += callback;
         alertView.Show();
         alertView.Dismiss(-1, false);
+        System.Threading.Thread.Sleep(500);
 
         Assert.AreEqual(2, count);
     }
@@ -167,6 +168,7 @@ public class UIAlertViewTests
         alertView.WillPresent -= callback;
         alertView.Show();
         alertView.Dismiss(-1, false);
+        System.Threading.Thread.Sleep(500);
 
         Assert.AreEqual(1, count);
     }
