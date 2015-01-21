@@ -18,72 +18,77 @@ namespace iOS4Unity
 
         public NSLocale(IntPtr handle) : base(handle) { }
 
-        public static string CanonicalLanguageIdentifierFromString(string str)
-        {
-            return ObjC.MessageSendString(_classHandle, "canonicalLanguageIdentifierFromString:", str);
-        }
-
-        public static string CanonicalLocaleIdentifierFromString(string str)
-        {
-            return ObjC.MessageSendString(_classHandle, "canonicalLocaleIdentifierFromString:", str);
-        }
-
-        public static string AlternateQuotationBeginDelimiterKey
+        public string AlternateQuotationBeginDelimiter
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleAlternateQuotationBeginDelimiterKey")); }
         }
 
-        public static string AlternateQuotationEndDelimiterKey
+        public string AlternateQuotationEndDelimiter
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleAlternateQuotationEndDelimiterKey")); }
         }
 
-        public static string Calendar
+        public static NSLocale AutoUpdatingCurrentLocale
         {
-            get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleCalendar")); }
+            get { return new NSLocale(ObjC.MessageSendIntPtr(_classHandle, "autoupdatingCurrentLocale")); }
         }
 
-        public static string CollationIdentifier
+        public static string[] AvailableLocaleIdentifiers
+        {
+            get { return ObjC.FromNSArray(ObjC.MessageSendIntPtr(_classHandle, "availableLocaleIdentifiers")); }
+        }
+
+        public string CollationIdentifier
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleCollationIdentifier")); }
         }
 
-        public static string CollatorIdentifier
+        public string CollatorIdentifier
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleCollatorIdentifier")); }
         }
 
-        public static string CountryCode
+        public static string[] CommonISOCurrencyCodes
+        {
+            get { return ObjC.FromNSArray(ObjC.MessageSendIntPtr(_classHandle, "commonISOCurrencyCodes")); }
+        }
+
+        public string CountryCode
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleCountryCode")); }
         }
 
-        public static string CurrencyCode
+        public string CurrencyCode
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleCurrencyCode")); }
         }
 
-        public static string CurrencySymbol
+        public string CurrencySymbol
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleCurrencySymbol")); }
         }
 
-        public static string DecimalSeparator
+        public static NSLocale CurrentLocale
+        {
+            get { return new NSLocale(ObjC.MessageSendIntPtr(_classHandle, "currentLocale")); }
+        }
+
+        public static string CurrentLocaleDidChangeNotification
+        {
+            get { return ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSCurrentLocaleDidChangeNotification"); }
+        }
+
+        public string DecimalSeparator
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleDecimalSeparator")); }
         }
 
-        public static string ExemplarCharacterSet
-        {
-            get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleExemplarCharacterSet")); }
-        }
-
-        public static string GroupingSeparator
+        public string GroupingSeparator
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleGroupingSeparator")); }
         }
 
-        public static string Identifier
+        public string Identifier
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleIdentifier")); }
         }
@@ -103,44 +108,49 @@ namespace iOS4Unity
             get { return ObjC.FromNSArray(ObjC.MessageSendIntPtr(_classHandle, "ISOLanguageCodes")); }
         }
 
-        public static string LanguageCode
+        public string LanguageCode
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleLanguageCode")); }
         }
 
-        public static string MeasurementSystem
+        public string LocaleIdentifier
+        {
+            get { return ObjC.GetStringConstant(Handle, "localeIdentifier"); }
+        }
+
+        public string MeasurementSystem
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleMeasurementSystem")); }
         }
 
-        public static string QuotationBeginDelimiterKey
+        public static string[] PreferredLanguages
         {
-            get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleQuotationBeginDelimiterKey")); }
+            get { return ObjC.FromNSArray(ObjC.MessageSendIntPtr(_classHandle, "preferredLanguages")); }
         }
 
-        public static string QuotationEndDelimiterKey
-        {
-            get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleQuotationEndDelimiterKey")); }
-        }
-
-        public static string ScriptCode
+        public string ScriptCode
         {
             get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleScriptCode")); }
         }
 
-        public static string UsesMetricSystem
+        public static NSLocale SystemLocale
         {
-            get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleUsesMetricSystem")); }
+            get { return new NSLocale(ObjC.MessageSendIntPtr(_classHandle, "systemLocale")); }
         }
 
-        public static string VariantCode
+        public bool UsesMetricSystem
         {
-            get { return ObjectForKey(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleVariantCode")); }
+            get { return ObjectForKeyBool(ObjC.GetStringConstant(ObjC.Libraries.Foundation, "NSLocaleUsesMetricSystem")); }
         }
 
-        private static string ObjectForKey(string key)
+        private string ObjectForKey(string key)
         {
-            return ObjC.MessageSendString(_classHandle, "objectForKey:", key);
+            return ObjC.MessageSendString(Handle, "objectForKey:", key);
+        }
+
+        private bool ObjectForKeyBool(string key)
+        {
+            return ObjC.MessageSendBool(Handle, "objectForKey:", key);
         }
     }
 }
