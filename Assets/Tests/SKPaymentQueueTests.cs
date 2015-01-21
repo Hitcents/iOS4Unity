@@ -27,6 +27,13 @@ public class SKPaymentQueueTests
     }
 
     [Test]
+    public void Transactions()
+    {
+        var transactions = SKPaymentQueue.DefaultQueue.Transactions;
+        Assert.AreEqual(0, transactions.Length);
+    }
+
+    [Test]
     public void RestoreCompletedTransactions()
     {
         var queue = SKPaymentQueue.DefaultQueue;

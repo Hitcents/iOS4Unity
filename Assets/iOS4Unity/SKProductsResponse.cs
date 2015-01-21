@@ -16,11 +16,16 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
-        public SKProductsResponse(IntPtr handle) : base(handle) { }
+        internal SKProductsResponse(IntPtr handle) : base(handle) { }
 
         public string[] InvalidProducts
         {
             get { return ObjC.FromNSArray(ObjC.MessageSendIntPtr(Handle, "invalidProductIdentifiers")); }
+        }
+
+        public SKProduct[] Products
+        {
+            get { return ObjC.FromNSArray<SKProduct>(ObjC.MessageSendIntPtr(Handle, "products")); }
         }
     }
 }

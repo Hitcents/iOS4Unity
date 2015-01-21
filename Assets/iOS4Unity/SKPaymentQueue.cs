@@ -30,6 +30,11 @@ namespace iOS4Unity
             get { return ObjC.MessageSendBool(_classHandle, "canMakePayments"); }
         }
 
+        public SKPaymentTransaction[] Transactions
+        {
+            get { return ObjC.FromNSArray<SKPaymentTransaction>(ObjC.MessageSendIntPtr(Handle, "transactions")); }
+        }
+
         public static SKPaymentQueue DefaultQueue
         {
             get { return new SKPaymentQueue(ObjC.MessageSendIntPtr(_classHandle, "defaultQueue")); }
@@ -79,13 +84,25 @@ namespace iOS4Unity
             }
         }
 
+        public void AddPayment(SKPayment payment)
+        {
+            ObjC.MessageSend(Handle, "addPayment:", payment.Handle);
+        }
+
         public void RestoreCompletedTransactions()
         {
             ObjC.MessageSend(Handle, "restoreCompletedTransactions");
         }
 
+        public void FinishTransaction(SKPaymentTransaction transaction)
+        {
+            ObjC.MessageSend(Handle, "finishTransaction:", transaction.Handle);
+        }
+
         public override void Dispose()
         {
+            ObjC.MessageSend(Handle, "removeTransactionObserver:", Handle);
+
             base.Dispose();
 
             _restoreFailed.Clear();

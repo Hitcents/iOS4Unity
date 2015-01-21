@@ -129,6 +129,15 @@
     <Compile Include="..\Assets\iOS4Unity\Activator.cs">
       <Link>Activator.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKProduct.cs">
+      <Link>SKProduct.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKPaymentTransaction.cs">
+      <Link>SKPaymentTransaction.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKPayment.cs">
+      <Link>SKPayment.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

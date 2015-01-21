@@ -13,6 +13,7 @@ namespace iOS4Unity
             { typeof(UIView), h => new UIView(h) },
             { typeof(UIWindow), h => new UIWindow(h) },
             { typeof(UIViewController), h => new UIViewController(h) },
+            { typeof(SKProduct), h => new SKProduct(h) },
         };
     	
         public static T CreateFromHandle<T>(IntPtr handle) where T : NSObject

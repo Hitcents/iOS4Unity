@@ -94,6 +94,9 @@ namespace iOS4Unity
         public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, CGRect arg1);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, double arg1);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, int arg1);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
@@ -134,6 +137,9 @@ namespace iOS4Unity
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern bool MessageSendBool(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1, bool arg2);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern double MessageSendDouble(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern float MessageSendFloat(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
@@ -223,26 +229,24 @@ namespace iOS4Unity
 			public static readonly IntPtr UIKit = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 0);
 		}
 
-		public unsafe static IntPtr ToNSString(string str)
-		{
-			IntPtr handle = MessageSendIntPtr(GetClass("NSString"), "alloc");
-			fixed (char* value = str + (IntPtr)(RuntimeHelpers.OffsetToStringData / 2))
-			{
-				handle = MessageSendIntPtr(handle, "initWithCharacters:length:", (IntPtr)((void*)value), str.Length);
-				return handle;
-			}
-		}
-
-        public static IntPtr ToNSUrl(string str)
-        {
-            //NOTE: NSURL is all caps
-            return ObjC.MessageSendIntPtr(GetClass("NSURL"), "URLWithString:", str);
-        }
-
 		public static string FromNSString(IntPtr handle)
 		{
 			return Marshal.PtrToStringAuto(ObjC.MessageSendIntPtr(handle, "UTF8String"));
 		}
+
+        public static DateTime FromNSDate(IntPtr date)
+        {
+            double secondsSinceReferenceDate = ObjC.MessageSendDouble(date, "timeIntervalSinceReferenceDate");
+            if (secondsSinceReferenceDate < -63113904000)
+            {
+                return DateTime.MinValue;
+            }
+            if (secondsSinceReferenceDate > 252423993599)
+            {
+                return DateTime.MaxValue;
+            }
+            return new DateTime((long)(secondsSinceReferenceDate * 10000000 + 6.3113904E+17), DateTimeKind.Utc);
+        }
 
         public static string FromNSUrl(IntPtr handle)
         {
@@ -348,6 +352,27 @@ namespace iOS4Unity
             }
 
             return set;
+        }
+
+        public unsafe static IntPtr ToNSString(string str)
+        {
+            IntPtr handle = MessageSendIntPtr(GetClass("NSString"), "alloc");
+            fixed (char* value = str + (IntPtr)(RuntimeHelpers.OffsetToStringData / 2))
+            {
+                handle = MessageSendIntPtr(handle, "initWithCharacters:length:", (IntPtr)((void*)value), str.Length);
+                return handle;
+            }
+        }
+
+        public static IntPtr ToNSUrl(string str)
+        {
+            //NOTE: NSURL is all caps
+            return ObjC.MessageSendIntPtr(GetClass("NSURL"), "URLWithString:", str);
+        }
+
+        public static IntPtr ToNSDate(DateTime date)
+        {
+            return ObjC.MessageSendIntPtr(GetClass("NSDate"), "dateWithTimeIntervalSinceReferenceDate", (double)((date.ToUniversalTime().Ticks - 631139040000000000) / 10000000));
         }
 	}
 }
