@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using iOS4Unity;
 using NUnit.Framework;
 
@@ -19,5 +20,26 @@ public class SKProductsRequestTests
     {
         var obj = new SKProductsRequest("woot");
         obj.Dispose();
+    }
+
+    [Test]
+    public void Start()
+    {
+        string productId = "woot";
+        var request = new SKProductsRequest(productId);
+        request.ReceivedResponse += (sender, e) => 
+        {
+            Assert.AreEqual(productId, e.Value.InvalidProducts[0]);
+            Console.WriteLine("Received Response!");
+        };
+        request.Failed += (sender, e) => 
+        {
+            Console.WriteLine("Failed: " + e.Value.LocalizedDescription);
+        };
+        request.Finished += (sender, e) => 
+        {
+            Console.WriteLine("Finished!");
+        };
+        request.Start();
     }
 }

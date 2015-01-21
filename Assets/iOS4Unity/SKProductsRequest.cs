@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace iOS4Unity
 {
@@ -15,6 +16,9 @@ namespace iOS4Unity
         {
             get { return _classHandle; }
         }
+
+        private readonly Dictionary<EventHandler<EventArgs<SKProductsResponse>>, Action<IntPtr, IntPtr>> _receivedResponse = new Dictionary<EventHandler<EventArgs<SKProductsResponse>>, Action<IntPtr, IntPtr>>();
+        private readonly Dictionary<EventHandler<EventArgs<NSError>>, Action<IntPtr, IntPtr>> _failed = new Dictionary<EventHandler<EventArgs<NSError>>, Action<IntPtr, IntPtr>>();
 
         public SKProductsRequest(params string[] productIds)
         {
@@ -34,17 +38,43 @@ namespace iOS4Unity
 
         public event EventHandler<EventArgs<SKProductsResponse>> ReceivedResponse
         {
-            add { Callbacks.Subscribe(this, "productsRequest:didReceiveResponse:", value); }
-            remove { Callbacks.Unsubscribe(this, "productsRequest:didReceiveResponse:", value); }
+            add 
+            { 
+                Action<IntPtr, IntPtr> callback = (_, i) => value(this, new EventArgs<SKProductsResponse> { Value = new SKProductsResponse(i) });
+                _receivedResponse[value] = callback;
+                Callbacks.Subscribe(this, "productsRequest:didReceiveResponse:", callback); 
+            } 
+            remove 
+            { 
+                Action<IntPtr, IntPtr> callback;
+                if (_receivedResponse.TryGetValue(value, out callback))
+                {
+                    _receivedResponse.Remove(value);
+                    Callbacks.Unsubscribe(this, "productsRequest:didReceiveResponse:", callback); 
+                }
+            }
         }
 
-        public event EventHandler<EventArgs<NSError>> RequestFailed
+        public event EventHandler<EventArgs<NSError>> Failed
         {
-            add { Callbacks.Subscribe(this, "request:didFailWithError:", value); }
-            remove { Callbacks.Unsubscribe(this, "request:didFailWithError:", value); }
+            add 
+            { 
+                Action<IntPtr, IntPtr> callback = (_, i) => value(this, new EventArgs<NSError> { Value = new NSError(i) });
+                _failed[value] = callback;
+                Callbacks.Subscribe(this, "request:didFailWithError:", callback); 
+            } 
+            remove 
+            { 
+                Action<IntPtr, IntPtr> callback;
+                if (_failed.TryGetValue(value, out callback))
+                {
+                    _failed.Remove(value);
+                    Callbacks.Unsubscribe(this, "request:didFailWithError:", callback); 
+                }
+            }
         }
 
-        public event EventHandler RequestFinished
+        public event EventHandler Finished
         {
             add { Callbacks.Subscribe(this, "requestDidFinish:", value); }
             remove { Callbacks.Unsubscribe(this, "requestDidFinish:", value); }
