@@ -21,7 +21,6 @@ namespace iOS4Unity
             public Action<IntPtr, IntPtr, IntPtr> ActionIntPtrIntPtrIntPtr;
             public EventHandler EventHandler;
             public EventHandler<EventArgs<int>> EventHandlerInt;
-            public EventHandler<EventArgs<NSError>> EventHandlerNSError;
             public readonly object Object;
 
             public Methods(object obj)
@@ -125,25 +124,6 @@ namespace iOS4Unity
             }
         }
 
-        public static void Subscribe(NSObject obj, string selector, EventHandler<EventArgs<NSError>> callback)
-        {
-            var methods = GetMethods(obj, selector);
-            methods.EventHandlerNSError += callback;
-
-            if (!_delegates.ContainsKey(selector))
-            {
-                Action<IntPtr, IntPtr, IntPtr, IntPtr> del = OnCallbackIntPtrIntPtr;
-                if (!ObjC.AddMethod(obj.ClassHandle, selector, del, "v@:@@"))
-                {
-                    throw new InvalidOperationException("AddMethod failed for selector " + selector);
-                }
-                else
-                {
-                    _delegates[selector] = del;
-                }
-            }
-        }
-
         public static void Subscribe(NSObject obj, string selector, Action<IntPtr, IntPtr, IntPtr> callback)
         {
             var methods = GetMethods(obj, selector);
@@ -197,12 +177,6 @@ namespace iOS4Unity
         {
             var methods = GetMethods(obj, selector);
             methods.EventHandlerInt -= callback;
-        }
-
-        public static void Unsubscribe(NSObject obj, string selector, EventHandler<EventArgs<NSError>> callback)
-        {
-            var methods = GetMethods(obj, selector);
-            methods.EventHandlerNSError -= callback;
         }
 
 		public static void UnsubscribeAll(NSObject obj)
@@ -265,12 +239,6 @@ namespace iOS4Unity
                     if (action != null)
                     {
                         action(arg1, arg2);
-                    }
-
-                    var eventHandler = methods.EventHandlerNSError;
-                    if (eventHandler != null)
-                    {
-                        eventHandler(methods.Object, new EventArgs<NSError> { Value = new NSError(arg2) });
                     }
                 }
             }
