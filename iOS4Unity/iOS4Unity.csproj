@@ -110,12 +110,15 @@
     </Compile>
     <Compile Include="..\Assets\iOS4Unity\UIActivityViewController.cs">
       <Link>UIActivityViewController.cs</Link>
-	</Compile>
+    </Compile>
     <Compile Include="..\Assets\iOS4Unity\UIActionSheet.cs">
       <Link>UIActionSheet.cs</Link>
     </Compile>
     <Compile Include="..\Assets\iOS4Unity\NSBundle.cs">
       <Link>NSBundle.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSLocale.cs">
+      <Link>NSLocale.cs</Link>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
