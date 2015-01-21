@@ -34,7 +34,7 @@ public class UIDeviceTests
         //Just make sure this doesn't crash
         var device = UIDevice.CurrentDevice;
         device.BatteryMonitoringEnabled = true;
-        bool value = device.BatteryMonitoringEnabled;
+		device.BatteryMonitoringEnabled.ToString();
     }
 
 	[Test]
@@ -51,7 +51,7 @@ public class UIDeviceTests
     {
         //Just make sure this doesn't crash
         var device = UIDevice.CurrentDevice;
-        var value = device.BatteryState;
+		device.BatteryState.ToString();
     }
 
     [Test]
@@ -65,7 +65,7 @@ public class UIDeviceTests
     public void GeneratesDeviceOrientationNotifications()
     {
 		//Just make sure this doesn't crash
-        bool generatesNotifications = UIDevice.CurrentDevice.GeneratesDeviceOrientationNotifications;
+		UIDevice.CurrentDevice.GeneratesDeviceOrientationNotifications.ToString();
     }
 
     [Test]
@@ -109,14 +109,14 @@ public class UIDeviceTests
         //Just make sure this doesn't crash
         var device = UIDevice.CurrentDevice;
         device.ProximityMonitoringEnabled = true;
-        bool value = device.ProximityMonitoringEnabled;
+		device.ProximityMonitoringEnabled.ToString();
     }
 
     [Test]
     public void ProximityState()
     {
 		//Just make sure this doesn't crash
-        bool proximityState = UIDevice.CurrentDevice.ProximityState;
+		UIDevice.CurrentDevice.ProximityState.ToString();
     }
 
     [Test]

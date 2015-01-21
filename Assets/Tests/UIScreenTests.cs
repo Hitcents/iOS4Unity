@@ -59,7 +59,7 @@ public class UIScreenTests
     public void MirroredScreen()
     {
         //Just to make sure this doesn't crash
-        var mirroredScreen = UIScreen.MainScreen.MirroredScreen;
+		UIScreen.MainScreen.MirroredScreen.ToString();
     }
 
     [Test]
@@ -124,7 +124,7 @@ public class UIScreenTests
     public void WantsSoftwareDimming()
     {
         //Just to make sure this doesn't crash
-        bool wantsSoftwareDimming = UIScreen.MainScreen.WantsSoftwareDimming;
+		UIScreen.MainScreen.WantsSoftwareDimming.ToString();
     }
 }
 

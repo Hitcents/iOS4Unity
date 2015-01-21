@@ -23,7 +23,7 @@ public class SKPaymentQueueTests
     public void CanMakePayments()
     {
         //Just make sure there isn't a crash
-        bool value = SKPaymentQueue.CanMakePayments;
+        SKPaymentQueue.CanMakePayments.ToString();
     }
 
     [Test]
