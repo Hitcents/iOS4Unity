@@ -7,7 +7,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>iOS4Unity</RootNamespace>
     <AssemblyName>iOS4Unity</AssemblyName>
-    <UseMSBuildEngine>True</UseMSBuildEngine>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -19,6 +18,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -27,9 +27,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\GUISystem\4.6.1\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -39,13 +49,110 @@
     <Compile Include="..\iOS4Unity.iOS\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\Assets\iOS4Unity\*.cs">
-      <Link>*.cs</Link>
-    </Content>
-    <Content Include="..\Assets\iOS4Unity\Marshalers\*.cs">
-      <Link>Marshalers\*.cs</Link>
-    </Content>
+    <Compile Include="..\Assets\iOS4Unity\Activator.cs">
+      <Link>Activator.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\AdBannerView.cs">
+      <Link>AdBannerView.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\CGPoint.cs">
+      <Link>CGPoint.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\CGRect.cs">
+      <Link>CGRect.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\CGSize.cs">
+      <Link>CGSize.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\Callbacks.cs">
+      <Link>Callbacks.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\EventArgs.cs">
+      <Link>EventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSBundle.cs">
+      <Link>NSBundle.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSData.cs">
+      <Link>NSData.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSError.cs">
+      <Link>NSError.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSLocale.cs">
+      <Link>NSLocale.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSNotification.cs">
+      <Link>NSNotification.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSNotificationCenter.cs">
+      <Link>NSNotificationCenter.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSObject.cs">
+      <Link>NSObject.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\ObjC.cs">
+      <Link>ObjC.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKPayment.cs">
+      <Link>SKPayment.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKPaymentQueue.cs">
+      <Link>SKPaymentQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKPaymentTransaction.cs">
+      <Link>SKPaymentTransaction.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKProduct.cs">
+      <Link>SKProduct.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKProductsRequest.cs">
+      <Link>SKProductsRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKProductsResponse.cs">
+      <Link>SKProductsResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIActionSheet.cs">
+      <Link>UIActionSheet.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIActivityViewController.cs">
+      <Link>UIActivityViewController.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIAlertView.cs">
+      <Link>UIAlertView.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIApplication.cs">
+      <Link>UIApplication.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIDevice.cs">
+      <Link>UIDevice.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIImage.cs">
+      <Link>UIImage.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIScreen.cs">
+      <Link>UIScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIScreenMode.cs">
+      <Link>UIScreenMode.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIView.cs">
+      <Link>UIView.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIViewController.cs">
+      <Link>UIViewController.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIWindow.cs">
+      <Link>UIWindow.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\Marshalers\NSStringMarshaler.cs">
+      <Link>Marshalers\NSStringMarshaler.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\Marshalers\NSUrlMarshaler.cs">
+      <Link>Marshalers\NSUrlMarshaler.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\Marshalers\SelectorMarshaler.cs">
+      <Link>Marshalers\SelectorMarshaler.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>
