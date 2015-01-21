@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS4Unity", "iOS4Unity\iOS4Unity.csproj", "{90EFCFD1-0034-4260-A23B-1A1F6F9CDBB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS4Unity.iOS", "iOS4Unity.iOS\iOS4Unity.iOS.csproj", "{90EFCFD1-0034-4260-A23B-1A1F6F9CDBB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS4Unity.Tests", "iOS4Unity.Tests\iOS4Unity.Tests.csproj", "{0AEC0686-5596-4A07-83EB-A04DCE4A80B5}"
 EndProject

@@ -159,9 +159,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\iOS4Unity\iOS4Unity.csproj">
+    <ProjectReference Include="..\iOS4Unity.iOS\iOS4Unity.iOS.csproj">
       <Project>{90EFCFD1-0034-4260-A23B-1A1F6F9CDBB0}</Project>
-      <Name>iOS4Unity</Name>
+      <Name>iOS4Unity.iOS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
