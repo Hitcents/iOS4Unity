@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace iOS4Unity
 {
@@ -15,6 +16,8 @@ namespace iOS4Unity
         {
             get { return _classHandle; }
         }
+
+        private readonly Dictionary<EventHandler<EventArgs<NSError>>, Action<IntPtr, IntPtr>> _failedToReceiveAd = new Dictionary<EventHandler<EventArgs<NSError>>, Action<IntPtr, IntPtr>>();
 
         public AdBannerView()
         {
@@ -56,8 +59,21 @@ namespace iOS4Unity
 
         public event EventHandler<EventArgs<NSError>> FailedToReceiveAd
         {
-            add { Callbacks.Subscribe(this, "bannerView:didFailToReceiveAdWithError:", value); }
-            remove { Callbacks.Unsubscribe(this, "bannerView:didFailToReceiveAdWithError:", value); }
+            add 
+            { 
+                Action<IntPtr, IntPtr> callback = (_, i) => value(this, new EventArgs<NSError> { Value = new NSError(i) });
+                _failedToReceiveAd[value] = callback;
+                Callbacks.Subscribe(this, "bannerView:didFailToReceiveAdWithError:", callback); 
+            } 
+            remove 
+            { 
+                Action<IntPtr, IntPtr> callback;
+                if (_failedToReceiveAd.TryGetValue(value, out callback))
+                {
+                    _failedToReceiveAd.Remove(value);
+                    Callbacks.Unsubscribe(this, "bannerView:didFailToReceiveAdWithError:", callback); 
+                }
+            }
         }
 
         public event EventHandler WillLoad
@@ -69,6 +85,13 @@ namespace iOS4Unity
         public void CancelBannerViewAction()
         {
             ObjC.MessageSend(Handle, "cancelBannerViewAction");
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            _failedToReceiveAd.Clear();
         }
     }
 

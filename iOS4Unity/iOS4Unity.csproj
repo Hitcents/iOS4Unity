@@ -110,12 +110,24 @@
     </Compile>
     <Compile Include="..\Assets\iOS4Unity\UIActivityViewController.cs">
       <Link>UIActivityViewController.cs</Link>
-	</Compile>
+    </Compile>
     <Compile Include="..\Assets\iOS4Unity\UIActionSheet.cs">
       <Link>UIActionSheet.cs</Link>
     </Compile>
     <Compile Include="..\Assets\iOS4Unity\NSBundle.cs">
       <Link>NSBundle.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKPaymentQueue.cs">
+      <Link>SKPaymentQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKProductsRequest.cs">
+      <Link>SKProductsRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\SKProductsResponse.cs">
+      <Link>SKProductsResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\Activator.cs">
+      <Link>Activator.cs</Link>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

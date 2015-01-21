@@ -53,7 +53,7 @@ namespace iOS4Unity
 
         public UIView[] Subviews
         {
-            get { return ObjC.ArrayFromHandle<UIView>(ObjC.MessageSendIntPtr(Handle, "subviews")); }
+            get { return ObjC.FromNSArray<UIView>(ObjC.MessageSendIntPtr(Handle, "subviews")); }
         }
 
         public UIView Superview

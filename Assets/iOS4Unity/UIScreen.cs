@@ -26,7 +26,7 @@ namespace iOS4Unity
 
         public UIScreenMode[] AvailableModes
         {
-            get { return ObjC.ArrayFromHandle<UIScreenMode>(ObjC.MessageSendIntPtr(Handle, "availableModes")); }
+            get { return ObjC.FromNSArray<UIScreenMode>(ObjC.MessageSendIntPtr(Handle, "availableModes")); }
         }
 
         public CGRect Bounds
@@ -104,7 +104,7 @@ namespace iOS4Unity
 
         public static UIScreen[] Screens
         {
-            get { return ObjC.ArrayFromHandle<UIScreen>(ObjC.MessageSendIntPtr(_classHandle, "screens")); }
+            get { return ObjC.FromNSArray<UIScreen>(ObjC.MessageSendIntPtr(_classHandle, "screens")); }
         }
 
         public bool WantsSoftwareDimming

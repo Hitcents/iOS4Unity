@@ -60,7 +60,7 @@ namespace iOS4Unity
 
         public UIWindow[] Windows
         {
-            get { return ObjC.ArrayFromHandle<UIWindow>(ObjC.MessageSendIntPtr(Handle, "windows")); }
+            get { return ObjC.FromNSArray<UIWindow>(ObjC.MessageSendIntPtr(Handle, "windows")); }
         }
 
         public int ApplicationIconBadgeNumber

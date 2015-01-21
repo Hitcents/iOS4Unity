@@ -9,16 +9,6 @@ namespace iOS4Unity
 {
 	public static class ObjC
 	{
-        private static readonly Dictionary<Type, Func<IntPtr, object>> _constructors = new Dictionary<Type, Func<IntPtr, object>>
-        {
-            { typeof(NSObject), h => new NSObject(h) },
-            { typeof(UIScreenMode), h => new UIScreenMode(h) },
-            { typeof(UIScreen), h => new UIScreen(h) },
-            { typeof(UIView), h => new UIView(h) },
-            { typeof(UIWindow), h => new UIWindow(h) },
-            { typeof(UIViewController), h => new UIViewController(h) },
-        };
-
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "sel_registerName")]
 		public static extern IntPtr GetSelector(string name);
 
@@ -259,18 +249,29 @@ namespace iOS4Unity
             return FromNSString(ObjC.MessageSendIntPtr(handle, "absoluteString"));
         }
 
-        internal static T[] ArrayFromHandle<T>(IntPtr handle) where T : NSObject
+        public static string[] FromNSArray(IntPtr handle)
         {
             if (handle == IntPtr.Zero)
             {
                 return null;
             }
 
-            //First get the constructor
-            Func<IntPtr, object> constructor;
-            if (!_constructors.TryGetValue(typeof(T), out constructor))
+            uint count =  ObjC.MessageSendUInt(handle, "count");
+            string[] array = new string[count];
+            IntPtr obj;
+            for (uint num = 0; num < count; num += 1)
             {
-                throw new NotImplementedException("ArrayFromHandle not implemented for: " + typeof(T));
+                obj = ObjC.MessageSendIntPtr(handle, "objectAtIndex:", num);
+                array[(int)num] = FromNSString(obj);
+            }
+            return array;
+        }
+
+        public static T[] FromNSArray<T>(IntPtr handle) where T : NSObject
+        {
+            if (handle == IntPtr.Zero)
+            {
+                return null;
             }
 
             uint count =  ObjC.MessageSendUInt(handle, "count");
@@ -279,7 +280,7 @@ namespace iOS4Unity
             for (uint num = 0; num < count; num += 1)
             {
                 obj = ObjC.MessageSendIntPtr(handle, "objectAtIndex:", num);
-                array[(int)num] = (T)constructor(obj);
+                array[(int)num] = Activator.CreateFromHandle<T>(obj);
             }
             return array;
         }
@@ -321,6 +322,32 @@ namespace iOS4Unity
             IntPtr array = ObjC.MessageSendIntPtr(ObjC.GetClass("NSArray"), "arrayWithObjects:count:", intPtr, items.Length);
             Marshal.FreeHGlobal(intPtr);
             return array;
+        }
+
+        public static IntPtr ToNSSet(IntPtr[] items)
+        {
+            IntPtr array = ToNSArray(items);
+            return ObjC.MessageSendIntPtr(GetClass("NSSet"), "setWithArray:", array);
+        }
+
+        public static IntPtr ToNSSet(string[] items)
+        {
+            IntPtr[] strings = new IntPtr[items.Length];
+            for (int i = 0; i < items.Length; i++)
+            {
+                strings[i] = ToNSString(items[i]);
+            }
+
+            IntPtr array = ToNSArray(strings);
+            IntPtr set = ObjC.MessageSendIntPtr(GetClass("NSSet"), "setWithArray:", array);
+
+            //Release everything
+            for (int i = 0; i < strings.Length; i++)
+            {
+                ObjC.MessageSend(strings[i], "release");
+            }
+
+            return set;
         }
 	}
 }
