@@ -29,3 +29,7 @@ let UpdatePlist version project =
         let info = Path.Combine(project, "Info.plist")
         let finalVersion = version + "." + build
         Exec "/usr/libexec/PlistBuddy" ("-c 'Set :CFBundleVersion " + finalVersion + "' " + info)
+
+let Unity files =
+    let fullPath = Path.GetFullPath(".")
+    Exec "/Applications/Unity/Unity.app/Contents/MacOS/Unity" ("-quit -batchmode -logFile -projectPath '" + fullPath + "' -exportPackage " + files)

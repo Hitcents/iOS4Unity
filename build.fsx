@@ -9,6 +9,7 @@ open Fake.XamarinHelper
 
 let version = "1.0.0"
 let project = "iOS4Unity"
+let files = [|"Assets/iOS4Unity/ObjC.cs"|]
 
 Target "clean" (fun () ->
     Exec "rm" "-Rf iOS4Unity/bin iOS4Unity/obj"
@@ -20,5 +21,11 @@ Target "build" (fun () ->
     MSBuild output "Build" [ ("Configuration", "Release") ] [ csproj ] |> ignore
 )
 
+Target "unity" (fun () ->
+    let text = ""
+    for f in files do
+        text = text + f + " "
+    Unity text
+)
 
 RunTarget()
