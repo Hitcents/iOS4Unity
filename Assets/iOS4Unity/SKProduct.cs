@@ -38,10 +38,9 @@ namespace iOS4Unity
             get { return ObjC.MessageSendDouble(ObjC.MessageSendIntPtr(Handle, "doubleValue"), "price"); }
         }
 
-        //TODO: needs to be NSLocale
-        public NSObject PriceLocale
+        public NSLocale PriceLocale
         {
-            get { return new NSObject(ObjC.MessageSendIntPtr(Handle, "priceLocale")); }
+            get { return new NSLocale(ObjC.MessageSendIntPtr(Handle, "priceLocale")); }
         }
 
         public string ProductIdentifier
