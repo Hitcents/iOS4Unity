@@ -156,6 +156,9 @@
     <Compile Include="..\Assets\Tests\SKProductsRequestTests.cs">
       <Link>Tests\SKProductsRequestTests.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\Tests\NSLocaleTests.cs">
+      <Link>Tests\NSLocaleTests.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
