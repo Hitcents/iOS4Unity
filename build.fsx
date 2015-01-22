@@ -9,10 +9,13 @@ open Fake.XamarinHelper
 
 let version = "1.0.0"
 let project = "iOS4Unity"
-let files = [|"Assets/iOS4Unity/ObjC.cs"|]
+let files = [|"Assets/iOS4Unity.dll"|]
+let projectInUnity = "Assets/" + project
 
 Target "clean" (fun () ->
     Exec "rm" "-Rf iOS4Unity/bin iOS4Unity/obj"
+    if not(Directory.Exists(projectInUnity)) then
+        Exec "git" "reset --hard HEAD"
 )
 
 Target "build" (fun () ->
@@ -22,10 +25,16 @@ Target "build" (fun () ->
 )
 
 Target "unity" (fun () ->
+    Exec "rm" ("-Rf " + projectInUnity)
+    Exec "cp" (Path.Combine(project, "bin", "Release", (project + ".dll")) + " Assets/")
+
     let text = ""
     for f in files do
         text = text + f + " "
     Unity text
 )
+
+"clean" ==> "build"
+"build" ==> "unity"
 
 RunTarget()
