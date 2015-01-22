@@ -32,4 +32,4 @@ let UpdatePlist version project =
 
 let Unity files =
     let fullPath = Path.GetFullPath(".")
-    Exec "/Applications/Unity/Unity.app/Contents/MacOS/Unity" ("-quit -batchmode -logFile -projectPath '" + fullPath + "' -exportPackage " + files)
+    Exec "/Applications/Unity/Unity.app/Contents/MacOS/Unity" ("-quit -batchmode -logFile -projectPath '" + fullPath + "' -exportPackage " + files + " iOS4Unity.unitypackage")
