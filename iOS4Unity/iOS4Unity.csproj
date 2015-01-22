@@ -67,6 +67,9 @@
     <Compile Include="..\Assets\iOS4Unity\Callbacks.cs">
       <Link>Callbacks.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\Delegates.cs">
+      <Link>Delegates.cs</Link>
+    </Compile>
     <Compile Include="..\Assets\iOS4Unity\EventArgs.cs">
       <Link>EventArgs.cs</Link>
     </Compile>
