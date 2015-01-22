@@ -18,7 +18,7 @@ Target "clean" (fun () ->
         Exec "git" "reset --hard HEAD"
 )
 
-Target "build" (fun () ->
+Target "dll" (fun () ->
     let output = Path.Combine(project, "bin", "Release")
     let csproj = Path.Combine(project, project + ".csproj")
     MSBuild output "Build" [ ("Configuration", "Release") ] [ csproj ] |> ignore
@@ -30,7 +30,7 @@ Target "unity" (fun () ->
     Unity(String.Join(" ", files))
 )
 
-"clean" ==> "build"
-"build" ==> "unity"
+"clean" ==> "dll"
+"dll" ==> "unity"
 
 RunTarget()
