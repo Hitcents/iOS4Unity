@@ -13,7 +13,7 @@ let files = [|"Assets/iOS4Unity.dll"|]
 let projectInUnity = "Assets/" + project
 
 Target "clean" (fun () ->
-    Exec "rm" "-Rf iOS4Unity/bin iOS4Unity/obj"
+    Exec "rm" "-Rf iOS4Unity/bin iOS4Unity/obj Assets/iOS4Unity.dll Assets/iOS4Unity.dll.meta"
     if not(Directory.Exists(projectInUnity)) then
         Exec "git" "reset --hard HEAD"
 )
