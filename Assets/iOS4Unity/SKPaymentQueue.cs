@@ -17,8 +17,7 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
-        private readonly Dictionary<EventHandler<EventArgs<NSError>>, Action<IntPtr, IntPtr>> _restoreFailed = new Dictionary<EventHandler<EventArgs<NSError>>, Action<IntPtr, IntPtr>>();
-        private readonly Dictionary<EventHandler<EventArgs<NSObject[]>>, Action<IntPtr, IntPtr>> _updatedTransactions = new Dictionary<EventHandler<EventArgs<NSObject[]>>, Action<IntPtr, IntPtr>>();
+        private Dictionary<object, IntPtrHandler2> _restoreFailed, _updatedTransactions;
 
         private SKPaymentQueue(IntPtr handle) : base(handle) 
         { 
@@ -46,18 +45,20 @@ namespace iOS4Unity
             remove { Callbacks.Unsubscribe(this, "paymentQueueRestoreCompletedTransactionsFinished:", value); }
         }
 
-        public event EventHandler<EventArgs<NSError>> RestoreFailed
+        public event EventHandler<NSErrorEventArgs> RestoreFailed
         {
             add 
             { 
-                Action<IntPtr, IntPtr> callback = (_, i) => value(this, new EventArgs<NSError> { Value = new NSError(i) });
+                if (_restoreFailed == null)
+                    _restoreFailed = new Dictionary<object, IntPtrHandler2>();
+                IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = new NSError(i) });
                 _restoreFailed[value] = callback;
                 Callbacks.Subscribe(this, "paymentQueue:restoreCompletedTransactionsFailedWithError:", callback); 
             } 
             remove 
             { 
-                Action<IntPtr, IntPtr> callback;
-                if (_restoreFailed.TryGetValue(value, out callback))
+                IntPtrHandler2 callback;
+                if (_restoreFailed != null && _restoreFailed.TryGetValue(value, out callback))
                 {
                     _restoreFailed.Remove(value);
                     Callbacks.Unsubscribe(this, "paymentQueue:restoreCompletedTransactionsFailedWithError:", callback); 
@@ -65,18 +66,20 @@ namespace iOS4Unity
             }
         }
 
-        public event EventHandler<EventArgs<NSObject[]>> UpdatedTransactions
+        public event EventHandler<SKPaymentTransactionEventArgs> UpdatedTransactions
         {
             add
             {
-                Action<IntPtr, IntPtr> callback = (_, i) => value(this, new EventArgs<NSObject[]> { Value = ObjC.FromNSArray<NSObject>(i) });
+                if (_updatedTransactions == null)
+                    _updatedTransactions = new Dictionary<object, IntPtrHandler2>();
+                IntPtrHandler2 callback = (_, i) => value(this, new SKPaymentTransactionEventArgs { Transactions = ObjC.FromNSArray<SKPaymentTransaction>(i) });
                 _updatedTransactions[value] = callback;
                 Callbacks.Subscribe(this, "paymentQueue:updatedTransactions:", callback);
             }
             remove
             {
-                Action<IntPtr, IntPtr> callback;
-                if (_updatedTransactions.TryGetValue(value, out callback))
+                IntPtrHandler2 callback;
+                if (_updatedTransactions != null && _updatedTransactions.TryGetValue(value, out callback))
                 {
                     _updatedTransactions.Remove(value);
                     Callbacks.Unsubscribe(this, "paymentQueue:updatedTransactions:", callback);
@@ -108,5 +111,10 @@ namespace iOS4Unity
             _restoreFailed.Clear();
             _updatedTransactions.Clear();
         }
+    }
+
+    public class SKPaymentTransactionEventArgs : EventArgs
+    {
+        public SKPaymentTransaction[] Transactions;
     }
 }

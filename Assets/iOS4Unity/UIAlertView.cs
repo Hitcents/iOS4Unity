@@ -24,19 +24,19 @@ namespace iOS4Unity
 			ObjC.MessageSend(Handle, "setDelegate:", Handle);
 		}
 
-		public event EventHandler<EventArgs<int>> Clicked
+		public event EventHandler<ButtonEventArgs> Clicked
 		{
 			add { Callbacks.Subscribe(this, "alertView:clickedButtonAtIndex:", value); }
 			remove { Callbacks.Unsubscribe(this, "alertView:clickedButtonAtIndex:", value); }
 		}
 
-		public event EventHandler<EventArgs<int>> Dismissed
+		public event EventHandler<ButtonEventArgs> Dismissed
 		{
 			add { Callbacks.Subscribe(this, "alertView:didDismissWithButtonIndex:", value); }
             remove { Callbacks.Unsubscribe(this, "alertView:didDismissWithButtonIndex:", value); }
 		}
 
-		public event EventHandler<EventArgs<int>> WillDismiss
+		public event EventHandler<ButtonEventArgs> WillDismiss
 		{
 			add { Callbacks.Subscribe(this, "alertView:willDismissWithButtonIndex:", value); }
             remove { Callbacks.Unsubscribe(this, "alertView:willDismissWithButtonIndex:", value); }

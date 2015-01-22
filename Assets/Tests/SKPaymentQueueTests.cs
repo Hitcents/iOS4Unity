@@ -43,7 +43,7 @@ public class SKPaymentQueueTests
         };
         queue.RestoreFailed += (sender, e) => 
         {
-            Console.WriteLine("Restore failed: " + e.Value.LocalizedDescription);
+            Console.WriteLine("Restore failed: " + e.Error.LocalizedDescription);
         }; 
 
         queue.RestoreCompletedTransactions();

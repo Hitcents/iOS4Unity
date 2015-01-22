@@ -17,7 +17,7 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
-        private readonly Dictionary<EventHandler<EventArgs<NSError>>, Action<IntPtr, IntPtr>> _failedToReceiveAd = new Dictionary<EventHandler<EventArgs<NSError>>, Action<IntPtr, IntPtr>>();
+        private Dictionary<object, IntPtrHandler2> _failedToReceiveAd;
 
         public AdBannerView()
         {
@@ -57,18 +57,20 @@ namespace iOS4Unity
             remove { Callbacks.Unsubscribe(this, "bannerViewActionDidFinish:", value); }
         }
 
-        public event EventHandler<EventArgs<NSError>> FailedToReceiveAd
+        public event EventHandler<NSErrorEventArgs> FailedToReceiveAd
         {
             add 
             { 
-                Action<IntPtr, IntPtr> callback = (_, i) => value(this, new EventArgs<NSError> { Value = new NSError(i) });
+                if (_failedToReceiveAd == null)
+                    _failedToReceiveAd = new Dictionary<object, IntPtrHandler2>();
+                IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = new NSError(i) });
                 _failedToReceiveAd[value] = callback;
                 Callbacks.Subscribe(this, "bannerView:didFailToReceiveAdWithError:", callback); 
             } 
             remove 
             { 
-                Action<IntPtr, IntPtr> callback;
-                if (_failedToReceiveAd.TryGetValue(value, out callback))
+                IntPtrHandler2 callback;
+                if (_failedToReceiveAd != null && _failedToReceiveAd.TryGetValue(value, out callback))
                 {
                     _failedToReceiveAd.Remove(value);
                     Callbacks.Unsubscribe(this, "bannerView:didFailToReceiveAdWithError:", callback); 

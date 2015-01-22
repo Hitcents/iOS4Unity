@@ -141,6 +141,9 @@
     <Compile Include="..\Assets\iOS4Unity\NSLocale.cs">
       <Link>NSLocale.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\Delegates.cs">
+      <Link>Delegates.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

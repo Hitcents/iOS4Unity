@@ -29,12 +29,12 @@ public class SKProductsRequestTests
         var request = new SKProductsRequest(productId);
         request.ReceivedResponse += (sender, e) => 
         {
-            Assert.AreEqual(productId, e.Value.InvalidProducts[0]);
+            Assert.AreEqual(productId, e.Response.InvalidProducts[0]);
             Console.WriteLine("Received Response!");
         };
         request.Failed += (sender, e) => 
         {
-            Console.WriteLine("Failed: " + e.Value.LocalizedDescription);
+            Console.WriteLine("Failed: " + e.Error.LocalizedDescription);
         };
         request.Finished += (sender, e) => 
         {

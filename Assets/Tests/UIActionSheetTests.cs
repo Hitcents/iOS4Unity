@@ -72,11 +72,11 @@ public class UIActionSheetTests
         actionSheet.AddButton ("Cancel");
         actionSheet.Dismissed += (sender, e) => 
         {
-            Console.WriteLine("Dismissed: " + e.Value);
+            Console.WriteLine("Dismissed: " + e.Index);
         };
         actionSheet.Clicked += (sender, e) => 
         {
-            Console.WriteLine("Clicked: " + e.Value);
+            Console.WriteLine("Clicked: " + e.Index);
         };
         actionSheet.Canceled += (sender, e) => 
         {
@@ -88,7 +88,7 @@ public class UIActionSheetTests
         };
         actionSheet.WillDismiss += (sender, e) => 
         {
-            Console.WriteLine("WillDismiss: " + e.Value);
+            Console.WriteLine("WillDismiss: " + e.Index);
         };
         actionSheet.WillPresent += (sender, e) => 
         {
