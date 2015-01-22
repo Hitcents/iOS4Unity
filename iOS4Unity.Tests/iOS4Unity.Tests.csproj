@@ -175,6 +175,8 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\chuck.jpg" />
+    <BundleResource Include="..\Assets\StreamingAssets\chuck.jpg">
+      <Link>Resources\chuck.jpg</Link>
+    </BundleResource>
   </ItemGroup>
 </Project>

@@ -145,37 +145,8 @@
     <Compile Include="..\Assets\iOS4Unity\UIViewController.cs">
       <Link>UIViewController.cs</Link>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="..\Assets\iOS4Unity\AdBannerView.cs">
-      <Link>AdBannerView.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\iOS4Unity\UIActivityViewController.cs">
-      <Link>UIActivityViewController.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\iOS4Unity\UIActionSheet.cs">
-      <Link>UIActionSheet.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\iOS4Unity\NSBundle.cs">
-      <Link>NSBundle.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\iOS4Unity\NSLocale.cs">
-      <Link>NSLocale.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\iOS4Unity\SKPaymentQueue.cs">
-      <Link>SKPaymentQueue.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\iOS4Unity\SKProductsRequest.cs">
-      <Link>SKProductsRequest.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\iOS4Unity\SKProductsResponse.cs">
-      <Link>SKProductsResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\iOS4Unity\Activator.cs">
-      <Link>Activator.cs</Link>
-=======
     <Compile Include="..\Assets\iOS4Unity\UIWindow.cs">
       <Link>UIWindow.cs</Link>
->>>>>>> FETCH_HEAD
     </Compile>
     <Compile Include="..\Assets\iOS4Unity\Marshalers\NSStringMarshaler.cs">
       <Link>Marshalers\NSStringMarshaler.cs</Link>
