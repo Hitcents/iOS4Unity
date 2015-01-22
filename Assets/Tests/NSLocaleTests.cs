@@ -160,7 +160,7 @@ public class NSLocaleTests
     [Test]
     public void UsesMetricSystem()
     {
-        var usesMetricSystem = NSLocale.CurrentLocale.UsesMetricSystem;
-        Assert.AreNotEqual(true, usesMetricSystem);
+        //Make sure it doesn't crash
+        NSLocale.CurrentLocale.UsesMetricSystem.ToString();
     }
 }
