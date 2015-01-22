@@ -107,9 +107,6 @@ namespace iOS4Unity
             ObjC.MessageSend(Handle, "removeTransactionObserver:", Handle);
 
             base.Dispose();
-
-            _restoreFailed.Clear();
-            _updatedTransactions.Clear();
         }
     }
 

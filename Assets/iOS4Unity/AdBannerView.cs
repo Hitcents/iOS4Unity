@@ -88,13 +88,6 @@ namespace iOS4Unity
         {
             ObjC.MessageSend(Handle, "cancelBannerViewAction");
         }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-
-            _failedToReceiveAd.Clear();
-        }
     }
 
     public enum AdType
