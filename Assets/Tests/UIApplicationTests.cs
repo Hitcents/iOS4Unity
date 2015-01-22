@@ -35,7 +35,7 @@ public class UIApplicationTests
         //Just make sure this doesn't crash
         var app = UIApplication.SharedApplication;
         app.ApplicationIconBadgeNumber = 1;
-        int number = app.ApplicationIconBadgeNumber;
+        app.ApplicationIconBadgeNumber.ToString();
     }
 
     [Test]

@@ -23,7 +23,7 @@ public class SKPaymentQueueTests
     public void CanMakePayments()
     {
         //Just make sure there isn't a crash
-        bool value = SKPaymentQueue.CanMakePayments;
+        SKPaymentQueue.CanMakePayments.ToString();
     }
 
     [Test]
@@ -43,7 +43,7 @@ public class SKPaymentQueueTests
         };
         queue.RestoreFailed += (sender, e) => 
         {
-            Console.WriteLine("Restore failed: " + e.Value.LocalizedDescription);
+            Console.WriteLine("Restore failed: " + e.Error.LocalizedDescription);
         }; 
 
         queue.RestoreCompletedTransactions();

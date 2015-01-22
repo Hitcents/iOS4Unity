@@ -51,7 +51,7 @@ public class AdBannerViewTests
         };
         bannerView.FailedToReceiveAd += (sender, e) => 
         {
-            Console.WriteLine("AdFailed: " + e.Value.LocalizedDescription);
+            Console.WriteLine("AdFailed: " + e.Error.LocalizedDescription);
 
             bannerView.RemoveFromSuperview();
         };

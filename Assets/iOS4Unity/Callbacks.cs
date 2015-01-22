@@ -16,11 +16,11 @@ namespace iOS4Unity
 		private class Methods
 		{
 			public Action Action;
-            public Action<IntPtr> ActionIntPtr;
-            public Action<IntPtr, IntPtr> ActionIntPtrIntPtr;
-            public Action<IntPtr, IntPtr, IntPtr> ActionIntPtrIntPtrIntPtr;
+            public IntPtrHandler ActionIntPtr;
+            public IntPtrHandler2 ActionIntPtrIntPtr;
+            public IntPtrHandler3 ActionIntPtrIntPtrIntPtr;
             public EventHandler EventHandler;
-            public EventHandler<EventArgs<int>> EventHandlerInt;
+            public EventHandler<ButtonEventArgs> EventHandlerInt;
             public readonly object Object;
 
             public Methods(object obj)
@@ -48,14 +48,14 @@ namespace iOS4Unity
 			return methods;
 		}
 
-		public static void Subscribe(NSObject obj, string selector, Action<IntPtr> callback)
+		public static void Subscribe(NSObject obj, string selector, IntPtrHandler callback)
 		{
 			var methods = GetMethods(obj, selector);
 			methods.ActionIntPtr += callback;
 			
 			if (!_delegates.ContainsKey(selector))
 			{
-				Action<IntPtr, IntPtr, IntPtr> del = OnCallback;
+				IntPtrHandler3 del = OnCallback;
 				if (!ObjC.AddMethod(obj.ClassHandle, selector, del, "v@:@"))
 				{
 					throw new InvalidOperationException("AddMethod failed for selector " + selector);
@@ -74,7 +74,7 @@ namespace iOS4Unity
 
 			if (!_delegates.ContainsKey(selector))
 			{
-				Action<IntPtr, IntPtr, IntPtr> del = OnCallback;
+				IntPtrHandler3 del = OnCallback;
 				if (!ObjC.AddMethod(obj.ClassHandle, selector, del, "v@:@"))
 				{
 					throw new InvalidOperationException("AddMethod failed for selector " + selector);
@@ -86,7 +86,7 @@ namespace iOS4Unity
 			}
 		}
 
-		public static void Subscribe(NSObject obj, string selector, EventHandler<EventArgs<int>> callback)
+		public static void Subscribe(NSObject obj, string selector, EventHandler<ButtonEventArgs> callback)
 		{
 			var methods = GetMethods(obj, selector);
             methods.EventHandlerInt += callback;
@@ -105,14 +105,14 @@ namespace iOS4Unity
 			}
 		}
 
-        public static void Subscribe(NSObject obj, string selector, Action<IntPtr, IntPtr> callback)
+        public static void Subscribe(NSObject obj, string selector, IntPtrHandler2 callback)
         {
             var methods = GetMethods(obj, selector);
             methods.ActionIntPtrIntPtr += callback;
 
             if (!_delegates.ContainsKey(selector))
             {
-                Action<IntPtr, IntPtr, IntPtr, IntPtr> del = OnCallbackIntPtrIntPtr;
+                IntPtrHandler4 del = OnCallbackIntPtrIntPtr;
                 if (!ObjC.AddMethod(obj.ClassHandle, selector, del, "v@:@@"))
                 {
                     throw new InvalidOperationException("AddMethod failed for selector " + selector);
@@ -124,14 +124,14 @@ namespace iOS4Unity
             }
         }
 
-        public static void Subscribe(NSObject obj, string selector, Action<IntPtr, IntPtr, IntPtr> callback)
+        public static void Subscribe(NSObject obj, string selector, IntPtrHandler3 callback)
         {
             var methods = GetMethods(obj, selector);
             methods.ActionIntPtrIntPtrIntPtr += callback;
 
             if (!_delegates.ContainsKey(selector))
             {
-                Action<IntPtr, IntPtr, IntPtr, IntPtr, IntPtr> del = OnCallbackIntPtrIntPtrIntPtr;
+                IntPtrHandler5 del = OnCallbackIntPtrIntPtrIntPtr;
                 if (!ObjC.AddMethod(obj.ClassHandle, selector, del, "v@:@@@"))
                 {
                     throw new InvalidOperationException("AddMethod failed for selector " + selector);
@@ -149,19 +149,19 @@ namespace iOS4Unity
             methods.Action -= callback;
 		}
 
-        public static void Unsubscribe(NSObject obj, string selector, Action<IntPtr> callback)
+        public static void Unsubscribe(NSObject obj, string selector, IntPtrHandler callback)
 		{
 			var methods = GetMethods(obj, selector);
             methods.ActionIntPtr -= callback;
 		}
 
-        public static void Unsubscribe(NSObject obj, string selector, Action<IntPtr, IntPtr> callback)
+        public static void Unsubscribe(NSObject obj, string selector, IntPtrHandler2 callback)
         {
             var methods = GetMethods(obj, selector);
             methods.ActionIntPtrIntPtr -= callback;
         }
 
-        public static void Unsubscribe(NSObject obj, string selector, Action<IntPtr, IntPtr, IntPtr> callback)
+        public static void Unsubscribe(NSObject obj, string selector, IntPtrHandler3 callback)
         {
             var methods = GetMethods(obj, selector);
             methods.ActionIntPtrIntPtrIntPtr -= callback;
@@ -173,7 +173,7 @@ namespace iOS4Unity
             methods.EventHandler -= callback;
         }
 
-        public static void Unsubscribe(NSObject obj, string selector, EventHandler<EventArgs<int>> callback)
+        public static void Unsubscribe(NSObject obj, string selector, EventHandler<ButtonEventArgs> callback)
         {
             var methods = GetMethods(obj, selector);
             methods.EventHandlerInt -= callback;
@@ -184,7 +184,7 @@ namespace iOS4Unity
 			_callbacks.Remove(obj.Handle);
 		}
 
-		[MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr>))]
+		[MonoPInvokeCallback(typeof(IntPtrHandler3))]
 		private static void OnCallback(IntPtr @this, IntPtr selector, IntPtr arg1)
 		{
 			Dictionary<IntPtr, Methods> dictionary;
@@ -220,13 +220,13 @@ namespace iOS4Unity
                     var eventHandler = methods.EventHandlerInt;
                     if (eventHandler != null)
                     {
-                        eventHandler(methods.Object, new EventArgs<int> { Value = arg2 });
+                        eventHandler(methods.Object, new ButtonEventArgs { Index = arg2 });
                     }
 				}
 			}
 		}
 
-        [MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, IntPtr>))]
+        [MonoPInvokeCallback(typeof(IntPtrHandler4))]
         private static void OnCallbackIntPtrIntPtr(IntPtr @this, IntPtr selector, IntPtr arg1, IntPtr arg2)
         {
             Dictionary<IntPtr, Methods> dictionary;
@@ -244,7 +244,7 @@ namespace iOS4Unity
             }
         }
 
-        [MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr, IntPtr, IntPtr, IntPtr>))]
+        [MonoPInvokeCallback(typeof(IntPtrHandler5))]
         private static void OnCallbackIntPtrIntPtrIntPtr(IntPtr @this, IntPtr selector, IntPtr arg1, IntPtr arg2, IntPtr arg3)
         {
             Dictionary<IntPtr, Methods> dictionary;

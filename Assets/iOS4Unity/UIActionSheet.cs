@@ -28,19 +28,19 @@ namespace iOS4Unity
             return ObjC.MessageSendInt(Handle, "addButtonWithTitle:", title);
         }
 
-        public event EventHandler<EventArgs<int>> Clicked
+        public event EventHandler<ButtonEventArgs> Clicked
         {
             add { Callbacks.Subscribe(this, "actionSheet:clickedButtonAtIndex:", value); }
             remove { Callbacks.Unsubscribe(this, "actionSheet:clickedButtonAtIndex:", value); }
         }
 
-        public event EventHandler<EventArgs<int>> Dismissed
+        public event EventHandler<ButtonEventArgs> Dismissed
         {
             add { Callbacks.Subscribe(this, "actionSheet:didDismissWithButtonIndex:", value); }
             remove { Callbacks.Unsubscribe(this, "actionSheet:didDismissWithButtonIndex:", value); }
         }
 
-        public event EventHandler<EventArgs<int>> WillDismiss
+        public event EventHandler<ButtonEventArgs> WillDismiss
         {
             add { Callbacks.Subscribe(this, "actionSheet:willDismissWithButtonIndex:", value); }
             remove { Callbacks.Unsubscribe(this, "actionSheet:willDismissWithButtonIndex:", value); }

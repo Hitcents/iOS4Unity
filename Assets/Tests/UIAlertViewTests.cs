@@ -94,11 +94,11 @@ public class UIAlertViewTests
 		alertView.AddButton ("Cancel");
 		alertView.Dismissed += (sender, e) => 
 		{
-			Console.WriteLine("Dismissed: " + e.Value);
+			Console.WriteLine("Dismissed: " + e.Index);
 		};
 		alertView.Clicked += (sender, e) => 
 		{
-			Console.WriteLine("Clicked: " + e.Value);
+            Console.WriteLine("Clicked: " + e.Index);
 		};
 		alertView.Canceled += (sender, e) => 
 		{
@@ -110,7 +110,7 @@ public class UIAlertViewTests
 		};
 		alertView.WillDismiss += (sender, e) => 
 		{
-			Console.WriteLine("WillDismiss: " + e.Value);
+            Console.WriteLine("WillDismiss: " + e.Index);
 		};
 		alertView.WillPresent += (sender, e) => 
 		{
