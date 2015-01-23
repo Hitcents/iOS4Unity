@@ -330,4 +330,25 @@ public class NSNumberFormatterTests
         var symbol = new NSNumberFormatter().ZeroSymbol;
         Assert.AreNotEqual(string.Empty, symbol);
     }
+
+    [Test]
+    public void NumberFromString()
+    {
+        var numberFromString = new NSNumberFormatter().NumberFromString("1.5");
+        Assert.AreEqual(1.5, numberFromString);
+    }
+
+    [Test]
+    public void StringFromNumber()
+    {
+        var stringFromNumber = new NSNumberFormatter().StringFromNumber(1.5);
+        Assert.AreEqual("1.5", stringFromNumber);
+    }
+
+    [Test]
+    public void LocalizedStringFromNumbernumberStyle()
+    {
+        var stringFromNumber = NSNumberFormatter.LocalizedStringFromNumbernumberStyle(1.5, NSNumberFormatterStyle.Decimal);
+        Assert.AreEqual("1.5", stringFromNumber);
+    }
 }
