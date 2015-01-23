@@ -292,6 +292,16 @@ namespace iOS4Unity
         {
             return ObjC.MessageSendDouble(ObjC.MessageSendIntPtr(Handle, "numberFromString:", text), "doubleValue");
         }
+
+        public string StringFromNumber(double number)
+        {
+            return ObjC.MessageSendString(ObjC.MessageSendIntPtr(Handle, "stringFromNumber:", number), "stringValue");
+        }
+
+        public static string LocalizedStringFromNumbernumberStyle(double num, NSNumberFormatterStyle nstyle)
+        {
+            return ObjC.MessageSendString(ObjC.MessageSendIntPtr(_classHandle, "localizedStringFromNumber:numberStyle:", num, (int)nstyle), "stringValue");
+        }
     }
 
     public enum NSNumberFormatterBehavior
