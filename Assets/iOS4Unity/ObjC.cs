@@ -253,12 +253,18 @@ namespace iOS4Unity
 
 		public static string FromNSString(IntPtr handle)
 		{
+            if (handle == IntPtr.Zero)
+                return null;
+
 			return Marshal.PtrToStringAuto(ObjC.MessageSendIntPtr(handle, "UTF8String"));
 		}
 
-        public static DateTime FromNSDate(IntPtr date)
+        public static DateTime FromNSDate(IntPtr handle)
         {
-            double secondsSinceReferenceDate = ObjC.MessageSendDouble(date, "timeIntervalSinceReferenceDate");
+            if (handle == IntPtr.Zero)
+                return default(DateTime);
+
+            double secondsSinceReferenceDate = ObjC.MessageSendDouble(handle, "timeIntervalSinceReferenceDate");
             if (secondsSinceReferenceDate < -63113904000)
             {
                 return DateTime.MinValue;
@@ -272,11 +278,17 @@ namespace iOS4Unity
 
         public static string FromNSUrl(IntPtr handle)
         {
+            if (handle == IntPtr.Zero)
+                return null;
+
             return FromNSString(ObjC.MessageSendIntPtr(handle, "absoluteString"));
         }
 
         public static double FromNSNumber(IntPtr handle)
         {
+            if (handle == IntPtr.Zero)
+                return default(double);
+
             return ObjC.MessageSendDouble(handle, "doubleValue");
         }
 
@@ -399,7 +411,7 @@ namespace iOS4Unity
 
         public static IntPtr ToNSDate(DateTime date)
         {
-            return ObjC.MessageSendIntPtr(GetClass("NSDate"), "dateWithTimeIntervalSinceReferenceDate", (double)((date.ToUniversalTime().Ticks - 631139040000000000) / 10000000));
+            return ObjC.MessageSendIntPtr(GetClass("NSDate"), "dateWithTimeIntervalSinceReferenceDate:", (double)((date.ToUniversalTime().Ticks - 631139040000000000) / 10000000));
         }
 
         public static IntPtr ToNSNumber(double value)
