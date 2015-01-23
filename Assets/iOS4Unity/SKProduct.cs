@@ -35,7 +35,7 @@ namespace iOS4Unity
 
         public double Price
         {
-            get { return ObjC.MessageSendDouble(ObjC.MessageSendIntPtr(Handle, "doubleValue"), "price"); }
+            get { return ObjC.FromNSNumber(ObjC.MessageSendIntPtr(Handle, "price")); }
         }
 
         public NSLocale PriceLocale
