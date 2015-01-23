@@ -1,0 +1,19 @@
+ON SALE FOR A LIMITED TIME!
+<br>
+iOS4Unity is a plugin that finally brings native iOS APIs to C# using only managed code -- with no Objective-C libraries involved! iOS4Unity takes advantage of the core C functions that comprise the building blocks of Objective-C to expose native iOS APIs to C#. iOS4Unity also provides native callbacks to C# without using UnitySendMessage that is completed supported under AOT!
+<br>
+APis include:
+<br>
+- UIAlertView and UIActionSheet - for displaying native popups
+<br>
+- UIApplication and NSNotificationCenter - for native notifications
+<br>
+- UIDevice, NSLocal, and UIScreen - for native iOS settings
+<br>
+- Native iAds - direct access to ADBannerView
+<br>
+- UIView, UIWindow, and UIViewController - for working with native views
+<br>
+- IAPs through StoreKit - for simplified in-app purchases
+<br>
+- Setup third party Obj-C libraries for use from C# - bind libraries missing a Unity plugin!
