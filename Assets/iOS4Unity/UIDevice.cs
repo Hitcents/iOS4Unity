@@ -54,7 +54,7 @@ namespace iOS4Unity
 		public bool BatteryMonitoringEnabled
         {
             get { return  ObjC.MessageSendBool(Handle, "isBatteryMonitoringEnabled"); }
-            set  { ObjC.MessageSendBool(Handle, "setBatteryMonitoringEnabled:", value); }
+            set  { ObjC.MessageSend(Handle, "setBatteryMonitoringEnabled:", value); }
         }
 
         public UIDeviceBatteryState BatteryState
@@ -114,7 +114,7 @@ namespace iOS4Unity
         public bool ProximityMonitoringEnabled
         {
             get { return  ObjC.MessageSendBool(Handle, "isProximityMonitoringEnabled"); }
-            set  { ObjC.MessageSendBool(Handle, "setProximityMonitoringEnabled:", value); }
+            set  { ObjC.MessageSend(Handle, "setProximityMonitoringEnabled:", value); }
         }
 
         public bool ProximityState

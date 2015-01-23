@@ -83,19 +83,19 @@ namespace iOS4Unity
         public bool StatusBarHidden
         {
             get { return ObjC.MessageSendBool(Handle, "isStatusBarHidden"); }
-            set { ObjC.MessageSendBool(Handle, "setStatusBarHidden:", value); }
+            set { ObjC.MessageSend(Handle, "setStatusBarHidden:", value); }
         }
 
         public bool NetworkActivityIndicatorVisible
         {
             get { return ObjC.MessageSendBool(Handle, "isNetworkActivityIndicatorVisible"); }
-            set { ObjC.MessageSendBool(Handle, "setNetworkActivityIndicatorVisible:", value); }
+            set { ObjC.MessageSend(Handle, "setNetworkActivityIndicatorVisible:", value); }
         }
 
         public bool IdleTimerDisabled
         {
             get { return ObjC.MessageSendBool(Handle, "isIdleTimerDisabled"); }
-            set { ObjC.MessageSendBool(Handle, "setIdleTimerDisabled:", value); }
+            set { ObjC.MessageSend(Handle, "setIdleTimerDisabled:", value); }
         }
 
         public void SetStatusBarHidden(bool hidden, bool animated = true)
