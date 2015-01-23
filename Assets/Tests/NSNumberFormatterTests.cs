@@ -87,7 +87,7 @@ public class NSNumberFormatterTests
     public void GeneratesDecimalNumbers()
     {
         //Test to make sure it doesn't crash
-        var generatesDecimals = new NSNumberFormatter().GeneratesDecimalNumbers;
+        new NSNumberFormatter().GeneratesDecimalNumbers.ToString();
     }
 
     [Test]
@@ -115,7 +115,7 @@ public class NSNumberFormatterTests
     public void Lenient()
     {
         //Test to make sure it doesn't crash
-        var lenient = new NSNumberFormatter().Lenient;
+		new NSNumberFormatter().Lenient.ToString();
     }
 
     [Test]
@@ -243,7 +243,7 @@ public class NSNumberFormatterTests
     public void PartialStringValidationEnabled()
     {
         //Test to make sure it doesn't crash
-        var partialStringValidation = new NSNumberFormatter().PartialStringValidationEnabled;
+		new NSNumberFormatter().PartialStringValidationEnabled.ToString();
     }
 
     [Test]
@@ -314,14 +314,14 @@ public class NSNumberFormatterTests
     public void UsesGroupingSeparator()
     {
         //Test to make sure it doesn't crash
-        var uses = new NSNumberFormatter().UsesGroupingSeparator;
+		new NSNumberFormatter().UsesGroupingSeparator.ToString();
     }
 
     [Test]
     public void UsesSignificantDigits()
     {
         //Test to make sure it doesn't crash
-        var uses = new NSNumberFormatter().UsesSignificantDigits;
+		new NSNumberFormatter().UsesSignificantDigits.ToString();
     }
 
     [Test]
