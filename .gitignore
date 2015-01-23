@@ -20,3 +20,7 @@ sysinfo.txt
 
 #NuGet
 packages
+
+#UnityVS
+UnityVS.meta
+UnityVS/
