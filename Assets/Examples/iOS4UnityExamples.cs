@@ -93,7 +93,7 @@ public class iOS4UnityExamples : MonoBehaviour
 			}
 
 			//Successful ones
-
+			PrintProducts(e.Response.Products);
 		};
 		request.Start();
 	}
@@ -113,8 +113,7 @@ public class iOS4UnityExamples : MonoBehaviour
 				formatter.Locale = product.PriceLocale;
 
 				Debug.Log ("Identifier: " + product.ProductIdentifier);
-				//TODO: missing method!
-				//Debug.Log ("Price: " + formatter.StringFromNumber(product.Price));
+				Debug.Log ("Price: " + formatter.StringFromNumber(product.Price));
 				Debug.Log ("Title: " + product.LocalizedTitle);
 				Debug.Log ("Description: " + product.LocalizedDescription);
 			}
