@@ -20,56 +20,56 @@ namespace iOS4Unity
 
         public NSNumberFormatterBehavior FormatterBehavior
         {
-            get { return (NSNumberFormatterBehavior)(ObjC.MessageSendIntPtr(Handle, "formatterBehavior")); }
-            set { ObjC.MessageSendIntPtr(Handle, "setFormatterBehavior:", (int)value); }
+            get { return (NSNumberFormatterBehavior)(ObjC.MessageSendInt(Handle, "formatterBehavior")); }
+            set { ObjC.MessageSend(Handle, "setFormatterBehavior:", (int)value); }
         }
 
         public bool AllowsFloats
         {
             get { return ObjC.MessageSendBool(Handle, "allowsFloats"); }
-            set { ObjC.MessageSendBool(Handle, "setAllowsFloats:", value); }
+            set { ObjC.MessageSend(Handle, "setAllowsFloats:", value); }
         }
 
         public string CurrencyCode
         {
             get { return ObjC.MessageSendString(Handle, "currencyCode"); }
-            set { ObjC.MessageSendString(Handle, "setCurrencyCode:", value); }
+            set { ObjC.MessageSend(Handle, "setCurrencyCode:", value); }
         }
 
         public string CurrencyDecimalSeparator
         {
             get { return ObjC.MessageSendString(Handle, "currencyDecimalSeparator"); }
-            set { ObjC.MessageSendString(Handle, "setCurrencyDecimalSeparator:", value); }
+            set { ObjC.MessageSend(Handle, "setCurrencyDecimalSeparator:", value); }
         }
 
         public string CurrencyGroupingSeparator
         {
             get { return ObjC.MessageSendString(Handle, "currencyGroupingSeparator"); }
-            set { ObjC.MessageSendString(Handle, "setCurrencyGroupingSeparator:", value); }
+            set { ObjC.MessageSend(Handle, "setCurrencyGroupingSeparator:", value); }
         }
 
         public string CurrencySymbol
         {
             get { return ObjC.MessageSendString(Handle, "currencySymbol"); }
-            set { ObjC.MessageSendString(Handle, "setCurrencySymbol:", value); }
+            set { ObjC.MessageSend(Handle, "setCurrencySymbol:", value); }
         }
 
         public string DecimalSeparator
         {
             get { return ObjC.MessageSendString(Handle, "decimalSeparator"); }
-            set { ObjC.MessageSendString(Handle, "setDecimalSeparator:", value); }
+            set { ObjC.MessageSend(Handle, "setDecimalSeparator:", value); }
         }
 
         public static NSNumberFormatterBehavior DefaultFormatterBehavior
         {
-            get { return (NSNumberFormatterBehavior)(ObjC.MessageSendIntPtr(_classHandle, "defaultFormatterBehavior")); }
-            set { ObjC.MessageSendIntPtr(_classHandle, "setDefaultFormatterBehavior:", (int)value); }
+            get { return (NSNumberFormatterBehavior)(ObjC.MessageSendInt(_classHandle, "defaultFormatterBehavior")); }
+            set { ObjC.MessageSend(_classHandle, "setDefaultFormatterBehavior:", (int)value); }
         }
 
         public string ExponentSymbol
         {
             get { return ObjC.MessageSendString(Handle, "exponentSymbol"); }
-            set { ObjC.MessageSendString(Handle, "setExponentSymbol:", value); }
+            set { ObjC.MessageSend(Handle, "setExponentSymbol:", value); }
         }
 
         public uint FormatWidth
@@ -81,13 +81,13 @@ namespace iOS4Unity
         public bool GeneratesDecimalNumbers
         {
             get { return ObjC.MessageSendBool(Handle, "generatesDecimalNumbers"); }
-            set { ObjC.MessageSendBool(Handle, "setGeneratesDecimalNumbers:", value); }
+            set { ObjC.MessageSend(Handle, "setGeneratesDecimalNumbers:", value); }
         }
 
         public string GroupingSeparator
         {
             get { return ObjC.MessageSendString(Handle, "groupingSeparator"); }
-            set { ObjC.MessageSendString(Handle, "setGroupingSeparator:", value); }
+            set { ObjC.MessageSend(Handle, "setGroupingSeparator:", value); }
         }
 
         public uint GroupingSize
@@ -99,13 +99,13 @@ namespace iOS4Unity
         public string InternationalCurrencySymbol
         {
             get { return ObjC.MessageSendString(Handle, "internationalCurrencySymbol"); }
-            set { ObjC.MessageSendString(Handle, "setInternationalCurrencySymbol:", value); }
+            set { ObjC.MessageSend(Handle, "setInternationalCurrencySymbol:", value); }
         }
 
         public bool Lenient
         {
             get { return ObjC.MessageSendBool(Handle, "isLenient"); }
-            set { ObjC.MessageSendBool(Handle, "setLenient:", value); }
+            set { ObjC.MessageSend(Handle, "setLenient:", value); }
         }
 
         public NSLocale Locale
@@ -153,115 +153,115 @@ namespace iOS4Unity
         public string MinusSign
         {
             get { return ObjC.MessageSendString(Handle, "minusSign"); }
-            set { ObjC.MessageSendString(Handle, "setMinusSign:", value); }
+            set { ObjC.MessageSend(Handle, "setMinusSign:", value); }
         }
 
         public string NegativeFormat
         {
             get { return ObjC.MessageSendString(Handle, "negativeFormat"); }
-            set { ObjC.MessageSendString(Handle, "setNegativeFormat:", value); }
+            set { ObjC.MessageSend(Handle, "setNegativeFormat:", value); }
         }
 
         public string NegativeInfinitySymbol
         {
             get { return ObjC.MessageSendString(Handle, "negativeInfinitySymbol"); }
-            set { ObjC.MessageSendString(Handle, "setNegativeInfinitySymbol:", value); }
+            set { ObjC.MessageSend(Handle, "setNegativeInfinitySymbol:", value); }
         }
 
         public string NegativePrefix
         {
             get { return ObjC.MessageSendString(Handle, "negativePrefix"); }
-            set { ObjC.MessageSendString(Handle, "setNegativePrefix:", value); }
+            set { ObjC.MessageSend(Handle, "setNegativePrefix:", value); }
         }
 
         public string NegativeSuffix
         {
             get { return ObjC.MessageSendString(Handle, "negativeSuffix"); }
-            set { ObjC.MessageSendString(Handle, "setNegativeSuffix:", value); }
+            set { ObjC.MessageSend(Handle, "setNegativeSuffix:", value); }
         }
 
         public string NilSymbol
         {
             get { return ObjC.MessageSendString(Handle, "nilSymbol"); }
-            set { ObjC.MessageSendString(Handle, "setNilSymbol:", value); }
+            set { ObjC.MessageSend(Handle, "setNilSymbol:", value); }
         }
 
         public string NotANumberSymbol
         {
             get { return ObjC.MessageSendString(Handle, "notANumberSymbol"); }
-            set { ObjC.MessageSendString(Handle, "setNotANumberSymbol:", value); }
+            set { ObjC.MessageSend(Handle, "setNotANumberSymbol:", value); }
         }
 
         public NSNumberFormatterStyle NumberStyle
         {
-            get { return (NSNumberFormatterStyle)(ObjC.MessageSendIntPtr(Handle, "numberStyle")); }
-            set { ObjC.MessageSendIntPtr(Handle, "setNumberStyle:", (int)value); }
+            get { return (NSNumberFormatterStyle)(ObjC.MessageSendInt(Handle, "numberStyle")); }
+            set { ObjC.MessageSend(Handle, "setNumberStyle:", (int)value); }
         }
 
         public string PaddingCharacter
         {
             get { return ObjC.MessageSendString(Handle, "paddingCharacter"); }
-            set { ObjC.MessageSendString(Handle, "setPaddingCharacter:", value); }
+            set { ObjC.MessageSend(Handle, "setPaddingCharacter:", value); }
         }
 
         public NSNumberFormatterPadPosition PaddingPosition
         {
-            get { return (NSNumberFormatterPadPosition)(ObjC.MessageSendIntPtr(Handle, "paddingPosition")); }
-            set { ObjC.MessageSendIntPtr(Handle, "setPaddingPosition:", (int)value); }
+            get { return (NSNumberFormatterPadPosition)ObjC.MessageSendInt(Handle, "paddingPosition"); }
+            set { ObjC.MessageSend(Handle, "setPaddingPosition:", (int)value); }
         }
 
         public bool PartialStringValidationEnabled
         {
             get { return ObjC.MessageSendBool(Handle, "isPartialStringValidationEnabled"); }
-            set { ObjC.MessageSendBool(Handle, "setPartialStringValidationEnabled:", value); }
+            set { ObjC.MessageSend(Handle, "setPartialStringValidationEnabled:", value); }
         }
 
         public string PercentSymbol
         {
             get { return ObjC.MessageSendString(Handle, "percentSymbol"); }
-            set { ObjC.MessageSendString(Handle, "setPercentSymbol:", value); }
+            set { ObjC.MessageSend(Handle, "setPercentSymbol:", value); }
         }
 
         public string PerMillSymbol
         {
             get { return ObjC.MessageSendString(Handle, "perMillSymbol"); }
-            set { ObjC.MessageSendString(Handle, "setPerMillSymbol:", value); }
+            set { ObjC.MessageSend(Handle, "setPerMillSymbol:", value); }
         }
 
         public string PlusSign
         {
             get { return ObjC.MessageSendString(Handle, "plusSign"); }
-            set { ObjC.MessageSendString(Handle, "setPlusSign:", value); }
+            set { ObjC.MessageSend(Handle, "setPlusSign:", value); }
         }
 
         public string PositiveFormat
         {
             get { return ObjC.MessageSendString(Handle, "positiveFormat"); }
-            set { ObjC.MessageSendString(Handle, "setPositiveFormat:", value); }
+            set { ObjC.MessageSend(Handle, "setPositiveFormat:", value); }
         }
 
         public string PositiveInfinitySymbol
         {
             get { return ObjC.MessageSendString(Handle, "positiveInfinitySymbol"); }
-            set { ObjC.MessageSendString(Handle, "setPositiveInfinitySymbol:", value); }
+            set { ObjC.MessageSend(Handle, "setPositiveInfinitySymbol:", value); }
         }
 
         public string PositivePrefix
         {
             get { return ObjC.MessageSendString(Handle, "positivePrefix"); }
-            set { ObjC.MessageSendString(Handle, "setPositivePrefix:", value); }
+            set { ObjC.MessageSend(Handle, "setPositivePrefix:", value); }
         }
 
         public string PositiveSuffix
         {
             get { return ObjC.MessageSendString(Handle, "positiveSuffix"); }
-            set { ObjC.MessageSendString(Handle, "setPositiveSuffix:", value); }
+            set { ObjC.MessageSend(Handle, "setPositiveSuffix:", value); }
         }
 
         public NSNumberFormatterRoundingMode RoundingMode
         {
-            get { return (NSNumberFormatterRoundingMode)(ObjC.MessageSendIntPtr(Handle, "roundingMode")); }
-            set { ObjC.MessageSendIntPtr(Handle, "setRoundingMode:", (int)value); }
+            get { return (NSNumberFormatterRoundingMode)ObjC.MessageSendInt(Handle, "roundingMode"); }
+            set { ObjC.MessageSend(Handle, "setRoundingMode:", (int)value); }
         }
 
         public uint SecondaryGroupingSize
@@ -273,34 +273,40 @@ namespace iOS4Unity
         public bool UsesGroupingSeparator
         {
             get { return ObjC.MessageSendBool(Handle, "usesGroupingSeparator"); }
-            set { ObjC.MessageSendBool(Handle, "setUsesGroupingSeparator:", value); }
+            set { ObjC.MessageSend(Handle, "setUsesGroupingSeparator:", value); }
         }
 
         public bool UsesSignificantDigits
         {
             get { return ObjC.MessageSendBool(Handle, "usesSignificantDigits"); }
-            set { ObjC.MessageSendBool(Handle, "setUsesSignificantDigits:", value); }
+            set { ObjC.MessageSend(Handle, "setUsesSignificantDigits:", value); }
         }
 
         public string ZeroSymbol
         {
             get { return ObjC.MessageSendString(Handle, "zeroSymbol"); }
-            set { ObjC.MessageSendString(Handle, "setZeroSymbol:", value); }
+            set { ObjC.MessageSend(Handle, "setZeroSymbol:", value); }
         }
 
         public double NumberFromString(string text)
         {
-            return ObjC.MessageSendDouble(ObjC.MessageSendIntPtr(Handle, "numberFromString:", text), "doubleValue");
+            return ObjC.FromNSNumber(ObjC.MessageSendIntPtr(Handle, "numberFromString:", text));
         }
 
         public string StringFromNumber(double number)
         {
-            return ObjC.MessageSendString(ObjC.MessageSendIntPtr(Handle, "stringFromNumber:", number), "stringValue");
+            IntPtr handle = ObjC.ToNSNumber(number);
+            string text = ObjC.MessageSendString(Handle, "stringFromNumber:", handle);
+            ObjC.MessageSend(handle, "release");
+            return text;
         }
 
-        public static string LocalizedStringFromNumbernumberStyle(double num, NSNumberFormatterStyle nstyle)
+        public static string LocalizedStringFromNumber(double number, NSNumberFormatterStyle style)
         {
-            return ObjC.MessageSendString(ObjC.MessageSendIntPtr(_classHandle, "localizedStringFromNumber:numberStyle:", num, (int)nstyle), "stringValue");
+            IntPtr handle = ObjC.ToNSNumber(number);
+            string text = ObjC.MessageSendString(_classHandle, "localizedStringFromNumber:numberStyle:", handle, (int)style);
+            ObjC.MessageSend(handle, "release");
+            return text;
         }
     }
 

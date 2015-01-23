@@ -157,6 +157,10 @@ namespace iOS4Unity
 		[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringMarshaler))]
 		public static extern string MessageSendString(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringMarshaler))]
+        public static extern string MessageSendString(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1);
+
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringMarshaler))]
 		public static extern string MessageSendString(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, int arg1);
@@ -164,6 +168,10 @@ namespace iOS4Unity
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringMarshaler))]
         public static extern string MessageSendString(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, double arg1);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringMarshaler))]
+        public static extern string MessageSendString(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1, int arg2);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringMarshaler))]
@@ -265,6 +273,11 @@ namespace iOS4Unity
         public static string FromNSUrl(IntPtr handle)
         {
             return FromNSString(ObjC.MessageSendIntPtr(handle, "absoluteString"));
+        }
+
+        public static double FromNSNumber(IntPtr handle)
+        {
+            return ObjC.MessageSendDouble(handle, "doubleValue");
         }
 
         public static string[] FromNSArray(IntPtr handle)
@@ -387,6 +400,12 @@ namespace iOS4Unity
         public static IntPtr ToNSDate(DateTime date)
         {
             return ObjC.MessageSendIntPtr(GetClass("NSDate"), "dateWithTimeIntervalSinceReferenceDate", (double)((date.ToUniversalTime().Ticks - 631139040000000000) / 10000000));
+        }
+
+        public static IntPtr ToNSNumber(double value)
+        {
+            IntPtr handle = ObjC.MessageSendIntPtr(GetClass("NSDecimalNumber"), "alloc");
+            return ObjC.MessageSendIntPtr(handle, "initWithDouble:", value);
         }
 	}
 }

@@ -334,21 +334,21 @@ public class NSNumberFormatterTests
     [Test]
     public void NumberFromString()
     {
-        var numberFromString = new NSNumberFormatter().NumberFromString("1.5");
-        Assert.AreEqual(1.5, numberFromString);
+        var numberFromString = new NSNumberFormatter().NumberFromString("1");
+        Assert.AreEqual(1, numberFromString);
     }
 
     [Test]
     public void StringFromNumber()
     {
-        var stringFromNumber = new NSNumberFormatter().StringFromNumber(1.5);
-        Assert.AreEqual("1.5", stringFromNumber);
+        var stringFromNumber = new NSNumberFormatter().StringFromNumber(1);
+        Assert.AreEqual("1", stringFromNumber);
     }
 
     [Test]
-    public void LocalizedStringFromNumbernumberStyle()
+    public void LocalizedStringFromNumber()
     {
-        var stringFromNumber = NSNumberFormatter.LocalizedStringFromNumbernumberStyle(1.5, NSNumberFormatterStyle.Decimal);
-        Assert.AreEqual("1.5", stringFromNumber);
+        var stringFromNumber = NSNumberFormatter.LocalizedStringFromNumber(1, NSNumberFormatterStyle.Decimal);
+        Assert.AreEqual("1", stringFromNumber);
     }
 }
