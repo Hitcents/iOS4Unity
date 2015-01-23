@@ -162,6 +162,9 @@
     <Compile Include="..\Assets\Tests\NSNumberFormatterTests.cs">
       <Link>Tests\NSNumberFormatterTests.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\Tests\UIPopoverControllerTests.cs">
+      <Link>Tests\UIPopoverControllerTests.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
