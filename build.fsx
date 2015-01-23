@@ -15,7 +15,7 @@ let projectInUnity = "Assets/" + project
 Target "clean" (fun () ->
     if not(Directory.Exists(projectInUnity)) then
         Exec "git" "reset --hard HEAD"
-        Exec "git" "clean -d -x -f"
+        Exec "git" "clean -d -f"
 )
 
 Target "dll" (fun () ->
