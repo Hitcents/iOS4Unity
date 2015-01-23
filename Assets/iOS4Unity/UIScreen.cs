@@ -37,7 +37,7 @@ namespace iOS4Unity
         public float Brightness
         {
             get { return ObjC.MessageSendFloat(Handle, "brightness"); }
-            set { ObjC.MessageSendFloat(Handle, "setBrightness", value); }
+            set { ObjC.MessageSend(Handle, "setBrightness", value); }
         }
 
         public static string BrightnessDidChangeNotification
@@ -110,7 +110,7 @@ namespace iOS4Unity
         public bool WantsSoftwareDimming
         {
             get { return ObjC.MessageSendBool(Handle, "wantsSoftwareDimming"); }
-            set{ ObjC.MessageSendBool(Handle, "setWantsSoftwareDimming", value); }
+            set{ ObjC.MessageSend(Handle, "setWantsSoftwareDimming", value); }
         }
     }
 }
