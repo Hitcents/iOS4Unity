@@ -9,8 +9,8 @@ open Fake.XamarinHelper
 
 let version = "1.0.0"
 let project = "iOS4Unity"
-let files = [|"Assets/Plugins/iOS4Unity.dll"|]
-let projectInUnity = "Assets/" + project
+let files = [|"Assets/Plugins/iOS4Unity/iOS4Unity.dll"; "Assets/Plugins/iOS4Unity/Examples.cs"; "Assets/Plugins/iOS4Unity/Examples.scene"|]
+let projectInUnity = "Assets/Plugins/" + project
 
 Target "clean" (fun () ->
     if not(Directory.Exists(projectInUnity)) then
@@ -26,8 +26,7 @@ Target "dll" (fun () ->
 
 Target "unity" (fun () ->
     Exec "rm" ("-Rf " + projectInUnity)
-    Exec "mkdir" "Assets/Plugins"
-    Exec "cp" (Path.Combine(project, "bin", "Release", (project + ".dll")) + " Assets/Plugins")
+    Exec "cp" (Path.Combine(project, "bin", "Release", (project + ".dll")) + " Assets/Plugins/iOS4Unity")
     Unity(String.Join(" ", files))
 )
 
