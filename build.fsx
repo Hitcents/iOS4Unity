@@ -10,25 +10,12 @@ open Fake.XamarinHelper
 let version = "1.0.0"
 let project = "iOS4Unity"
 let files = [|"Assets/Plugins/iOS4Unity.dll"|]
-let cleanFiles = [|
-  "iOS4Unity/bin";
-  "iOS4Unity/obj";
-  "Assets/Plugins";
-  "Assets/Plugins.meta"
-  "iOS4Unity.unityPackage"
-|]
 let projectInUnity = "Assets/" + project
 
 Target "clean" (fun () ->
-
-    for file in cleanFiles do
-        if File.Exists(file) then
-            File.Delete(file)
-        else if Directory.Exists(file) then
-            Directory.Delete(file, true)
-
     if not(Directory.Exists(projectInUnity)) then
         Exec "git" "reset --hard HEAD"
+        Exec "git" "clean -d -x -f"
 )
 
 Target "dll" (fun () ->
