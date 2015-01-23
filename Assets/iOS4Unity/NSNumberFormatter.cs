@@ -287,6 +287,11 @@ namespace iOS4Unity
             get { return ObjC.MessageSendString(Handle, "zeroSymbol"); }
             set { ObjC.MessageSendString(Handle, "setZeroSymbol:", value); }
         }
+
+        public double NumberFromString(string text)
+        {
+            return ObjC.MessageSendDouble(ObjC.MessageSendIntPtr(Handle, "numberFromString:", text), "doubleValue");
+        }
     }
 
     public enum NSNumberFormatterBehavior
