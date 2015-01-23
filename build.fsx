@@ -9,7 +9,6 @@ open Fake.XamarinHelper
 
 let version = "1.0.0"
 let project = "iOS4Unity"
-let files = [|"Assets/Plugins/iOS4Unity/iOS4Unity.dll"; "Assets/Plugins/iOS4Unity/Examples.cs"; "Assets/Plugins/iOS4Unity/Examples.unity"|]
 let projectInUnity = "Assets/" + project
 
 Target "clean" (fun () ->
@@ -27,7 +26,7 @@ Target "dll" (fun () ->
 Target "unity" (fun () ->
     Exec "rm" ("-Rf " + projectInUnity)
     Exec "cp" (Path.Combine(project, "bin", "Release", (project + ".dll")) + " Assets/Plugins/iOS4Unity")
-    Unity(String.Join(" ", files))
+    Unity("Assets/Plugins/iOS4Unity")
 )
 
 "clean" ==> "dll"
