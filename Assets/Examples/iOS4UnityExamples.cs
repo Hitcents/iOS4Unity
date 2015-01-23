@@ -47,7 +47,8 @@ public class iOS4UnityExamples : MonoBehaviour
 			Debug.Log("Dismissed");
 		};
 
-        actionSheet.Hidden = false;
+        var controller = GetUnityController();
+        actionSheet.ShowInView(controller.View);
     }
 
     public void AdBannerViewExample()
