@@ -4,6 +4,11 @@ using iOS4Unity;
 
 public class iOS4UnityExamples : MonoBehaviour 
 {
+	private UIViewController GetUnityController()
+	{
+		return UIApplication.SharedApplication.KeyWindow.RootViewController;
+	}
+
     public void UIAlertViewExample()
     {
         var alertView = new UIAlertView();
@@ -14,12 +19,12 @@ public class iOS4UnityExamples : MonoBehaviour
 
         alertView.Clicked += (sender, e) => 
         {
-            Debug.Log("AlertView button clicked");
+			int option = e.Index + 1;
+			Debug.Log(string.Format ("Option {0} clicked!", option));
         };
-
         alertView.Dismissed += (sender, e) => 
         {
-            Debug.Log("ActionSheet dismissed");
+            Debug.Log("Dismissed");
         };
 
         alertView.Show();
@@ -32,15 +37,15 @@ public class iOS4UnityExamples : MonoBehaviour
         actionSheet.AddButton("Option 2");
         actionSheet.Title = "Title";
 
-        actionSheet.Clicked += (sender, e) => 
-        {
-            Debug.Log("ActionSheet button clicked");
-        };
-
-        actionSheet.Dismissed += (sender, e) => 
-        {
-            Debug.Log("ActionSheet dismissed");
-        };
+		actionSheet.Clicked += (sender, e) => 
+		{
+			int option = e.Index + 1;
+			Debug.Log(string.Format ("Option {0} clicked!", option));
+		};
+		actionSheet.Dismissed += (sender, e) => 
+		{
+			Debug.Log("Dismissed");
+		};
 
         actionSheet.Hidden = false;
     }
@@ -50,33 +55,19 @@ public class iOS4UnityExamples : MonoBehaviour
         var bannerView = new AdBannerView();
         bannerView.AdLoaded += (sender, e) => 
         {
-            Debug.Log("Ad Loaded");
+            Debug.Log("Ad Loaded!");
         };
-
-        bannerView.WillLoad += (sender, e) => 
-        {
-            Debug.Log("Will load Ad");
-        };
-
-        bannerView.FailedToReceiveAd += (sender, e) => 
+		bannerView.FailedToReceiveAd += (sender, e) => 
         {
             Debug.Log("AdFailed: " + e.Error.LocalizedDescription);
-            
-            bannerView.RemoveFromSuperview();
         };
 
-        UIApplication.SharedApplication.KeyWindow.RootViewController.View.AddSubview(bannerView);
+		var controller = GetUnityController();
+        controller.View.AddSubview(bannerView);
     }
 
     public void OpenUrl()
     {
-        try
-        {
-            UIApplication.SharedApplication.OpenUrl("http://www.google.com");
-        }
-        catch(UnityException exc)
-        {
-            Debug.Log("OpenUrl failed:" + exc);
-        }
+		UIApplication.SharedApplication.OpenUrl("http://www.google.com");
     }
 }
