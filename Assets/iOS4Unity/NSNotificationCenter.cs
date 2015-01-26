@@ -47,17 +47,17 @@ namespace iOS4Unity
 			get { return _classHandle; }
 		}
 		
-        private NSNotificationCenter(IntPtr handle) : base(handle) { }
+        internal NSNotificationCenter(IntPtr handle) : base(handle) { }
 
 		public static NSNotificationCenter DefaultCenter
 		{
-			get { return new NSNotificationCenter(ObjC.MessageSendIntPtr(_classHandle, "defaultCenter")); }
+			get { return Runtime.GetNSObject<NSNotificationCenter>(ObjC.MessageSendIntPtr(_classHandle, "defaultCenter")); }
 		}
 
 		public NSObject AddObserver(string name, Action<NSNotification> action, NSObject fromObject = null)
 		{
 			var handler = new Observer(action);
-			Callbacks.Subscribe(handler, SelectorName, n => action(new NSNotification(n)));
+			Callbacks.Subscribe(handler, SelectorName, n => action(Runtime.GetNSObject<NSNotification>(n)));
 			ObjC.MessageSend(Handle, "addObserver:selector:name:object:", handler.Handle, ObjC.GetSelector(SelectorName), name, fromObject == null ? IntPtr.Zero : fromObject.Handle); 
 			return handler;
 		}

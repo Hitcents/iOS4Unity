@@ -40,6 +40,14 @@ public class AdBannerViewTests
     }
 
     [Test]
+    public void ObjectSame()
+    {
+        var a = new AdBannerView(AdType.MediumRectangle);
+        var b = Runtime.GetNSObject<AdBannerView>(a.Handle);
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void LoadAd()
     {
         var bannerView = new AdBannerView();

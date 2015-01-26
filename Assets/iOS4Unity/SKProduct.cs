@@ -40,7 +40,7 @@ namespace iOS4Unity
 
         public NSLocale PriceLocale
         {
-            get { return new NSLocale(ObjC.MessageSendIntPtr(Handle, "priceLocale")); }
+            get { return Runtime.GetNSObject<NSLocale>(ObjC.MessageSendIntPtr(Handle, "priceLocale")); }
         }
 
         public string ProductIdentifier

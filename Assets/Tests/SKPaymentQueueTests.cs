@@ -20,6 +20,14 @@ public class SKPaymentQueueTests
     }
 
     [Test]
+    public void ObjectSame()
+    {
+        var a = SKPaymentQueue.DefaultQueue;
+        var b = SKPaymentQueue.DefaultQueue;
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void CanMakePayments()
     {
         //Just make sure there isn't a crash

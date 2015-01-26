@@ -16,7 +16,7 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
-        public NSLocale(IntPtr handle) : base(handle) { }
+        internal NSLocale(IntPtr handle) : base(handle) { }
 
         public string AlternateQuotationBeginDelimiter
         {
@@ -30,7 +30,7 @@ namespace iOS4Unity
 
         public static NSLocale AutoUpdatingCurrentLocale
         {
-            get { return new NSLocale(ObjC.MessageSendIntPtr(_classHandle, "autoupdatingCurrentLocale")); }
+            get { return Runtime.GetNSObject<NSLocale>(ObjC.MessageSendIntPtr(_classHandle, "autoupdatingCurrentLocale")); }
         }
 
         public static string[] AvailableLocaleIdentifiers
@@ -70,7 +70,7 @@ namespace iOS4Unity
 
         public static NSLocale CurrentLocale
         {
-            get { return new NSLocale(ObjC.MessageSendIntPtr(_classHandle, "currentLocale")); }
+            get { return Runtime.GetNSObject<NSLocale>(ObjC.MessageSendIntPtr(_classHandle, "currentLocale")); }
         }
 
         public static string CurrentLocaleDidChangeNotification
@@ -135,7 +135,7 @@ namespace iOS4Unity
 
         public static NSLocale SystemLocale
         {
-            get { return new NSLocale(ObjC.MessageSendIntPtr(_classHandle, "systemLocale")); }
+            get { return Runtime.GetNSObject<NSLocale>(ObjC.MessageSendIntPtr(_classHandle, "systemLocale")); }
         }
 
         public bool UsesMetricSystem

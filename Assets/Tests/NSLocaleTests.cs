@@ -20,6 +20,14 @@ public class NSLocaleTests
     }
 
     [Test]
+    public void ObjectSame()
+    {
+        var a = NSLocale.CurrentLocale;
+        var b = NSLocale.CurrentLocale;
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void AutoUpdatingCurrentLocale()
     {
         var locale = NSLocale.AutoUpdatingCurrentLocale;

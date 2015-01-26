@@ -39,11 +39,11 @@ namespace iOS4Unity
 			get	{ return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceProximityStateDidChangeNotification"); }
 		}
 
-        private UIDevice(IntPtr handle) : base(handle) { }
+        internal UIDevice(IntPtr handle) : base(handle) { }
 
 		public static UIDevice CurrentDevice
 		{
-			get { return new UIDevice(ObjC.MessageSendIntPtr(_classHandle, "currentDevice")); }
+			get { return Runtime.GetNSObject<UIDevice>(ObjC.MessageSendIntPtr(_classHandle, "currentDevice")); }
 		}
 
 		public float BatteryLevel

@@ -58,7 +58,7 @@ namespace iOS4Unity
 
         public UIView Superview
         {
-            get { return new UIView(ObjC.MessageSendIntPtr(Handle, "superview")); }
+            get { return Runtime.GetNSObject<UIView>(ObjC.MessageSendIntPtr(Handle, "superview")); }
         }
 
         public void BringSubviewToFront(UIView view)
@@ -85,7 +85,7 @@ namespace iOS4Unity
 
         public UIWindow Window
         {
-            get { return new UIWindow(ObjC.MessageSendIntPtr(Handle, "window")); }
+            get { return Runtime.GetNSObject<UIWindow>(ObjC.MessageSendIntPtr(Handle, "window")); }
         }
 
         public void RemoveFromSuperview()

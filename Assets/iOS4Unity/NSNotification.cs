@@ -18,7 +18,7 @@ namespace iOS4Unity
 
 		public static NSNotification FromName(string name, NSObject obj = null)
 		{
-			return new NSNotification(ObjC.MessageSendIntPtr(_classHandle, "notificationWithName:object:", name, obj == null ? IntPtr.Zero : obj.Handle));
+			return Runtime.GetNSObject<NSNotification>(ObjC.MessageSendIntPtr(_classHandle, "notificationWithName:object:", name, obj == null ? IntPtr.Zero : obj.Handle));
 		}
 
         internal NSNotification(IntPtr handle) : base(handle) { }
@@ -30,7 +30,7 @@ namespace iOS4Unity
 
 		public NSObject Object
 		{
-			get { return new NSObject(ObjC.MessageSendIntPtr(Handle, "object")); }
+			get { return Runtime.GetNSObject<NSObject>(ObjC.MessageSendIntPtr(Handle, "object")); }
 		}
 	}
 }

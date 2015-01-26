@@ -23,6 +23,14 @@ public class UIScreenTests
     }
 
     [Test]
+    public void ObjectSame()
+    {
+        var a = UIScreen.MainScreen;
+        var b = UIScreen.MainScreen;
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void ApplicationFrame()
     {
         var applicationFrame = UIScreen.MainScreen.ApplicationFrame;
@@ -58,8 +66,7 @@ public class UIScreenTests
     [Test]
     public void MirroredScreen()
     {
-        //Just to make sure this doesn't crash
-		UIScreen.MainScreen.MirroredScreen.ToString();
+        Assert.IsNull(UIScreen.MainScreen.MirroredScreen);
     }
 
     [Test]
@@ -125,6 +132,14 @@ public class UIScreenTests
     {
         //Just to make sure this doesn't crash
 		UIScreen.MainScreen.WantsSoftwareDimming.ToString();
+    }
+
+    [Test]
+    public void ScreenModeObjectSame()
+    {
+        var a = UIScreen.MainScreen.CurrentMode;
+        var b = UIScreen.MainScreen.CurrentMode;
+        Assert.AreSame(a, b);
     }
 }
 

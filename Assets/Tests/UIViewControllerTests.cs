@@ -32,6 +32,15 @@ public class UIViewControllerTests
     }
 
     [Test]
+    public void ObjectSameRootController()
+    {
+        var window = UIApplication.SharedApplication.KeyWindow;
+        var a = window.RootViewController;
+        var b = window.RootViewController;
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void Title()
     {
         string text = "MyTitle";

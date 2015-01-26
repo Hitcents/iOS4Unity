@@ -5,12 +5,28 @@ using iOS4Unity;
 [TestFixture]
 public class NSNumberFormatterTests
 {
+    [Test]
+    public void NewObject()
+    {
+        var obj = new NSNumberFormatter();
+
+        Assert.AreNotEqual(IntPtr.Zero, obj.ClassHandle);
+        Assert.AreNotEqual(IntPtr.Zero, obj.Handle);
+    }
 
     [Test]
-    public void NSNumberFormatterTest()
+    public void NewObjectDispose()
     {
-        var formatter = new NSNumberFormatter();
-        Assert.AreNotEqual(IntPtr.Zero, formatter);
+        var obj = new NSNumberFormatter();
+        obj.Dispose();
+    }
+
+    [Test]
+    public void ObjectSame()
+    {
+        var a = new NSNumberFormatter();
+        var b = Runtime.GetNSObject<NSNumberFormatter>(a.Handle);
+        Assert.AreSame(a, b);
     }
 
     [Test]

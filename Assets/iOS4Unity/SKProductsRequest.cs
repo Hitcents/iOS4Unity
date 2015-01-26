@@ -25,6 +25,8 @@ namespace iOS4Unity
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 
+        internal SKProductsRequest(IntPtr handle) : base(handle) { }
+
         public void Cancel()
         {
             ObjC.MessageSend(Handle, "cancel");
@@ -41,7 +43,7 @@ namespace iOS4Unity
             { 
                 if (_receivedResponse == null)
                     _receivedResponse = new Dictionary<object, IntPtrHandler2>();
-                IntPtrHandler2 callback = (_, i) => value(this, new SKProductsResponseEventArgs { Response = new SKProductsResponse(i) });
+                IntPtrHandler2 callback = (_, i) => value(this, new SKProductsResponseEventArgs { Response = Runtime.GetNSObject<SKProductsResponse>(i) });
                 _receivedResponse[value] = callback;
                 Callbacks.Subscribe(this, "productsRequest:didReceiveResponse:", callback); 
             } 
@@ -62,7 +64,7 @@ namespace iOS4Unity
             { 
                 if (_failed == null)
                     _failed = new Dictionary<object, IntPtrHandler2>();
-                IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = new NSError(i) });
+                IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = Runtime.GetNSObject<NSError>(i) });
                 _failed[value] = callback;
                 Callbacks.Subscribe(this, "request:didFailWithError:", callback); 
             } 

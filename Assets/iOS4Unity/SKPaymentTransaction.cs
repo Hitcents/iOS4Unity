@@ -23,7 +23,7 @@ namespace iOS4Unity
             get 
             { 
                 IntPtr handle = ObjC.MessageSendIntPtr(Handle, "error");
-                return handle == IntPtr.Zero ? null : new NSError(handle); 
+                return handle == IntPtr.Zero ? null : Runtime.GetNSObject<NSError>(handle); 
             }
         }
 
@@ -32,7 +32,7 @@ namespace iOS4Unity
             get 
             { 
                 IntPtr handle = ObjC.MessageSendIntPtr(Handle, "originalTransaction");
-                return handle == IntPtr.Zero ? null : new SKPaymentTransaction(handle); 
+                return handle == IntPtr.Zero ? null : Runtime.GetNSObject<SKPaymentTransaction>(handle); 
             }
         }
 

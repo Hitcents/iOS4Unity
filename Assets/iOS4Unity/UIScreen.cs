@@ -47,7 +47,7 @@ namespace iOS4Unity
 
         public UIScreenMode CurrentMode
         {
-            get { return new UIScreenMode(ObjC.MessageSendIntPtr(Handle, "currentMode")); }
+            get { return Runtime.GetNSObject<UIScreenMode>(ObjC.MessageSendIntPtr(Handle, "currentMode")); }
             set { ObjC.MessageSend(Handle, "setCurrentMode", value.Handle); }
         }
             
@@ -63,12 +63,12 @@ namespace iOS4Unity
 
         public static UIScreen MainScreen
         {
-            get { return new UIScreen(ObjC.MessageSendIntPtr(_classHandle, "mainScreen")); }
+            get { return Runtime.GetNSObject<UIScreen>(ObjC.MessageSendIntPtr(_classHandle, "mainScreen")); }
         }
 
         public UIScreen MirroredScreen
         {
-            get { return new UIScreen(ObjC.MessageSendIntPtr(Handle, "mirroredScreen")); }
+            get { return Runtime.GetNSObject<UIScreen>(ObjC.MessageSendIntPtr(Handle, "mirroredScreen")); }
         }
 
         public static string ModeDidChangeNotification
@@ -94,7 +94,7 @@ namespace iOS4Unity
 
         public UIScreenMode PreferredMode
         {
-            get { return new UIScreenMode(ObjC.MessageSendIntPtr(Handle, "preferredMode")); }
+            get { return Runtime.GetNSObject<UIScreenMode>(ObjC.MessageSendIntPtr(Handle, "preferredMode")); }
         }
 
         public float Scale

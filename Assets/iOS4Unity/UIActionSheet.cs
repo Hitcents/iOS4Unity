@@ -23,6 +23,8 @@ namespace iOS4Unity
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 
+        internal UIActionSheet(IntPtr handle) : base(handle) { }
+
         public int AddButton(string title)
         {
             return ObjC.MessageSendInt(Handle, "addButtonWithTitle:", title);

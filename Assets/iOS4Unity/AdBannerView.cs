@@ -35,6 +35,8 @@ namespace iOS4Unity
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 
+        internal AdBannerView(IntPtr handle) : base(handle) { }
+
         public AdType AdType
         {
             get { return (AdType)ObjC.MessageSendInt(Handle, "adType"); }
@@ -63,7 +65,7 @@ namespace iOS4Unity
             { 
                 if (_failedToReceiveAd == null)
                     _failedToReceiveAd = new Dictionary<object, IntPtrHandler2>();
-                IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = new NSError(i) });
+                IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = Runtime.GetNSObject<NSError>(i) });
                 _failedToReceiveAd[value] = callback;
                 Callbacks.Subscribe(this, "bannerView:didFailToReceiveAdWithError:", callback); 
             } 

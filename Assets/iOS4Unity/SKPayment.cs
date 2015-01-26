@@ -20,7 +20,7 @@ namespace iOS4Unity
 
         public static SKPayment PaymentWithProduct(SKProduct product)
         {
-            return new SKPayment(ObjC.MessageSendIntPtr(_classHandle, "paymentWithProduct:", product.Handle));
+            return Runtime.GetNSObject<SKPayment>(ObjC.MessageSendIntPtr(_classHandle, "paymentWithProduct:", product.Handle));
         }
 
         public string ApplicationUsername

@@ -69,7 +69,7 @@ namespace iOS4Unity
 
         public static UIImage FromBundle(string name)
         {
-            return new UIImage(ObjC.MessageSendIntPtr(_classHandle, "imageNamed:", name));
+            return Runtime.GetNSObject<UIImage>(ObjC.MessageSendIntPtr(_classHandle, "imageNamed:", name));
         }
 
         public static UIImage FromFile(string filename)
@@ -78,17 +78,17 @@ namespace iOS4Unity
             filename = Path.Combine(UnityEngine.Application.streamingAssetsPath, filename);
             #endif
 
-            return new UIImage(ObjC.MessageSendIntPtr(_classHandle, "imageWithContentsOfFile:", filename));
+            return Runtime.GetNSObject<UIImage>(ObjC.MessageSendIntPtr(_classHandle, "imageWithContentsOfFile:", filename));
         }
 
         public static UIImage LoadFromData(NSData data)
         {
-            return new UIImage(ObjC.MessageSendIntPtr(_classHandle, "imageWithData:", data.Handle));
+            return Runtime.GetNSObject<UIImage>(ObjC.MessageSendIntPtr(_classHandle, "imageWithData:", data.Handle));
         }
 
         public static UIImage LoadFromData(NSData data, float scale)
         {
-            return new UIImage(ObjC.MessageSendIntPtr(_classHandle, "imageWithData:scale:", data.Handle, scale));
+            return Runtime.GetNSObject<UIImage>(ObjC.MessageSendIntPtr(_classHandle, "imageWithData:scale:", data.Handle, scale));
         }
 
         public CGSize Size
@@ -107,7 +107,7 @@ namespace iOS4Unity
                 var dispatcher = new UIImageDispatcher(callback);
                 Callbacks.Subscribe(dispatcher, SelectorName, (IntPtr obj, IntPtr e, IntPtr ctx) => 
                 {
-                    callback(e == IntPtr.Zero ? null : new NSError(e));
+                    callback(e == IntPtr.Zero ? null : Runtime.GetNSObject<NSError>(e));
                     dispatcher.Dispose();
                 });
                 UIImageWriteToSavedPhotosAlbum(Handle, dispatcher.Handle, ObjC.GetSelector(SelectorName), IntPtr.Zero);

@@ -16,7 +16,7 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
-        public NSBundle(IntPtr handle) : base(handle) { }
+        internal NSBundle(IntPtr handle) : base(handle) { }
 
         public string BundleIdentifier
         {
@@ -30,17 +30,17 @@ namespace iOS4Unity
 
         public static NSBundle FromIdentifier(string str)
         {
-            return new NSBundle(ObjC.MessageSendIntPtr(_classHandle, "bundleWithIdentifier:", str));
+            return Runtime.GetNSObject<NSBundle>(ObjC.MessageSendIntPtr(_classHandle, "bundleWithIdentifier:", str));
         }
 
         public static NSBundle FromPath(string path)
         {
-            return new NSBundle(ObjC.MessageSendIntPtr(_classHandle, "bundleWithPath:", path));
+            return Runtime.GetNSObject<NSBundle>(ObjC.MessageSendIntPtr(_classHandle, "bundleWithPath:", path));
         }
 
         public static NSBundle MainBundle
         {
-            get { return new NSBundle(ObjC.MessageSendIntPtr(_classHandle, "mainBundle")); }
+            get { return Runtime.GetNSObject<NSBundle>(ObjC.MessageSendIntPtr(_classHandle, "mainBundle")); }
         }
 
         public string LocalizedString(string key, string value = "", string table = "")

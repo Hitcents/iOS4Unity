@@ -24,6 +24,14 @@ public class UIViewTests
     }
 
     [Test]
+    public void ObjectSame()
+    {
+        var a = new UIView();
+        var b = Runtime.GetNSObject<UIView>(a.Handle);
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void NewObjectWithFrame()
     {
         var frame = new CGRect(1, 2, 3, 4);

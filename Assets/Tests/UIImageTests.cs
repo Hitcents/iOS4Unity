@@ -9,6 +9,30 @@ using NUnit.Framework;
 public class UIImageTests
 {
     [Test]
+    public void NewObject()
+    {
+        var obj = UIImage.FromFile("chuck.jpg");
+
+        Assert.AreNotEqual(IntPtr.Zero, obj.ClassHandle);
+        Assert.AreNotEqual(IntPtr.Zero, obj.Handle);
+    }
+
+    [Test]
+    public void NewObjectDispose()
+    {
+        var obj = UIImage.FromFile("chuck.jpg");
+        obj.Dispose();
+    }
+
+    [Test]
+    public void ObjectSame()
+    {
+        var a = UIImage.FromFile("chuck.jpg");
+        var b = Runtime.GetNSObject<UIImage>(a.Handle);
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void AsJPEG()
     {
         var jpgImage = UIImage.FromFile("chuck.jpg").AsJPEG();

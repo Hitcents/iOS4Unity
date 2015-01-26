@@ -16,7 +16,9 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
-        public NSNumberFormatter() : base() { }
+        public NSNumberFormatter() { }
+
+        internal NSNumberFormatter(IntPtr handle) : base(handle) { }
 
         public NSNumberFormatterBehavior FormatterBehavior
         {
@@ -110,7 +112,7 @@ namespace iOS4Unity
 
         public NSLocale Locale
         {
-            get { return new NSLocale(ObjC.MessageSendIntPtr(Handle, "locale")); }
+            get { return Runtime.GetNSObject<NSLocale>(ObjC.MessageSendIntPtr(Handle, "locale")); }
             set { ObjC.MessageSend(Handle, "setLocale:", value.Handle); }
         }
 

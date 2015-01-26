@@ -22,6 +22,14 @@ public class NSErrorTests
     }
 
     [Test]
+    public void ObjectSame()
+    {
+        var a = new NSError("com.hitcents.ios4unity", 122);
+        var b = Runtime.GetNSObject<NSError>(a.Handle);
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void Code()
     {
         int code = 122;

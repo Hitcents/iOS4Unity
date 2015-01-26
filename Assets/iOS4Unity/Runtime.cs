@@ -9,16 +9,32 @@ namespace iOS4Unity
 
         private static readonly Dictionary<Type, Func<IntPtr, object>> _constructors = new Dictionary<Type, Func<IntPtr, object>>
         {
+            { typeof(AdBannerView), h => new AdBannerView(h) },
+            { typeof(NSBundle), h => new NSBundle(h) },
             { typeof(NSData), h => new NSData(h) },
+            { typeof(NSError), h => new NSError(h) },
+            { typeof(NSLocale), h => new NSLocale(h) },
+            { typeof(NSNotification), h => new NSNotification(h) },
+            { typeof(NSNotificationCenter), h => new NSNotificationCenter(h) },
+            { typeof(NSNumberFormatter), h => new NSNumberFormatter(h) },
             { typeof(NSObject), h => new NSObject(h) },
-            { typeof(UIApplication), h => new UIApplication(h) },
-            { typeof(UIViewController), h => new UIViewController(h) },
-
-            { typeof(UIScreenMode), h => new UIScreenMode(h) },
-            { typeof(UIScreen), h => new UIScreen(h) },
-            { typeof(UIView), h => new UIView(h) },
-            { typeof(UIWindow), h => new UIWindow(h) },
+            { typeof(SKPayment), h => new SKPayment(h) },
+            { typeof(SKPaymentQueue), h => new SKPaymentQueue(h) },
+            { typeof(SKPaymentTransaction), h => new SKPaymentTransaction(h) },
             { typeof(SKProduct), h => new SKProduct(h) },
+            { typeof(SKProductsRequest), h => new SKProductsRequest(h) },
+            { typeof(SKProductsResponse), h => new SKProductsResponse(h) },
+            { typeof(UIActionSheet), h => new UIActionSheet(h) },
+            { typeof(UIActivityViewController), h => new UIActivityViewController(h) },
+            { typeof(UIAlertView), h => new UIAlertView(h) },
+            { typeof(UIApplication), h => new UIApplication(h) },
+            { typeof(UIDevice), h => new UIDevice(h) },
+            { typeof(UIImage), h => new UIImage(h) },
+            { typeof(UIScreen), h => new UIScreen(h) },
+            { typeof(UIScreenMode), h => new UIScreenMode(h) },
+            { typeof(UIView), h => new UIView(h) },
+            { typeof(UIViewController), h => new UIViewController(h) },
+            { typeof(UIWindow), h => new UIWindow(h) },
         };
         private static readonly Dictionary<IntPtr, object> _objects = new Dictionary<IntPtr, object>();
     	
@@ -45,11 +61,8 @@ namespace iOS4Unity
             return ConstructNSObject<T>(handle);
         }
 
-        public static T ConstructNSObject<T>(IntPtr handle) where T : NSObject
+        private static T ConstructNSObject<T>(IntPtr handle) where T : NSObject
         {
-            if (handle == IntPtr.Zero)
-                return null;
-
             Func<IntPtr, object> constructor;
             lock (_contructorLock)
             {

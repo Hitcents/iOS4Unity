@@ -21,6 +21,14 @@ public class NSNotificationTests
 		notification.Dispose();
 	}
 
+    [Test]
+    public void ObjectSame()
+    {
+        var a = NSNotification.FromName("WOOT");
+        var b = Runtime.GetNSObject<NSNotification>(a.Handle);
+        Assert.AreSame(a, b);
+    }
+
 	[Test]
 	public void Object()
 	{

@@ -19,7 +19,7 @@ namespace iOS4Unity
 
         private Dictionary<object, IntPtrHandler2> _restoreFailed, _updatedTransactions;
 
-        private SKPaymentQueue(IntPtr handle) : base(handle) 
+        internal SKPaymentQueue(IntPtr handle) : base(handle) 
         { 
             ObjC.MessageSend(Handle, "addTransactionObserver:", Handle);
         }
@@ -36,7 +36,7 @@ namespace iOS4Unity
 
         public static SKPaymentQueue DefaultQueue
         {
-            get { return new SKPaymentQueue(ObjC.MessageSendIntPtr(_classHandle, "defaultQueue")); }
+            get { return Runtime.GetNSObject<SKPaymentQueue>(ObjC.MessageSendIntPtr(_classHandle, "defaultQueue")); }
         }
 
         public event EventHandler RestoreCompleted
@@ -51,7 +51,7 @@ namespace iOS4Unity
             { 
                 if (_restoreFailed == null)
                     _restoreFailed = new Dictionary<object, IntPtrHandler2>();
-                IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = new NSError(i) });
+                IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = Runtime.GetNSObject<NSError>(i) });
                 _restoreFailed[value] = callback;
                 Callbacks.Subscribe(this, "paymentQueue:restoreCompletedTransactionsFailedWithError:", callback); 
             } 

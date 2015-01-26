@@ -49,7 +49,7 @@ namespace iOS4Unity
 
         public UIScreen Screen
         {
-            get { return new UIScreen(ObjC.MessageSendIntPtr(Handle, "screen")); }
+            get { return Runtime.GetNSObject<UIScreen>(ObjC.MessageSendIntPtr(Handle, "screen")); }
             set { ObjC.MessageSend(Handle, "setScreen:", value.Handle); }
         }
 

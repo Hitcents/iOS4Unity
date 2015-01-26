@@ -21,6 +21,14 @@ public class UIDeviceTests
 		device.Dispose();
 	}
 
+    [Test]
+    public void ObjectSame()
+    {
+        var a = UIDevice.CurrentDevice;
+        var b = Runtime.GetNSObject<UIDevice>(a.Handle);
+        Assert.AreSame(a, b);
+    }
+
 	[Test]
 	public void BatteryLevel()
 	{

@@ -23,6 +23,14 @@ public class SKProductsRequestTests
     }
 
     [Test]
+    public void ObjectSame()
+    {
+        var a = new SKProductsRequest("woot");
+        var b = Runtime.GetNSObject<SKProductsRequest>(a.Handle);
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void Start()
     {
         string productId = "woot";

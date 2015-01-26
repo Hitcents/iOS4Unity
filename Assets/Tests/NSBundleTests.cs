@@ -2,13 +2,11 @@
 using NUnit.Framework;
 using iOS4Unity;
 
-#if !UNITY_EDITOR
-
 [TestFixture]
 public class NSBundleTests 
 {
     [Test]
-    public void NSBundleTest()
+    public void MainBundle()
     {
         var bundle = NSBundle.MainBundle;
 
@@ -16,10 +14,18 @@ public class NSBundleTests
     }
 
     [Test]
-    public void MainScreenDispose()
+    public void MainBundleDispose()
     {
         var bundle = NSBundle.MainBundle;
         bundle.Dispose();
+    }
+
+    [Test]
+    public void ObjectSame()
+    {
+        var a = NSBundle.MainBundle;
+        var b = NSBundle.MainBundle;
+        Assert.AreSame(a, b);
     }
 
     [Test]
@@ -27,7 +33,6 @@ public class NSBundleTests
     {
         var bundle = NSBundle.MainBundle;
         Assert.AreNotSame(string.Empty, bundle.BundlePath);
-
     }
 
     [Test]
@@ -37,5 +42,3 @@ public class NSBundleTests
         Assert.AreNotSame(string.Empty, bundle.ResourcePath);
     }
 }
-
-#endif

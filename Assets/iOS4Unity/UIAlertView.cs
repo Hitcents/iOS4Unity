@@ -24,6 +24,8 @@ namespace iOS4Unity
 			ObjC.MessageSend(Handle, "setDelegate:", Handle);
 		}
 
+        internal UIAlertView(IntPtr handle) : base(handle) { }
+
 		public event EventHandler<ButtonEventArgs> Clicked
 		{
 			add { Callbacks.Subscribe(this, "alertView:clickedButtonAtIndex:", value); }

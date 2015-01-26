@@ -20,6 +20,14 @@ public class NSNotificationCenterTests
 		center.Dispose();
 	}
 
+    [Test]
+    public void ObjectSame()
+    {
+        var a = NSNotificationCenter.DefaultCenter;
+        var b = NSNotificationCenter.DefaultCenter;
+        Assert.AreSame(a, b);
+    }
+
 	[Test]
 	public void AddObserverAndPost()
 	{

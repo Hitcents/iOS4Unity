@@ -37,5 +37,7 @@ namespace iOS4Unity
             ObjC.MessageSendIntPtr(Handle, "initWithActivityItems:applicationActivities:", array, IntPtr.Zero);
             ObjC.MessageSend(textHandle, "release");
         }
+
+        internal UIActivityViewController(IntPtr handle) : base(handle) { }
     }
 }

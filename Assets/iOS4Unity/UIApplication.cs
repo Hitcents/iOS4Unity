@@ -55,7 +55,7 @@ namespace iOS4Unity
 
         public UIWindow KeyWindow
         {
-            get { return new UIWindow(ObjC.MessageSendIntPtr(Handle, "keyWindow")); }
+            get { return Runtime.GetNSObject<UIWindow>(ObjC.MessageSendIntPtr(Handle, "keyWindow")); }
         }
 
         public UIWindow[] Windows

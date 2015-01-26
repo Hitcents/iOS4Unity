@@ -26,6 +26,31 @@ namespace iOS4Unity
         }
 
         [Test]
+        public void ObjectSame()
+        {
+            var a = new UIWindow();
+            var b = Runtime.GetNSObject<UIWindow>(a.Handle);
+            Assert.AreSame(a, b);
+        }
+
+        [Test]
+        public void ObjectSameKeyWindow()
+        {
+            var a = UIApplication.SharedApplication.KeyWindow;
+            var b = UIApplication.SharedApplication.KeyWindow;
+            Assert.AreSame(a, b);
+        }
+
+        [Test]
+        public void ObjectSamedViewWindow()
+        {
+            var view = UIApplication.SharedApplication.KeyWindow.RootViewController.View;
+            var a = view.Window;
+            var b = view.Window;
+            Assert.AreSame(a, b);
+        }
+
+        [Test]
         public void NewObjectWithFrame()
         {
             var frame = new CGRect(1, 2, 3, 4);

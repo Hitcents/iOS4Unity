@@ -79,7 +79,7 @@ namespace iOS4Unity
 
             IntPtr errorHandle;
             var data = Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr(_classHandle, "dataWithContentsOfFile:options:error:", path, (uint)mask, out errorHandle));
-            error = errorHandle == IntPtr.Zero ? null : new NSError(errorHandle);
+            error = errorHandle == IntPtr.Zero ? null : Runtime.GetNSObject<NSError>(errorHandle);
             return data;
         }
 
@@ -101,7 +101,7 @@ namespace iOS4Unity
         {
             IntPtr errorHandle;
             var data = Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr_NSUrl(_classHandle, "dataWithContentsOfURL:options:error:", url, (uint)mask, out errorHandle));
-            error = errorHandle == IntPtr.Zero ? null : new NSError(errorHandle);
+            error = errorHandle == IntPtr.Zero ? null : Runtime.GetNSObject<NSError>(errorHandle);
             return data;
         }
 

@@ -23,6 +23,14 @@ public class UIAlertViewTests
 		obj.Dispose();
 	}
 
+    [Test]
+    public void ObjectSame()
+    {
+        var a = new UIAlertView();
+        var b = Runtime.GetNSObject<UIAlertView>(a.Handle);
+        Assert.AreSame(a, b);
+    }
+
 	[Test]
 	public void AddButton()
 	{

@@ -24,6 +24,14 @@ public class UIActionSheetTests
     }
 
     [Test]
+    public void ObjectSame()
+    {
+        var a = new UIActionSheet();
+        var b = Runtime.GetNSObject<UIActionSheet>(a.Handle);
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void AddButton()
     {
         var actionSheet = new UIActionSheet();

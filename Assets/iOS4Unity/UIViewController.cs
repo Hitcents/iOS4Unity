@@ -28,7 +28,7 @@ namespace iOS4Unity
 
         public UIView View
         {
-            get { return new UIView(ObjC.MessageSendIntPtr(Handle, "view")); }
+            get { return Runtime.GetNSObject<UIView>(ObjC.MessageSendIntPtr(Handle, "view")); }
             set { ObjC.MessageSend(Handle, "setView:", value.Handle); }
         }
 
