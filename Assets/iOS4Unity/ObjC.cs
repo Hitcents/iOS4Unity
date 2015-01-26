@@ -310,6 +310,17 @@ namespace iOS4Unity
             return array;
         }
 
+        public static string[] FromNSSet(IntPtr handle)
+        {
+            if (handle == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            IntPtr array = ObjC.MessageSendIntPtr(handle, "allObjects");
+            return FromNSArray(array);
+        }
+
         public static T[] FromNSArray<T>(IntPtr handle) where T : NSObject
         {
             if (handle == IntPtr.Zero)
@@ -326,6 +337,17 @@ namespace iOS4Unity
                 array[(int)num] = Activator.CreateFromHandle<T>(obj);
             }
             return array;
+        }
+
+        public static T[] FromNSSet<T>(IntPtr handle) where T : NSObject
+        {
+            if (handle == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            IntPtr array = ObjC.MessageSendIntPtr(handle, "allObjects");
+            return FromNSArray<T>(array);
         }
 
 		public static string GetStringConstant(IntPtr handle, string symbol)

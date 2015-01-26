@@ -72,4 +72,64 @@ public class ObjCTests
         double number = ObjC.FromNSNumber(IntPtr.Zero);
         Assert.AreEqual(default(double), number);
     }
+
+    [Test]
+    public void FromNSArray()
+    {
+        string text = "woot";
+        IntPtr handle = ObjC.ToNSString(text);
+        var arrayHandle = ObjC.ToNSArray(new[] { handle });
+        var array = ObjC.FromNSArray(arrayHandle);
+        Assert.AreEqual(1, array.Length);
+        Assert.AreEqual(text, array[0]);
+    }
+
+    [Test]
+    public void FromNSArrayNull()
+    {
+        var array = ObjC.FromNSArray(IntPtr.Zero);
+        Assert.IsNull(array);
+    }
+
+    [Test]
+    public void FromNSArrayNullOfT()
+    {
+        var array = ObjC.FromNSArray<NSObject>(IntPtr.Zero);
+        Assert.IsNull(array);
+    }
+
+    [Test]
+    public void FromNSSet()
+    {
+        string text = "woot";
+        IntPtr handle = ObjC.ToNSString(text);
+        var arrayHandle = ObjC.ToNSSet(new[] { handle });
+        var array = ObjC.FromNSSet(arrayHandle);
+        Assert.AreEqual(1, array.Length);
+        Assert.AreEqual(text, array[0]);
+    }
+
+    [Test]
+    public void FromNSSetStrings()
+    {
+        string text = "woot";
+        var arrayHandle = ObjC.ToNSSet(new[] { text });
+        var array = ObjC.FromNSSet(arrayHandle);
+        Assert.AreEqual(1, array.Length);
+        Assert.AreEqual(text, array[0]);
+    }
+
+    [Test]
+    public void FromNSSetNull()
+    {
+        var array = ObjC.FromNSSet(IntPtr.Zero);
+        Assert.IsNull(array);
+    }
+
+    [Test]
+    public void FromNSSetNullOfT()
+    {
+        var array = ObjC.FromNSSet<NSObject>(IntPtr.Zero);
+        Assert.IsNull(array);
+    }
 }
