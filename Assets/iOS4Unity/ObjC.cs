@@ -334,7 +334,7 @@ namespace iOS4Unity
             for (uint num = 0; num < count; num += 1)
             {
                 obj = ObjC.MessageSendIntPtr(handle, "objectAtIndex:", num);
-                array[(int)num] = Activator.CreateFromHandle<T>(obj);
+                array[(int)num] = Runtime.GetNSObject<T>(obj);
             }
             return array;
         }

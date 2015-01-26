@@ -61,7 +61,7 @@ namespace iOS4Unity
 
         public UIViewController RootViewController
         {
-            get { return new UIViewController(ObjC.MessageSendIntPtr(Handle, "rootViewController")); }
+            get { return Runtime.GetNSObject<UIViewController>(ObjC.MessageSendIntPtr(Handle, "rootViewController")); }
             set { ObjC.MessageSend(Handle, "setRootViewController:", value.Handle); }
         }
     }

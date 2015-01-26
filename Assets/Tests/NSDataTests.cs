@@ -22,6 +22,14 @@ public class NSDataTests
     }
 
     [Test]
+    public void ObjectSame()
+    {
+        var a =  NSData.FromArray(new byte[] { 0 });
+        var b = Runtime.GetNSObject<NSData>(a.Handle);
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void FromData()
     {
         var source = NSData.FromArray(new byte[] { 0 });

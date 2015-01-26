@@ -28,11 +28,13 @@ namespace iOS4Unity
 		public NSObject(IntPtr handle)
 		{
 			Handle = handle;
+            Runtime.RegisterNSObject(this);
 		}
 
 		public NSObject()
 		{
 			Handle = ObjC.MessageSendIntPtr(ClassHandle, "alloc");
+            Runtime.RegisterNSObject(this);
             _shouldRelease = true;
 		}
 
@@ -50,10 +52,14 @@ namespace iOS4Unity
 		{
 			GC.SuppressFinalize(this);
 
-			if (Handle != IntPtr.Zero && _shouldRelease)
+			if (Handle != IntPtr.Zero)
 			{
-				Callbacks.UnsubscribeAll(this);
-                ObjC.MessageSend(Handle, "release");
+                Runtime.UnregisterNSObject(Handle);
+                Callbacks.UnsubscribeAll(this);
+                if (_shouldRelease)
+                {
+                    ObjC.MessageSend(Handle, "release");
+                }
 			}
 		}
 	}

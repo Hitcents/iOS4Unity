@@ -126,9 +126,6 @@
     <Compile Include="..\Assets\iOS4Unity\SKProductsResponse.cs">
       <Link>SKProductsResponse.cs</Link>
     </Compile>
-    <Compile Include="..\Assets\iOS4Unity\Activator.cs">
-      <Link>Activator.cs</Link>
-    </Compile>
     <Compile Include="..\Assets\iOS4Unity\SKProduct.cs">
       <Link>SKProduct.cs</Link>
     </Compile>
@@ -146,6 +143,9 @@
     </Compile>
     <Compile Include="..\Assets\iOS4Unity\NSNumberFormatter.cs">
       <Link>NSNumberFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\Runtime.cs">
+      <Link>Runtime.cs</Link>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

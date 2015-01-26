@@ -22,6 +22,14 @@ public class UIApplicationTests
     }
 
     [Test]
+    public void ObjectSame()
+    {
+        var a = UIApplication.SharedApplication;
+        var b = UIApplication.SharedApplication;
+        Assert.AreSame(a, b);
+    }
+
+    [Test]
     public void KeyWindow()
     {
         var window = UIApplication.SharedApplication.KeyWindow;

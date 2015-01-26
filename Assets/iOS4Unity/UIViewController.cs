@@ -44,17 +44,17 @@ namespace iOS4Unity
 
         public UIViewController ParentViewController
         {
-            get { return new UIViewController(ObjC.MessageSendIntPtr(Handle, "parentViewController")); }
+            get { return Runtime.GetNSObject<UIViewController>(ObjC.MessageSendIntPtr(Handle, "parentViewController")); }
         }
 
         public UIViewController PresentedViewController
         {
-            get { return new UIViewController(ObjC.MessageSendIntPtr(Handle, "presentedViewController")); }
+            get { return Runtime.GetNSObject<UIViewController>(ObjC.MessageSendIntPtr(Handle, "presentedViewController")); }
         }
 
         public UIViewController PresentingViewController
         {
-            get { return new UIViewController(ObjC.MessageSendIntPtr(Handle, "presentingViewController")); }
+            get { return Runtime.GetNSObject<UIViewController>(ObjC.MessageSendIntPtr(Handle, "presentingViewController")); }
         }
 
         //TODO: need to add the callback instead of using IntPtr.Zero

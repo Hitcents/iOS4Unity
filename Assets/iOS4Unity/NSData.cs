@@ -53,22 +53,22 @@ namespace iOS4Unity
 
         public static NSData FromBytes(IntPtr bytes, uint size)
         {
-            return new NSData(ObjC.MessageSendIntPtr(_classHandle, "dataWithBytes:length:", bytes, size));
+            return Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr(_classHandle, "dataWithBytes:length:", bytes, size));
         }
 
         public static NSData FromData(NSData source)
         {
-            return new NSData(ObjC.MessageSendIntPtr(_classHandle, "dataWithData:", source.Handle));
+            return Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr(_classHandle, "dataWithData:", source.Handle));
         }
 
         public static NSData FromBytesNoCopy(IntPtr bytes, uint size)
         {
-            return new NSData(ObjC.MessageSendIntPtr(_classHandle, "dataWithBytesNoCopy:length:", bytes, size));
+            return Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr(_classHandle, "dataWithBytesNoCopy:length:", bytes, size));
         }
 
         public static NSData FromBytesNoCopy(IntPtr bytes, uint size, bool freeWhenDone)
         {
-            return new NSData(ObjC.MessageSendIntPtr(_classHandle, "dataWithBytesNoCopy:length:freeWhenDone:", bytes, size, freeWhenDone));
+            return Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr(_classHandle, "dataWithBytesNoCopy:length:freeWhenDone:", bytes, size, freeWhenDone));
         }
 
         public static NSData FromFile(string path, NSDataReadingOptions mask, out NSError error)
@@ -78,7 +78,7 @@ namespace iOS4Unity
             #endif
 
             IntPtr errorHandle;
-            var data = new NSData(ObjC.MessageSendIntPtr(_classHandle, "dataWithContentsOfFile:options:error:", path, (uint)mask, out errorHandle));
+            var data = Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr(_classHandle, "dataWithContentsOfFile:options:error:", path, (uint)mask, out errorHandle));
             error = errorHandle == IntPtr.Zero ? null : new NSError(errorHandle);
             return data;
         }
@@ -89,18 +89,18 @@ namespace iOS4Unity
             path = Path.Combine(UnityEngine.Application.streamingAssetsPath, path);
             #endif
 
-            return new NSData(ObjC.MessageSendIntPtr(_classHandle, "dataWithContentsOfFile:", path));
+            return Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr(_classHandle, "dataWithContentsOfFile:", path));
         }
 
         public static NSData FromUrl(string url)
         {
-            return new NSData(ObjC.MessageSendIntPtr_NSUrl(_classHandle, "dataWithContentsOfURL:", url));
+            return Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr_NSUrl(_classHandle, "dataWithContentsOfURL:", url));
         }
 
         public static NSData FromUrl(string url, NSDataReadingOptions mask, out NSError error)
         {
             IntPtr errorHandle;
-            var data = new NSData(ObjC.MessageSendIntPtr_NSUrl(_classHandle, "dataWithContentsOfURL:options:error:", url, (uint)mask, out errorHandle));
+            var data = Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr_NSUrl(_classHandle, "dataWithContentsOfURL:options:error:", url, (uint)mask, out errorHandle));
             error = errorHandle == IntPtr.Zero ? null : new NSError(errorHandle);
             return data;
         }

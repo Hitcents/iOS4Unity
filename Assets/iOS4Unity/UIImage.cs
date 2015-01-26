@@ -54,12 +54,12 @@ namespace iOS4Unity
 
         public NSData AsJPEG(float compressionQuality = 1)
         {
-            return new NSData(UIImageJPEGRepresentation(Handle, compressionQuality));
+            return Runtime.GetNSObject<NSData>(UIImageJPEGRepresentation(Handle, compressionQuality));
         }
 
         public NSData AsPNG()
         {
-            return new NSData(UIImagePNGRepresentation(Handle));
+            return Runtime.GetNSObject<NSData>(UIImagePNGRepresentation(Handle));
         }
 
         public float CurrentScale

@@ -49,8 +49,8 @@
     <Compile Include="..\iOS4Unity.iOS\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Assets\iOS4Unity\Activator.cs">
-      <Link>Activator.cs</Link>
+    <Compile Include="..\Assets\iOS4Unity\Runtime.cs">
+      <Link>Runtime.cs</Link>
     </Compile>
     <Compile Include="..\Assets\iOS4Unity\AdBannerView.cs">
       <Link>AdBannerView.cs</Link>

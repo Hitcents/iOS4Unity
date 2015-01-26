@@ -16,11 +16,11 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
-        private UIApplication(IntPtr handle) : base(handle) { }
+        internal UIApplication(IntPtr handle) : base(handle) { }
 
         public static UIApplication SharedApplication
         {
-            get { return new UIApplication(ObjC.MessageSendIntPtr(_classHandle, "sharedApplication")); }
+            get { return Runtime.GetNSObject<UIApplication>(ObjC.MessageSendIntPtr(_classHandle, "sharedApplication")); }
         }
 
         public static string DidBecomeActiveNotification
