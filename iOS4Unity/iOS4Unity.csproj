@@ -133,6 +133,9 @@
     <Compile Include="..\Assets\iOS4Unity\UIImage.cs">
       <Link>UIImage.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIPopoverController.cs">
+      <Link>UIPopoverController.cs</Link>
+    </Compile>
     <Compile Include="..\Assets\iOS4Unity\UIScreen.cs">
       <Link>UIScreen.cs</Link>
     </Compile>
