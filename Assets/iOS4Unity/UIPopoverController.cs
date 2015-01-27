@@ -22,6 +22,8 @@ namespace iOS4Unity
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 
+        internal UIPopoverController(IntPtr handle) : base(handle) { }
+
         public void PresentFromRect(CGRect rect, UIView view, UIPopoverArrowDirection arrowDirections, bool animated)
         {
             ObjC.MessageSend(Handle, "presentPopoverFromRect:inView:permittedArrowDirections:animated:", rect, view.Handle, (uint)arrowDirections, animated);
@@ -44,7 +46,7 @@ namespace iOS4Unity
 
         public UIViewController ContentViewController
         {
-            get { return new UIViewController(ObjC.MessageSendIntPtr(Handle, "contentViewController")); }
+            get { return Runtime.GetNSObject<UIViewController>(ObjC.MessageSendIntPtr(Handle, "contentViewController")); }
             set { ObjC.MessageSend(Handle, "setContentViewController:", value.Handle); }
         }
 
@@ -55,7 +57,7 @@ namespace iOS4Unity
 
         public CGSize PopoverContentSize
         {
-            get { return new CGSize(ObjC.MessageSendCGSize(Handle, "popoverContentSize")); }
+            get { return ObjC.MessageSendCGSize(Handle, "popoverContentSize"); }
             set { ObjC.MessageSend(Handle, "setPopoverContentSize:", value); }
         }
 
