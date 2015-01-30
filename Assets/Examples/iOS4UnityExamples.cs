@@ -11,7 +11,11 @@ public class iOS4UnityExamples : MonoBehaviour
 
     public void UIAlertViewExample()
     {
-		#if UNITY_IPHONE
+		if (Application.platform != RuntimePlatform.IPhonePlayer)
+		{
+			Debug.Log("Only supported on iOS!");
+			return;
+		}
 
         var alertView = new UIAlertView();
         alertView.AddButton("Option 1");
@@ -30,15 +34,15 @@ public class iOS4UnityExamples : MonoBehaviour
         };
 
         alertView.Show();
-
-		#else
-		Debug.Log("Only supported on iOS!");
-		#endif
     }
 
     public void UIActionSheetExample()
     {
-		#if UNITY_IPHONE
+		if (Application.platform != RuntimePlatform.IPhonePlayer)
+		{
+			Debug.Log("Only supported on iOS!");
+			return;
+		}
 
         var actionSheet = new UIActionSheet();
         actionSheet.AddButton("Option 1");
@@ -57,15 +61,15 @@ public class iOS4UnityExamples : MonoBehaviour
 
         var controller = GetUnityController();
         actionSheet.ShowInView(controller.View);
-
-		#else	
-		Debug.Log("Only supported on iOS!");
-		#endif
     }
 
     public void AdBannerViewExample()
     {
-		#if UNITY_IPHONE
+		if (Application.platform != RuntimePlatform.IPhonePlayer)
+		{
+			Debug.Log("Only supported on iOS!");
+			return;
+		}
 
         var bannerView = new AdBannerView();
         bannerView.AdLoaded += (sender, e) => 
@@ -79,24 +83,26 @@ public class iOS4UnityExamples : MonoBehaviour
 
 		var controller = GetUnityController();
         controller.View.AddSubview(bannerView);
-
-		#else
-		Debug.Log("Only supported on iOS!");
-		#endif
     }
 
     public void OpenUrl()
     {
-		#if UNITY_IPHONE
+		if (Application.platform != RuntimePlatform.IPhonePlayer)
+		{
+			Debug.Log("Only supported on iOS!");
+			return;
+		}
+
 		UIApplication.SharedApplication.OpenUrl("http://www.google.com");
-		#else
-		Debug.Log("Only supported on iOS!");
-		#endif
     }
 
 	public void GetIAPPrices()
 	{
-		#if UNITY_IPHONE
+		if (Application.platform != RuntimePlatform.IPhonePlayer)
+		{
+			Debug.Log("Only supported on iOS!");
+			return;
+		}
 
 		//NOTE: for this to work, your app's bundle ID should match what you have setup in iTunes Connect
 		//	Each in-app purchase ID should be what you have setup in iTunes Connect also
@@ -120,13 +126,8 @@ public class iOS4UnityExamples : MonoBehaviour
 			PrintProducts(e.Response.Products);
 		};
 		request.Start();
-
-		#else
-		Debug.Log("Only supported on iOS!");
-		#endif
 	}
 
-	#if UNITY_IPHONE
 	private void PrintProducts(SKProduct[] products)
 	{
 		if (products == null)
@@ -148,5 +149,4 @@ public class iOS4UnityExamples : MonoBehaviour
 			}
 		}
 	}
-	#endif
 }
