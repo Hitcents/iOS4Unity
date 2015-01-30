@@ -11,6 +11,8 @@ public class iOS4UnityExamples : MonoBehaviour
 
     public void UIAlertViewExample()
     {
+		#if UNITY_IPHONE
+
         var alertView = new UIAlertView();
         alertView.AddButton("Option 1");
         alertView.AddButton("Option 2");
@@ -28,10 +30,16 @@ public class iOS4UnityExamples : MonoBehaviour
         };
 
         alertView.Show();
+
+		#else
+		Debug.Log("Only supported on iOS!");
+		#endif
     }
 
     public void UIActionSheetExample()
     {
+		#if UNITY_IPHONE
+
         var actionSheet = new UIActionSheet();
         actionSheet.AddButton("Option 1");
         actionSheet.AddButton("Option 2");
@@ -49,10 +57,16 @@ public class iOS4UnityExamples : MonoBehaviour
 
         var controller = GetUnityController();
         actionSheet.ShowInView(controller.View);
+
+		#else	
+		Debug.Log("Only supported on iOS!");
+		#endif
     }
 
     public void AdBannerViewExample()
     {
+		#if UNITY_IPHONE
+
         var bannerView = new AdBannerView();
         bannerView.AdLoaded += (sender, e) => 
         {
@@ -65,15 +79,25 @@ public class iOS4UnityExamples : MonoBehaviour
 
 		var controller = GetUnityController();
         controller.View.AddSubview(bannerView);
+
+		#else
+		Debug.Log("Only supported on iOS!");
+		#endif
     }
 
     public void OpenUrl()
     {
+		#if UNITY_IPHONE
 		UIApplication.SharedApplication.OpenUrl("http://www.google.com");
+		#else
+		Debug.Log("Only supported on iOS!");
+		#endif
     }
 
 	public void GetIAPPrices()
 	{
+		#if UNITY_IPHONE
+
 		//NOTE: for this to work, your app's bundle ID should match what you have setup in iTunes Connect
 		//	Each in-app purchase ID should be what you have setup in iTunes Connect also
 		var request = new SKProductsRequest("com.yourcompany.iap1", "com.yourcompany.iap2");
@@ -96,8 +120,13 @@ public class iOS4UnityExamples : MonoBehaviour
 			PrintProducts(e.Response.Products);
 		};
 		request.Start();
+
+		#else
+		Debug.Log("Only supported on iOS!");
+		#endif
 	}
 
+	#if UNITY_IPHONE
 	private void PrintProducts(SKProduct[] products)
 	{
 		if (products == null)
@@ -119,4 +148,5 @@ public class iOS4UnityExamples : MonoBehaviour
 			}
 		}
 	}
+	#endif
 }
