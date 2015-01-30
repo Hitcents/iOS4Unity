@@ -31,7 +31,6 @@ Target "unity" (fun () ->
     Unity(projectInUnity)
 )
 
-"clean" ==> "dll"
 "dll" ==> "unity"
 
 RunTarget()
