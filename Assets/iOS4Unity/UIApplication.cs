@@ -16,7 +16,22 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
-        internal UIApplication(IntPtr handle) : base(handle) { }
+        internal UIApplication(IntPtr handle) : base(handle)
+        {
+            ObjC.MessageSend(Handle, "setDelegate:", Handle);
+        }
+
+        public event EventHandler DidBecomeActive
+        {
+            add { Callbacks.Subscribe(this, "applicationDidBecomeActive:", value); }
+            remove { Callbacks.Unsubscribe(this, "applicationDidBecomeActive:", value); }
+        }
+
+        public event EventHandler WillResignActive
+        {
+            add { Callbacks.Subscribe(this, "applicationWillResignActive:", value); }
+            remove { Callbacks.Unsubscribe(this, "applicationWillResignActive:", value); }
+        }
 
         public static UIApplication SharedApplication
         {
