@@ -33,6 +33,24 @@ namespace iOS4Unity
             remove { Callbacks.Unsubscribe(this, "applicationWillResignActive:", value); }
         }
 
+        public event EventHandler WillEnterForeground
+        {
+            add { Callbacks.Subscribe(this, "applicationWillEnterForeground:", value); }
+            remove { Callbacks.Unsubscribe(this, "applicationWillEnterForeground:", value); }
+        }
+
+        public event EventHandler WillTerminate
+        {
+            add { Callbacks.Subscribe(this, "applicationWillTerminate:", value); }
+            remove { Callbacks.Unsubscribe(this, "applicationWillTerminate:", value); }
+        }
+
+        public event EventHandler DidReceiveMemoryWarning
+        {
+            add { Callbacks.Subscribe(this, "applicationDidReceiveMemoryWarning:", value); }
+            remove { Callbacks.Unsubscribe(this, "applicationDidReceiveMemoryWarning:", value); }
+        }
+
         public static UIApplication SharedApplication
         {
             get { return Runtime.GetNSObject<UIApplication>(ObjC.MessageSendIntPtr(_classHandle, "sharedApplication")); }
