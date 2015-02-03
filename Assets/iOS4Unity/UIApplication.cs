@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace iOS4Unity
 {
     public class UIApplication : NSObject
     {
         private static readonly IntPtr _classHandle;
+
+        private Dictionary<object, IntPtrHandler2>  _failed;
 
         static UIApplication()
         {
@@ -49,6 +52,27 @@ namespace iOS4Unity
         {
             add { Callbacks.Subscribe(this, "applicationDidReceiveMemoryWarning:", value); }
             remove { Callbacks.Unsubscribe(this, "applicationDidReceiveMemoryWarning:", value); }
+        }
+
+        public event EventHandler<NSErrorEventArgs> FailedToRegisterForRemoteNotifications
+        {
+            add 
+            { 
+                if (_failed == null)
+                    _failed = new Dictionary<object, IntPtrHandler2>();
+                IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = Runtime.GetNSObject<NSError>(i) });
+                _failed[value] = callback;
+                Callbacks.Subscribe(this, "application:didFailToRegisterForRemoteNotificationsWithError:", callback); 
+            } 
+            remove 
+            { 
+                IntPtrHandler2 callback;
+                if (_failed != null && _failed.TryGetValue(value, out callback))
+                {
+                    _failed.Remove(value);
+                    Callbacks.Unsubscribe(this, "application:didFailToRegisterForRemoteNotificationsWithError:", callback); 
+                }
+            }
         }
 
         public static UIApplication SharedApplication
