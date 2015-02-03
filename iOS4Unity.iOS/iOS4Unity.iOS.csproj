@@ -150,6 +150,9 @@
     <Compile Include="..\Assets\iOS4Unity\UIPopoverController.cs">
       <Link>UIPopoverController.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSDictionary.cs">
+      <Link>NSDictionary.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
