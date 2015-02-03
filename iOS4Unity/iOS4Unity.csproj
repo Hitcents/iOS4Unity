@@ -163,5 +163,8 @@
     <Compile Include="..\Assets\iOS4Unity\NSNumberFormatter.cs">
       <Link>NSNumberFormatter.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSDictionary.cs">
+      <Link>NSDictionary.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>
