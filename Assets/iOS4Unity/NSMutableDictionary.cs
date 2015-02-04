@@ -20,7 +20,7 @@ namespace iOS4Unity
 
         public NSMutableDictionary()
         {
-            ObjC.MessageSendIntPtr(Handle, "init");
+            Handle = ObjC.MessageSendIntPtr(Handle, "init");
         }
 
         public new static NSMutableDictionary FromObjectAndKey(NSObject obj, string key)
@@ -31,17 +31,17 @@ namespace iOS4Unity
             return dictionary;
         }
 
-        public void Add(NSObject obj, string key)
+        public void SetObjectForKey(NSObject obj, string key)
         {
             IntPtr handle = ObjC.ToNSString(key);
             ObjC.MessageSendIntPtr(Handle, "setObject:forKey:", obj.Handle, handle);
             ObjC.MessageSend(handle, "release");
         }
 
-        public void Remove(string key)
+        public void RemoveObjectForKey(string key)
         {
             IntPtr handle = ObjC.ToNSString(key);
-            ObjC.MessageSendIntPtr(Handle, "removeObjectForKey", handle);
+            ObjC.MessageSendIntPtr(Handle, "removeObjectForKey:", handle);
             ObjC.MessageSend(handle, "release");
         }
 
@@ -53,7 +53,7 @@ namespace iOS4Unity
         public override NSObject this[string key]
         {
             get { return ObjectForKey(key); }
-            set { Add(value, key); }
+            set { SetObjectForKey(value, key); }
         }
     }
 }

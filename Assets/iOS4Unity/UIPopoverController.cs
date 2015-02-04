@@ -18,7 +18,7 @@ namespace iOS4Unity
 
         public UIPopoverController(UIViewController controller)
         {
-            ObjC.MessageSendIntPtr(Handle, "initWithContentViewController:", controller.Handle);
+            Handle = ObjC.MessageSendIntPtr(Handle, "initWithContentViewController:", controller.Handle);
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 

@@ -20,7 +20,7 @@ namespace iOS4Unity
 
         public NSDictionary()
         {
-            ObjC.MessageSendIntPtr(Handle, "init");
+            Handle = ObjC.MessageSendIntPtr(Handle, "init");
         }
 
         public static NSDictionary FromObjectAndKey(NSObject obj, string key)

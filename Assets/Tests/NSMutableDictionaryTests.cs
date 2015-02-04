@@ -33,7 +33,7 @@ public class NSMutableDictionaryTests
         string key = "WOOOTSDLKFJSDLKFDS:";
         var value = new NSObject();
         var dictionary = new NSMutableDictionary();
-        dictionary.Add(value, key);
+        dictionary.SetObjectForKey(value, key);
         var actual = dictionary[key];
         Assert.AreEqual(value.Handle, actual.Handle);
         Assert.AreSame(value, actual);
