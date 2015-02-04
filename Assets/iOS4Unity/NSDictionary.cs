@@ -18,6 +18,11 @@ namespace iOS4Unity
 
         internal NSDictionary (IntPtr handle) : base(handle) { }
 
+        public NSDictionary()
+        {
+            ObjC.MessageSendIntPtr(Handle, "init");
+        }
+
         public static NSDictionary FromObjectAndKey(NSObject obj, string key)
         {
             IntPtr handle = ObjC.ToNSString(key);
