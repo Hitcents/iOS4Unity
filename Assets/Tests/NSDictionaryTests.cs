@@ -17,6 +17,16 @@ public class NSDictionaryTests
     }
 
     [Test]
+    public void DictionaryCount()
+    {
+        string key = "WOOOTSDLKFJSDLKFDS:";
+        var value = new NSObject();
+        var dictionary = NSDictionary.FromObjectAndKey(value, key);
+
+        Assert.AreEqual(1, dictionary.Count);
+    }
+
+    [Test]
     public void Indexer()
     {
         string key = "WOOOTSDLKFJSDLKFDS:";

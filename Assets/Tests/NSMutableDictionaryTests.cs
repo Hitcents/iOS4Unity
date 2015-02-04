@@ -38,4 +38,48 @@ public class NSMutableDictionaryTests
         Assert.AreEqual(value.Handle, actual.Handle);
         Assert.AreSame(value, actual);
     }
+
+    [Test]
+    public void DictionaryCount()
+    {
+        string key1 = "WOOOTSDLKFJSDLKFDS:";
+        var value1 = new NSObject();
+        string key2 = "afahdfasdfasdf:";
+        var value2 = new NSObject();
+        var dictionary = new NSMutableDictionary();
+        dictionary.SetObjectForKey(value1, key1);
+        dictionary.SetObjectForKey(value2, key2);
+
+        Assert.AreEqual(2, dictionary.Count);
+    }
+
+    [Test]
+    public void RemoveFromDictionary()
+    {
+        string key1 = "WOOOTSDLKFJSDLKFDS:";
+        var value1 = new NSObject();
+        string key2 = "afahdfasdfasdf:";
+        var value2 = new NSObject();
+        var dictionary = new NSMutableDictionary();
+        dictionary.SetObjectForKey(value1, key1);
+        dictionary.SetObjectForKey(value2, key2);
+        dictionary.RemoveObjectForKey(key1);
+
+        Assert.AreEqual(1, dictionary.Count);
+    }
+
+    [Test]
+    public void ClearDictionary()
+    {
+        string key1 = "WOOOTSDLKFJSDLKFDS:";
+        var value1 = new NSObject();
+        string key2 = "afahdfasdfasdf:";
+        var value2 = new NSObject();
+        var dictionary = new NSMutableDictionary();
+        dictionary.SetObjectForKey(value1, key1);
+        dictionary.SetObjectForKey(value2, key2);
+        dictionary.Clear();
+
+        Assert.AreEqual(0,  dictionary.Count);
+    }
 }

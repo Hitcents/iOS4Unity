@@ -44,5 +44,10 @@ namespace iOS4Unity
             get { return ObjectForKey(key); }
             set { throw new NotSupportedException(); }
         }
+
+        public uint Count
+        {
+            get { return ObjC.MessageSendUInt(Handle, "count"); }
+        }
     }
 }
