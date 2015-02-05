@@ -31,6 +31,17 @@ namespace iOS4Unity
             return dictionary;
         }
 
+        public new static NSMutableDictionary FromObjectsAndKeys(NSObject[] objects, string[] keys)
+        {
+            //TODO: Release array items handles?
+            var objectsHandle = ObjC.ToNSArray(objects);
+            var keysHandle = ObjC.ToNSArray(keys);
+            var dictionary = Runtime.GetNSObject<NSMutableDictionary>(ObjC.MessageSendIntPtr(_classHandle, "dictionaryWithObjects:forKeys:", objectsHandle, keysHandle));
+            ObjC.MessageSend(objectsHandle, "release");
+            ObjC.MessageSend(keysHandle, "release");
+            return dictionary;
+        }
+
         public void SetObjectForKey(NSObject obj, string key)
         {
             IntPtr handle = ObjC.ToNSString(key);

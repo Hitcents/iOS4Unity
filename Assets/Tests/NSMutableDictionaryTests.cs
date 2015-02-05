@@ -17,6 +17,15 @@ public class NSMutableDictionaryTests
     }
 
     [Test]
+    public void FromObjectsAndKeys()
+    {
+        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        NSObject[] objects = { new NSObject(), new NSObject(), new NSObject()};
+        var dictionary = NSMutableDictionary.FromObjectsAndKeys(objects, keys);
+        Assert.AreEqual(3, dictionary.Count);
+    }
+
+    [Test]
     public void Indexer()
     {
         string key = "WOOOTSDLKFJSDLKFDS:";
