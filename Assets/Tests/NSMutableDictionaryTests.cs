@@ -78,6 +78,17 @@ public class NSMutableDictionaryTests
     }
 
     [Test]
+    public void CreateMutableDictionary()
+    {
+        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
+        var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
+        var mutableDictionary = NSMutableDictionary.CreateMutableDictionary(dictionary);
+        Assert.AreEqual(3, mutableDictionary.Values.Length);
+        Assert.AreEqual(3, mutableDictionary.Keys.Length);
+    }
+
+    [Test]
     public void ClearDictionary()
     {
         string key1 = "WOOOTSDLKFJSDLKFDS:";
