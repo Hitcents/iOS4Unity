@@ -48,6 +48,21 @@ namespace iOS4Unity
             return value;
         }
 
+        public NSObject[] ObjectsForKeys(string[] keys)
+        {
+            var keysHandle = ObjC.ToNSArray(keys);
+            var arrayPtr = Runtime.GetNSObject<NSObject>(ObjC.MessageSendIntPtr(Handle, "objectsForKeys:notFoundMarker:", keysHandle, new NSObject().Handle));
+            var array = ObjC.FromNSArray<NSObject>(arrayPtr.Handle);
+            ObjC.ReleaseNSArrayItems(keysHandle);
+            return array;
+        }
+
+        public string[] KeysForObject(NSObject obj)
+        {
+            var array = Runtime.GetNSObject<NSObject>(ObjC.MessageSendIntPtr(Handle, "allKeysForObject:", obj.Handle));
+            return ObjC.FromNSArray(array.Handle);
+        }
+
         public virtual NSObject this[string key]
         {
             get { return ObjectForKey(key); }
@@ -57,6 +72,29 @@ namespace iOS4Unity
         public uint Count
         {
             get { return ObjC.MessageSendUInt(Handle, "count"); }
+        }
+
+        public string[] Keys
+        {
+            get
+            {
+                var array = Runtime.GetNSObject<NSObject>(ObjC.MessageSendIntPtr(Handle, "allKeys"));
+                return ObjC.FromNSArray(array.Handle);
+            }
+        }
+
+        public NSObject[] Values
+        {
+            get
+            {
+                var array = Runtime.GetNSObject<NSObject>(ObjC.MessageSendIntPtr(Handle, "allValues"));
+                return ObjC.FromNSArray<NSObject>(array.Handle);
+            }
+        }
+
+        public bool ContainsKey(string key)
+        {
+            return ObjectForKey(key) != null;
         }
     }
 }

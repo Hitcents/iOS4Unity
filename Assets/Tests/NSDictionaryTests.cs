@@ -26,6 +26,18 @@ public class NSDictionaryTests
     }
 
     [Test]
+    public void ObjectsForKeys()
+    {
+        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
+        var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
+        var value = dictionary.ObjectsForKeys(new string[] { keys[0], keys[1] });
+        Assert.AreSame(dictionary.ObjectForKey(keys[0]), value[0]);
+        Assert.AreSame(dictionary.ObjectForKey(keys[1]), value[1]);
+        Assert.AreEqual(2, value.Length);
+    }
+
+    [Test]
     public void DictionaryCount()
     {
         string key = "WOOOTSDLKFJSDLKFDS:";
@@ -33,6 +45,24 @@ public class NSDictionaryTests
         var dictionary = NSDictionary.FromObjectAndKey(value, key);
 
         Assert.AreEqual(1, dictionary.Count);
+    }
+
+    [Test]
+    public void Keys()
+    {
+        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
+        var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
+        Assert.AreEqual(3, dictionary.Keys.Length);
+    }
+
+    [Test]
+    public void Values()
+    {
+        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
+        var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
+        Assert.AreEqual(3, dictionary.Values.Length);
     }
 
     [Test]
