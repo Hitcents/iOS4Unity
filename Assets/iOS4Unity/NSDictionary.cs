@@ -98,6 +98,11 @@ namespace iOS4Unity
             }
         }
 
+        public static NSDictionary FromFile(string path)
+        {
+            return Runtime.GetNSObject<NSDictionary>(ObjC.MessageSendIntPtr(_classHandle, "dictionaryWithContentsOfFile:", path));
+        }
+
         public bool ContainsKey(string key)
         {
             return ObjectForKey(key) != null;

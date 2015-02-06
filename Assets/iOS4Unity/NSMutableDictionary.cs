@@ -59,6 +59,11 @@ namespace iOS4Unity
             ObjC.MessageSend(handle, "release");
         }
 
+        public new static NSMutableDictionary FromFile(string path)
+        {
+            return Runtime.GetNSObject<NSMutableDictionary>(ObjC.MessageSendIntPtr(_classHandle, "dictionaryWithContentsOfFile:", path));
+        }
+
         public void Clear()
         {
             ObjC.MessageSend(Handle, "removeAllObjects");
