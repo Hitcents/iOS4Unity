@@ -352,6 +352,17 @@ namespace iOS4Unity
             return array;
         }
 
+        public static void ReleaseNSArrayItems(IntPtr handle)
+        {
+            uint count =  ObjC.MessageSendUInt(handle, "count");
+            IntPtr obj;
+            for (uint num = 0; num < count; num += 1)
+            {
+                obj = ObjC.MessageSendIntPtr(handle, "objectAtIndex:", num);
+                MessageSend(obj, "release");
+            }
+        }
+
         public static T[] FromNSSet<T>(IntPtr handle) where T : NSObject
         {
             if (handle == IntPtr.Zero)
