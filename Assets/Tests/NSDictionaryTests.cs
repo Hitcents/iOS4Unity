@@ -1,6 +1,7 @@
 ﻿using System;
 using iOS4Unity;
 using NUnit.Framework;
+using System.IO;
 
 [TestFixture]
 public class NSDictionaryTests
@@ -74,5 +75,28 @@ public class NSDictionaryTests
         var actual = dictionary[key];
         Assert.AreEqual(value.Handle, actual.Handle);
         Assert.AreSame(value, actual);
+    }
+
+    [Test]
+    public void ContainsKey()
+    {
+        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
+        var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
+        bool contains = dictionary.ContainsKey(keys[0]);
+        bool doesntContain = dictionary.ContainsKey("test");
+        Assert.IsTrue(contains);
+        Assert.IsFalse(doesntContain);
+    }
+
+    [Test]
+    public void CreateDictionary()
+    {
+        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
+        var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
+        var newDictionary = NSDictionary.FromDictionary(dictionary);
+        Assert.AreEqual(3, newDictionary.Values.Length);
+        Assert.AreEqual(3, newDictionary.Keys.Length);
     }
 }
