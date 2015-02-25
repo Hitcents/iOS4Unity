@@ -1,4 +1,5 @@
 module BuildHelpers
+#r @"packages/FAKE.3.5.4/tools/FakeLib.dll"
 
 open Fake
 open Fake.XamarinHelper
@@ -25,7 +26,7 @@ let TestFlightUpload project apiToken teamToken distList =
 
 let UpdatePlist version project =
     let build = environVarOrDefault "BUILD_NUMBER" ""
-    if not String.IsNullOrEmpty(build) then do
+    if not(String.IsNullOrEmpty(build)) then do
         let info = Path.Combine(project, "Info.plist")
         let finalVersion = version + "." + build
         Exec "/usr/libexec/PlistBuddy" ("-c 'Set :CFBundleVersion " + finalVersion + "' " + info)
