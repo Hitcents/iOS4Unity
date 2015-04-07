@@ -23,7 +23,7 @@ namespace iOS4Unity
 
         public UIView(CGRect frame)
         {
-            ObjC.MessageSendIntPtr(Handle, "initWithFrame:", frame);
+            Handle = ObjC.MessageSendIntPtr(Handle, "initWithFrame:", frame);
         }
 
         internal UIView(IntPtr handle) : base(handle) { }

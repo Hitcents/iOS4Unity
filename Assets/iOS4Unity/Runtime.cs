@@ -12,6 +12,8 @@ namespace iOS4Unity
             { typeof(AdBannerView), h => new AdBannerView(h) },
             { typeof(NSBundle), h => new NSBundle(h) },
             { typeof(NSData), h => new NSData(h) },
+            { typeof(NSDictionary), h => new NSDictionary(h) },
+            { typeof(NSMutableDictionary), h => new NSMutableDictionary(h) },
             { typeof(NSError), h => new NSError(h) },
             { typeof(NSLocale), h => new NSLocale(h) },
             { typeof(NSNotification), h => new NSNotification(h) },

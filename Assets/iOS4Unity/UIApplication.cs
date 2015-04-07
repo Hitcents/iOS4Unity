@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace iOS4Unity
 {
     public class UIApplication : NSObject
     {
         private static readonly IntPtr _classHandle;
+
+        private Dictionary<object, IntPtrHandler2>  _failed;
 
         static UIApplication()
         {
@@ -16,7 +19,61 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
-        internal UIApplication(IntPtr handle) : base(handle) { }
+        internal UIApplication(IntPtr handle) : base(handle)
+        {
+            ObjC.MessageSend(Handle, "setDelegate:", Handle);
+        }
+
+        public event EventHandler DidBecomeActive
+        {
+            add { Callbacks.Subscribe(this, "applicationDidBecomeActive:", value); }
+            remove { Callbacks.Unsubscribe(this, "applicationDidBecomeActive:", value); }
+        }
+
+        public event EventHandler WillResignActive
+        {
+            add { Callbacks.Subscribe(this, "applicationWillResignActive:", value); }
+            remove { Callbacks.Unsubscribe(this, "applicationWillResignActive:", value); }
+        }
+
+        public event EventHandler WillEnterForeground
+        {
+            add { Callbacks.Subscribe(this, "applicationWillEnterForeground:", value); }
+            remove { Callbacks.Unsubscribe(this, "applicationWillEnterForeground:", value); }
+        }
+
+        public event EventHandler WillTerminate
+        {
+            add { Callbacks.Subscribe(this, "applicationWillTerminate:", value); }
+            remove { Callbacks.Unsubscribe(this, "applicationWillTerminate:", value); }
+        }
+
+        public event EventHandler DidReceiveMemoryWarning
+        {
+            add { Callbacks.Subscribe(this, "applicationDidReceiveMemoryWarning:", value); }
+            remove { Callbacks.Unsubscribe(this, "applicationDidReceiveMemoryWarning:", value); }
+        }
+
+        public event EventHandler<NSErrorEventArgs> FailedToRegisterForRemoteNotifications
+        {
+            add 
+            { 
+                if (_failed == null)
+                    _failed = new Dictionary<object, IntPtrHandler2>();
+                IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = Runtime.GetNSObject<NSError>(i) });
+                _failed[value] = callback;
+                Callbacks.Subscribe(this, "application:didFailToRegisterForRemoteNotificationsWithError:", callback); 
+            } 
+            remove 
+            { 
+                IntPtrHandler2 callback;
+                if (_failed != null && _failed.TryGetValue(value, out callback))
+                {
+                    _failed.Remove(value);
+                    Callbacks.Unsubscribe(this, "application:didFailToRegisterForRemoteNotificationsWithError:", callback); 
+                }
+            }
+        }
 
         public static UIApplication SharedApplication
         {

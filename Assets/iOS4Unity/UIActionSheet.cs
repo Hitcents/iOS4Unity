@@ -19,7 +19,7 @@ namespace iOS4Unity
 
         public UIActionSheet() 
         {
-            ObjC.MessageSendIntPtr(Handle, "init");
+            Handle = ObjC.MessageSendIntPtr(Handle, "init");
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 

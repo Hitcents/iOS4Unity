@@ -15,6 +15,21 @@ public class UIApplicationTests
     }
 
     [Test]
+    public void ApplicationEvents()
+    {
+        var app = UIApplication.SharedApplication;
+
+        app.DidBecomeActive += (sender, e) => 
+        {
+            Console.WriteLine("DidBecomeActive!");
+        };
+        app.WillResignActive += (sender, e) =>
+        {
+            Console.WriteLine("WillResignActive!");
+        };
+    }
+
+    [Test]
     public void SharedApplicationDispose()
     {
         var app = UIApplication.SharedApplication;
