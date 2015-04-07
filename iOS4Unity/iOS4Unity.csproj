@@ -37,9 +37,6 @@
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\GUISystem\4.6.1\UnityEngine.UI.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -162,6 +159,15 @@
     </Compile>
     <Compile Include="..\Assets\iOS4Unity\NSNumberFormatter.cs">
       <Link>NSNumberFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSDictionary.cs">
+      <Link>NSDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSMutableDictionary.cs">
+      <Link>NSMutableDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UILocalNotification.cs">
+      <Link>UILocalNotification.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

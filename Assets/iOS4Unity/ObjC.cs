@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -351,6 +352,17 @@ namespace iOS4Unity
             return array;
         }
 
+        public static void ReleaseNSArrayItems(IntPtr handle)
+        {
+            uint count =  ObjC.MessageSendUInt(handle, "count");
+            IntPtr obj;
+            for (uint num = 0; num < count; num += 1)
+            {
+                obj = ObjC.MessageSendIntPtr(handle, "objectAtIndex:", num);
+                MessageSend(obj, "release");
+            }
+        }
+
         public static T[] FromNSSet<T>(IntPtr handle) where T : NSObject
         {
             if (handle == IntPtr.Zero)
@@ -399,6 +411,16 @@ namespace iOS4Unity
             IntPtr array = ObjC.MessageSendIntPtr(ObjC.GetClass("NSArray"), "arrayWithObjects:count:", intPtr, items.Length);
             Marshal.FreeHGlobal(intPtr);
             return array;
+        }
+
+        public static IntPtr ToNSArray(NSObject[] items)
+        {
+            return ToNSArray(items.Select(i => i.Handle).ToArray());
+        }
+
+        public static IntPtr ToNSArray(string[] items)
+        {
+            return ToNSArray(items.Select(s => ToNSString(s)).ToArray());
         }
 
         public static IntPtr ToNSSet(IntPtr[] items)
