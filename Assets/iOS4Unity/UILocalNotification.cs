@@ -102,12 +102,10 @@ namespace iOS4Unity
 //			set;
 //		}
 
-        //TODO: need NSDictionary
-//		public NSDictionary UserInfo {
-//			[Export ("userInfo", ArgumentSemantic.Copy)]
-//			get;
-//			[Export ("setUserInfo:", ArgumentSemantic.Copy)]
-//			set;
-//		}
+		public NSDictionary UserInfo 
+        {
+            get { return Runtime.GetNSObject<NSDictionary>(ObjC.MessageSendIntPtr(Handle, "userInfo")); }
+            set { ObjC.MessageSend(Handle, "setUserInfo:", value == null ? IntPtr.Zero : value.Handle); }
+		}
 	}
 }
