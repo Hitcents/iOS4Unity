@@ -156,6 +156,9 @@
     <Compile Include="..\Assets\iOS4Unity\NSMutableDictionary.cs">
       <Link>NSMutableDictionary.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UILocalNotification.cs">
+      <Link>UILocalNotification.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
