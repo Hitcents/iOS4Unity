@@ -67,7 +67,7 @@ namespace iOS4Unity
 
 		public DateTime FireDate 
         {
-            get { return ObjC.MessageSendDate(Handle, "fireDate"); }
+            get { return (DateTime)ObjC.MessageSendDate(Handle, "fireDate"); }
             set { ObjC.MessageSend(Handle, "setFireDate:", value); }
 		}
 

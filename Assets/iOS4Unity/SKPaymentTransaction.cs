@@ -38,7 +38,7 @@ namespace iOS4Unity
 
         public DateTime TransactionDate
         {
-            get { return ObjC.MessageSendDate(Handle, "transactionDate"); }
+            get { return (DateTime)ObjC.MessageSendDate(Handle, "transactionDate"); }
         }
 
         public string TransactionIdentifier

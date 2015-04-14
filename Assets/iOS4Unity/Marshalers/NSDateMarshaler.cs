@@ -19,8 +19,7 @@ namespace iOS4Unity.Marshalers
 
         public virtual void CleanUpNativeData(IntPtr pNativeData)
         {
-            if (pNativeData != IntPtr.Zero)
-                ObjC.MessageSend(pNativeData, "release");
+            //Doesn't need to do anything
         }
 
         public int GetNativeDataSize()
@@ -39,6 +38,22 @@ namespace iOS4Unity.Marshalers
             if (pNativeData == IntPtr.Zero)
                 return default(DateTime);
             return ObjC.FromNSDate(pNativeData);
+        }
+    }
+
+    public class NSDateReleaseMarshaler : NSDateMarshaler
+    {
+        private static readonly NSDateReleaseMarshaler _instance = new NSDateReleaseMarshaler();
+
+        public static new ICustomMarshaler GetInstance(string cookie)
+        {
+            return _instance;
+        }
+
+        public override void CleanUpNativeData(IntPtr pNativeData)
+        {
+            if (pNativeData != IntPtr.Zero)
+                ObjC.MessageSend(pNativeData, "release");
         }
     }
 }

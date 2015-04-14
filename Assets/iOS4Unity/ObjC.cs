@@ -25,8 +25,9 @@ namespace iOS4Unity
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "class_addMethod")]
 		public static extern bool AddMethod(IntPtr cls, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, Delegate imp, string types);
 
+        //HACK: return object instead of DateTime or we get an invalid IL exception
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
-        public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, DateTime arg1);
+        public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSDateReleaseMarshaler))] object arg1);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
@@ -169,13 +170,10 @@ namespace iOS4Unity
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern float MessageSendFloat(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, float arg1);
 
+        //HACK: return object instead of DateTime or we get an invalid IL exception
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSDateMarshaler))]
-        public static extern DateTime MessageSendDate(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
-
-        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSDateMarshaler))]
-        public static extern DateTime MessageSendDate(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, DateTime arg1);
+        public static extern object MessageSendDate(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector);
 
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringMarshaler))]
@@ -478,7 +476,7 @@ namespace iOS4Unity
 
         public static IntPtr ToNSDate(DateTime date)
         {
-            return ObjC.MessageSendIntPtr(GetClass("NSDate"), "dateWithTimeIntervalSinceReferenceDate:", (double)((date.ToUniversalTime().Ticks - 631139040000000000) / 10000000));
+            return ObjC.MessageSendIntPtr(GetClass("NSDate"), "dateWithTimeIntervalSinceReferenceDate:", (double)((date.Ticks - 631139040000000000) / 10000000));
         }
 
         public static IntPtr ToNSNumber(double value)

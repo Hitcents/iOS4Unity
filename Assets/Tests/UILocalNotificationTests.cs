@@ -30,6 +30,24 @@ public class UILocalNotificationTests
 		var b = Runtime.GetNSObject<UILocalNotification>(a.Handle);
 		Assert.AreSame(a, b);
 	}
+
+    [Test]
+    public void FireDateLocal()
+    {
+        var date = DateTime.Now.AddDays(7);
+        var notification = new UILocalNotification();
+        notification.FireDate = date;
+        Assert.IsTrue(date - notification.FireDate < TimeSpan.FromSeconds(1), "Date does not match!");
+    }
+
+    [Test]
+    public void FireDateUtc()
+    {
+        var date = DateTime.UtcNow.AddDays(7);
+        var notification = new UILocalNotification();
+        notification.FireDate = date;
+        Assert.IsTrue(date - notification.FireDate < TimeSpan.FromSeconds(1), "Date does not match!");
+    }
 }
 
 #endif
