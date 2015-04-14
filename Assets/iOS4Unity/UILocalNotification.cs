@@ -88,6 +88,12 @@ namespace iOS4Unity
 //			set;
 //		}
 
+        public bool HasAction
+        {
+            get { return ObjC.MessageSendBool(Handle, "hasAction"); }
+            set { ObjC.MessageSend(Handle, "setHasAction:", value); }
+        }
+
 		public string SoundName 
         {
             get { return ObjC.MessageSendString(Handle, "soundName"); }
