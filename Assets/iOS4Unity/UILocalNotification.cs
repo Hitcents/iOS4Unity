@@ -65,12 +65,11 @@ namespace iOS4Unity
             set { ObjC.MessageSend(Handle, "setCategory:", value); }
 		}
 
-        //TODO: need NSDate
-//		public DateTime FireDate 
-//        {
-//            get { return ObjC.MessageSendDate(Handle, "fireDate"); }
-//            set { ObjC.MessageSend(Handle, "setFireDate:", value); }
-//		}
+		public DateTime FireDate 
+        {
+            get { return ObjC.MessageSendDate(Handle, "fireDate"); }
+            set { ObjC.MessageSend(Handle, "setFireDate:", value); }
+		}
 
         //TODO: need NSCalendar
 //		public NSCalendar RepeatCalendar {
