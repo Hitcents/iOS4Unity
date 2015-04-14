@@ -169,5 +169,8 @@
     <Compile Include="..\Assets\iOS4Unity\UILocalNotification.cs">
       <Link>UILocalNotification.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\Marshalers\NSDateMarshaler.cs">
+      <Link>Marshalers\NSDateMarshaler.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>
