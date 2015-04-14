@@ -159,6 +159,7 @@
     <Compile Include="..\Assets\iOS4Unity\UILocalNotification.cs">
       <Link>UILocalNotification.cs</Link>
     </Compile>
+    <Compile Include="Marshalers\NSDateMarshaler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
