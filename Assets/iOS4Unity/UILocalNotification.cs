@@ -71,22 +71,6 @@ namespace iOS4Unity
             set { ObjC.MessageSend(Handle, "setFireDate:", value); }
 		}
 
-        //TODO: need NSCalendar
-//		public NSCalendar RepeatCalendar {
-//			[Export ("repeatCalendar", ArgumentSemantic.Copy)]
-//			get;
-//			[Export ("setRepeatCalendar:", ArgumentSemantic.Copy)]
-//			set;
-//		}
-
-        //TODO: need NSCalendarUnit
-//		public NSCalendarUnit RepeatInterval {
-//			[Export ("repeatInterval")]
-//			get;
-//			[Export ("setRepeatInterval:")]
-//			set;
-//		}
-
         public bool HasAction
         {
             get { return ObjC.MessageSendBool(Handle, "hasAction"); }

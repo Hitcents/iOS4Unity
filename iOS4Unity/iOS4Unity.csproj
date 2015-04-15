@@ -172,5 +172,8 @@
     <Compile Include="..\Assets\iOS4Unity\Marshalers\NSDateMarshaler.cs">
       <Link>Marshalers\NSDateMarshaler.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\NSTimeZone.cs">
+      <Link>NSTimeZone.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>
