@@ -185,6 +185,16 @@ namespace iOS4Unity
         {
             ObjC.MessageSend(Handle, "registerUserNotificationSettings:", notificationSettings.Handle);
         }
+
+        public void PresentLocationNotificationNow(UILocalNotification notification)
+        {
+            ObjC.MessageSend(Handle, "presentLocalNotificationNow:", notification.Handle);
+        }
+
+        public void ScheduleLocalNotification(UILocalNotification notification)
+        {
+            ObjC.MessageSend(Handle, "scheduleLocalNotification:", notification.Handle);
+        }
     }
 
     public enum UIApplicationState
