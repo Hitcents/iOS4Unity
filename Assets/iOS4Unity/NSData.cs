@@ -144,10 +144,10 @@ namespace iOS4Unity
         public Stream AsStream()
         {
             //TODO: if we ever implement NSMutableData
-            //            if (this is NSMutableData)
-            //            {
-            //                return new NSData.UnmanagedMemoryStreamWithMutableRef(this);
-            //            }
+            //if (this is NSMutableData)
+            //{
+            //    return new NSData.UnmanagedMemoryStreamWithMutableRef(this);
+            //}
             return new NSData.UnmanagedMemoryStreamWithRef(this);
         }
 

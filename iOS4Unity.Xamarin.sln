@@ -68,4 +68,13 @@ Global
 		{90EFCFD1-0034-4260-A23B-1A1F6F9CDBB0}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{90EFCFD1-0034-4260-A23B-1A1F6F9CDBB0}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.FileWidth = 120
+		$1.NoTabsAfterNonTabs = True
+		$1.inheritsSet = VisualStudio
+		$1.inheritsScope = text/plain
+		$1.scope = text/plain
+	EndGlobalSection
 EndGlobal
