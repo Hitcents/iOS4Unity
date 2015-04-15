@@ -37,4 +37,32 @@ public class NSTimeZoneTests
 
         Assert.AreEqual(obj.Name, name);
     }
+
+    [Test]
+    public void TimeZoneFromName()
+    {
+        var obj = NSTimeZone.FromName(NSTimeZone.KnownTimeZoneNames[0]);
+        var name = obj.Name;
+
+        Assert.AreEqual(obj.Name, name);
+    }
+
+    [Test]
+    public void TimeZoneAbbreviation()
+    {
+        var obj1 = NSTimeZone.FromName(NSTimeZone.KnownTimeZoneNames[0]);
+        var abbr = obj1.Abbreviation();
+        var obj2 = NSTimeZone.FromAbbreviation(abbr);
+
+        Assert.AreEqual(obj1.Abbreviation(), obj2.Abbreviation());
+    }
+
+    [Test]
+    public void TimeZoneiSDaylightSavings()
+    {
+        var obj1 = NSTimeZone.FromName(NSTimeZone.KnownTimeZoneNames[0]);
+        var isdaylightSavings = obj1.IsDaylightSavingsTime(DateTime.UtcNow);
+
+        Assert.AreEqual(false, isdaylightSavings);
+    }
 }
