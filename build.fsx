@@ -36,7 +36,6 @@ Target "unity" (fun () ->
     UnityPackage projectInUnity
 )
 
-"unity-open" ==> "dll"
 "dll" ==> "unity"
 
 RunTarget()
