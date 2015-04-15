@@ -195,6 +195,16 @@ namespace iOS4Unity
         {
             ObjC.MessageSend(Handle, "scheduleLocalNotification:", notification.Handle);
         }
+
+        public void CancelAllLocalNotifications()
+        {
+            ObjC.MessageSend(Handle, "cancelAllLocalNotifications");
+        }
+
+        public void CancelLocalNotification(UILocalNotification notification)
+        {
+            ObjC.MessageSend(Handle, "cancelLocalNotification:", notification.Handle);
+        }
     }
 
     public enum UIApplicationState

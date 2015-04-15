@@ -113,8 +113,55 @@ public class UIApplicationTests
     public void RegisterUserNotificationSettings()
     {
         //Just make sure this doesn't crash
-        var settings = UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert);
+        var settings = UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound);
         UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+    }
+
+    [Test]
+    public void PresentLocationNotificationNow()
+    {
+        RegisterUserNotificationSettings(); //This requests permission
+
+        var notification = new UILocalNotification
+        {
+            AlertBody = "WOOT!!",
+            ApplicationIconBadgeNumber = 1,
+        };
+        UIApplication.SharedApplication.PresentLocationNotificationNow(notification);
+    }
+
+    [Test]
+    public void ScheduleLocalNotification()
+    {
+        RegisterUserNotificationSettings(); //This requests permission
+
+        var notification = new UILocalNotification
+        {
+            AlertBody = "WOOT!!",
+            ApplicationIconBadgeNumber = 1,
+            FireDate = DateTime.Now.AddMinutes(1),
+        };
+        UIApplication.SharedApplication.ScheduleLocalNotification(notification);
+    }
+
+    [Test]
+    public void CancelLocalNotification()
+    {
+        RegisterUserNotificationSettings(); //This requests permission
+
+        var notification = new UILocalNotification
+        {
+            AlertBody = "WOOT!!",
+            ApplicationIconBadgeNumber = 1,
+            FireDate = DateTime.Now.AddMinutes(1),
+        };
+        UIApplication.SharedApplication.CancelLocalNotification(notification);
+    }
+
+    [Test]
+    public void CancelAllLocalNotifications()
+    {
+        UIApplication.SharedApplication.CancelAllLocalNotifications();
     }
 }
 
