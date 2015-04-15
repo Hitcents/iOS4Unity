@@ -16,6 +16,16 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
+        public NSTimeZone()
+        {
+            ObjC.MessageSendIntPtr(Handle, "init");
+        }
+
+        public NSTimeZone(string name)
+        {
+            ObjC.MessageSendIntPtr(Handle, "initWithName:", name);
+        }
+
         internal NSTimeZone(IntPtr handle)
             : base(handle)
         {
