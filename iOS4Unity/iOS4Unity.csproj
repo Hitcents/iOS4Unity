@@ -181,5 +181,8 @@
     <Compile Include="..\Assets\iOS4Unity\NSTimeZone.cs">
       <Link>NSTimeZone.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UIUserNotificationSettings.cs">
+      <Link>UIUserNotificationSettings.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

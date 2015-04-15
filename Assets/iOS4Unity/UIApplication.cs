@@ -180,6 +180,11 @@ namespace iOS4Unity
         {
             ObjC.MessageSend(Handle, "unregisterForRemoteNotifications");
         }
+
+        public void RegisterUserNotificationSettings(UIUserNotificationSettings notificationSettings)
+        {
+            ObjC.MessageSend(Handle, "registerUserNotificationSettings:", notificationSettings.Handle);
+        }
     }
 
     public enum UIApplicationState

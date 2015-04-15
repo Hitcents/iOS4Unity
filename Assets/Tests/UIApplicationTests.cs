@@ -108,6 +108,14 @@ public class UIApplicationTests
     {
         Assert.IsFalse(UIApplication.SharedApplication.IdleTimerDisabled);
     }
+
+    [Test]
+    public void RegisterUserNotificationSettings()
+    {
+        //Just make sure this doesn't crash
+        var settings = UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert);
+        UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+    }
 }
 
 #endif
