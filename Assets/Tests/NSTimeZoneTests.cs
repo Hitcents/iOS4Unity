@@ -32,7 +32,7 @@ public class NSTimeZoneTests
     [Test]
     public void TimeZoneName()
     {
-        var obj = new NSTimeZone("Test");
+        var obj = new NSTimeZone(NSTimeZone.KnownTimeZoneNames[0]);
         var name = obj.Name;
 
         Assert.AreEqual(obj.Name, name);

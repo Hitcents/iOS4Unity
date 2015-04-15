@@ -66,6 +66,11 @@ namespace iOS4Unity
             return ObjC.MessageSendBool(Handle, "isDaylightSavingTimeForDate:", date);
         }
 
+        public static string[] KnownTimeZoneNames
+        {
+            get { return ObjC.FromNSArray(ObjC.MessageSendIntPtr(_classHandle, "knownTimeZoneNames")); }
+        }
+
         public DateTime NextDaylightSavingTimeTransitionAfter(DateTime date)
         {
             return (DateTime)ObjC.MessageSendDate(Handle, "nextDaylightSavingTimeTransitionAfterDate:", date);
