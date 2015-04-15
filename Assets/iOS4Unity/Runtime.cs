@@ -20,6 +20,7 @@ namespace iOS4Unity
             { typeof(NSNotificationCenter), h => new NSNotificationCenter(h) },
             { typeof(NSNumberFormatter), h => new NSNumberFormatter(h) },
             { typeof(NSObject), h => new NSObject(h) },
+            { typeof(NSTimeZone), h => new NSTimeZone(h) },
             { typeof(SKPayment), h => new SKPayment(h) },
             { typeof(SKPaymentQueue), h => new SKPaymentQueue(h) },
             { typeof(SKPaymentTransaction), h => new SKPaymentTransaction(h) },
@@ -54,6 +55,18 @@ namespace iOS4Unity
         {
             if (handle == IntPtr.Zero)
                 return null;
+
+            //For our unit tests, we need to validate that the object is in the constructor list
+            #if DEBUG
+            Func<IntPtr, object> constructor;
+            lock (_contructorLock)
+            {
+                if (!_constructors.TryGetValue(typeof(T), out constructor))
+                {
+                    throw new NotImplementedException("Type's constructor not registered: " + typeof(T));
+                }
+            }
+            #endif
 
             lock (_objectLock)
             {

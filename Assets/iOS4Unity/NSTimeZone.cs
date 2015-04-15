@@ -23,7 +23,7 @@ namespace iOS4Unity
 
         public NSTimeZone(string name)
         {
-            ObjC.MessageSendIntPtr(Handle, "initWithName:", name);
+            Handle = ObjC.MessageSendIntPtr(Handle, "initWithName:", name);
         }
 
         internal NSTimeZone(IntPtr handle)
