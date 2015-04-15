@@ -11,12 +11,15 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("NSLocale");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal NSLocale(IntPtr handle) : base(handle) { }
+        internal NSLocale(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public string AlternateQuotationBeginDelimiter
         {

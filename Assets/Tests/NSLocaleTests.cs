@@ -1,6 +1,6 @@
-﻿using System;
+﻿using iOS4Unity;
 using NUnit.Framework;
-using iOS4Unity;
+using System;
 
 [TestFixture]
 public class NSLocaleTests

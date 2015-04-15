@@ -1,11 +1,11 @@
-﻿using System;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
-using System.Runtime.InteropServices;
+using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 [TestFixture]
-public class NSDataTests 
+public class NSDataTests
 {
     [Test]
     public void FromArray()
@@ -14,7 +14,7 @@ public class NSDataTests
         Assert.AreNotEqual(IntPtr.Zero, data);
     }
 
-    [Test] 
+    [Test]
     public void FromArrayDispose()
     {
         var data = NSData.FromArray(new byte[] { 0 });
@@ -24,7 +24,7 @@ public class NSDataTests
     [Test]
     public void ObjectSame()
     {
-        var a =  NSData.FromArray(new byte[] { 0 });
+        var a = NSData.FromArray(new byte[] { 0 });
         var b = Runtime.GetNSObject<NSData>(a.Handle);
         Assert.AreSame(a, b);
     }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Text;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
+using System;
 
 [TestFixture]
-public class SKProductsRequestTests 
+public class SKProductsRequestTests
 {
     [Test]
     public void NewObject()
@@ -35,16 +34,16 @@ public class SKProductsRequestTests
     {
         string productId = "woot";
         var request = new SKProductsRequest(productId);
-        request.ReceivedResponse += (sender, e) => 
+        request.ReceivedResponse += (sender, e) =>
         {
             Assert.AreEqual(productId, e.Response.InvalidProducts[0]);
             Console.WriteLine("Received Response!");
         };
-        request.Failed += (sender, e) => 
+        request.Failed += (sender, e) =>
         {
             Console.WriteLine("Failed: " + e.Error.LocalizedDescription);
         };
-        request.Finished += (sender, e) => 
+        request.Finished += (sender, e) =>
         {
             Console.WriteLine("Finished!");
         };

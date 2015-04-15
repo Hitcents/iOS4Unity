@@ -1,6 +1,6 @@
-﻿using System;
+﻿using iOS4Unity;
 using NUnit.Framework;
-using iOS4Unity;
+using System;
 
 [TestFixture]
 public class NSNumberFormatterTests
@@ -131,7 +131,7 @@ public class NSNumberFormatterTests
     public void Lenient()
     {
         //Test to make sure it doesn't crash
-		new NSNumberFormatter().Lenient.ToString();
+        new NSNumberFormatter().Lenient.ToString();
     }
 
     [Test]
@@ -259,7 +259,7 @@ public class NSNumberFormatterTests
     public void PartialStringValidationEnabled()
     {
         //Test to make sure it doesn't crash
-		new NSNumberFormatter().PartialStringValidationEnabled.ToString();
+        new NSNumberFormatter().PartialStringValidationEnabled.ToString();
     }
 
     [Test]
@@ -330,14 +330,14 @@ public class NSNumberFormatterTests
     public void UsesGroupingSeparator()
     {
         //Test to make sure it doesn't crash
-		new NSNumberFormatter().UsesGroupingSeparator.ToString();
+        new NSNumberFormatter().UsesGroupingSeparator.ToString();
     }
 
     [Test]
     public void UsesSignificantDigits()
     {
         //Test to make sure it doesn't crash
-		new NSNumberFormatter().UsesSignificantDigits.ToString();
+        new NSNumberFormatter().UsesSignificantDigits.ToString();
     }
 
     [Test]

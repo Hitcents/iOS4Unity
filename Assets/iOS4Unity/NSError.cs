@@ -11,7 +11,7 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("NSError");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
@@ -22,7 +22,10 @@ namespace iOS4Unity
             ObjC.MessageSend(Handle, "initWithDomain:code:userInfo:", domain, code, IntPtr.Zero);
         }
 
-        internal NSError(IntPtr handle) : base(handle) { }
+        internal NSError(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public int Code
         {

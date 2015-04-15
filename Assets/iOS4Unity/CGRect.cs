@@ -3,7 +3,7 @@
 namespace iOS4Unity
 {
     [Serializable]
-    public struct CGRect 
+    public struct CGRect
     {
         public static readonly CGRect Empty;
 

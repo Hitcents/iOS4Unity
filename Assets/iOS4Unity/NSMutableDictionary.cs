@@ -11,18 +11,21 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("NSMutableDictionary");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal NSMutableDictionary (IntPtr handle) : base(handle) { }
+        internal NSMutableDictionary(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public NSMutableDictionary()
         {
             Handle = ObjC.MessageSendIntPtr(Handle, "init");
         }
-         
+
         public new static NSMutableDictionary FromDictionary(NSDictionary dictionary)
         {
             return NSMutableDictionary.FromObjectsAndKeys(dictionary.Values, dictionary.Keys);

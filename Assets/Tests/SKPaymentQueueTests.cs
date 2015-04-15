@@ -1,8 +1,8 @@
-﻿using System;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
+using System;
 
-public class SKPaymentQueueTests 
+public class SKPaymentQueueTests
 {
     [Test]
     public void DefaultQueue()
@@ -45,14 +45,14 @@ public class SKPaymentQueueTests
     public void RestoreCompletedTransactions()
     {
         var queue = SKPaymentQueue.DefaultQueue;
-        queue.RestoreCompleted += (sender, e) => 
+        queue.RestoreCompleted += (sender, e) =>
         {
             Console.WriteLine("Restore completed!");
         };
-        queue.RestoreFailed += (sender, e) => 
+        queue.RestoreFailed += (sender, e) =>
         {
             Console.WriteLine("Restore failed: " + e.Error.LocalizedDescription);
-        }; 
+        };
 
         queue.RestoreCompletedTransactions();
     }

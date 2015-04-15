@@ -11,7 +11,7 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("UIView");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
@@ -26,7 +26,10 @@ namespace iOS4Unity
             Handle = ObjC.MessageSendIntPtr(Handle, "initWithFrame:", frame);
         }
 
-        internal UIView(IntPtr handle) : base(handle) { }
+        internal UIView(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public CGRect Frame
         {

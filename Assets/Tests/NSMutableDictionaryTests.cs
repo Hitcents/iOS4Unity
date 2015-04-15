@@ -1,5 +1,4 @@
-﻿using System;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
 
 [TestFixture]
@@ -19,8 +18,8 @@ public class NSMutableDictionaryTests
     [Test]
     public void FromObjectsAndKeys()
     {
-        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
-        NSObject[] objects = { new NSObject(), new NSObject(), new NSObject()};
+        string[] keys = { "WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf" };
+        NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
         var dictionary = NSMutableDictionary.FromObjectsAndKeys(objects, keys);
         Assert.AreEqual(3, dictionary.Count);
     }
@@ -80,7 +79,7 @@ public class NSMutableDictionaryTests
     [Test]
     public void CreateMutableDictionary()
     {
-        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        string[] keys = { "WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf" };
         NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
         var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
         var mutableDictionary = NSMutableDictionary.FromDictionary(dictionary);
@@ -111,6 +110,6 @@ public class NSMutableDictionaryTests
         dictionary.SetObjectForKey(value2, key2);
         dictionary.Clear();
 
-        Assert.AreEqual(0,  dictionary.Count);
+        Assert.AreEqual(0, dictionary.Count);
     }
 }

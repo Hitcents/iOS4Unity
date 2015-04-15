@@ -1,7 +1,5 @@
-﻿using System;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
-using System.IO;
 
 [TestFixture]
 public class NSDictionaryTests
@@ -20,7 +18,7 @@ public class NSDictionaryTests
     [Test]
     public void FromObjectsAndKeys()
     {
-        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        string[] keys = { "WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf" };
         NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
         var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
         Assert.AreEqual(3, dictionary.Count);
@@ -29,7 +27,7 @@ public class NSDictionaryTests
     [Test]
     public void ObjectsForKeys()
     {
-        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        string[] keys = { "WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf" };
         NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
         var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
         var value = dictionary.ObjectsForKeys(new string[] { keys[0], keys[1] });
@@ -51,7 +49,7 @@ public class NSDictionaryTests
     [Test]
     public void Keys()
     {
-        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        string[] keys = { "WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf" };
         NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
         var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
         Assert.AreEqual(3, dictionary.Keys.Length);
@@ -60,7 +58,7 @@ public class NSDictionaryTests
     [Test]
     public void Values()
     {
-        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        string[] keys = { "WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf" };
         NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
         var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
         Assert.AreEqual(3, dictionary.Values.Length);
@@ -80,7 +78,7 @@ public class NSDictionaryTests
     [Test]
     public void ContainsKey()
     {
-        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        string[] keys = { "WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf" };
         NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
         var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
         bool contains = dictionary.ContainsKey(keys[0]);
@@ -92,7 +90,7 @@ public class NSDictionaryTests
     [Test]
     public void CreateDictionary()
     {
-        string[] keys = {"WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf"};
+        string[] keys = { "WOOOTSDLKFJSDLKFDS:", "alsudhflka", "lknadlnladnf" };
         NSObject[] objects = { new NSObject(), new NSObject(), new NSObject() };
         var dictionary = NSDictionary.FromObjectsAndKeys(objects, keys);
         var newDictionary = NSDictionary.FromDictionary(dictionary);

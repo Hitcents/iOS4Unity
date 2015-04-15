@@ -1,6 +1,6 @@
-﻿using System;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
+using System;
 
 #if !UNITY_EDITOR
 

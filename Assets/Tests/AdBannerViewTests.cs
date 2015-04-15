@@ -1,11 +1,11 @@
-﻿using System;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
+using System;
 
 #if !UNITY_EDITOR
 
 [TestFixture]
-public class AdBannerViewTests 
+public class AdBannerViewTests
 {
     [Test]
     public void NewObject()
@@ -21,7 +21,7 @@ public class AdBannerViewTests
     {
         var obj = new AdBannerView();
         obj.Dispose();
-    }   
+    }
 
     [Test]
     public void NewObjectWithFrame()
@@ -51,13 +51,13 @@ public class AdBannerViewTests
     public void LoadAd()
     {
         var bannerView = new AdBannerView();
-        bannerView.AdLoaded += (sender, e) => 
+        bannerView.AdLoaded += (sender, e) =>
         {
             Console.WriteLine("AdLoaded!");
 
             bannerView.RemoveFromSuperview();
         };
-        bannerView.FailedToReceiveAd += (sender, e) => 
+        bannerView.FailedToReceiveAd += (sender, e) =>
         {
             Console.WriteLine("AdFailed: " + e.Error.LocalizedDescription);
 

@@ -1,11 +1,11 @@
-﻿using System;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
+using System;
 
 #if !UNITY_EDITOR
 
 [TestFixture]
-public class UIViewControllerTests 
+public class UIViewControllerTests
 {
     [Test]
     public void NewObject()

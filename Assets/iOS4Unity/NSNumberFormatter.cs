@@ -11,14 +11,19 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("NSNumberFormatter");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        public NSNumberFormatter() { }
+        public NSNumberFormatter()
+        {
+        }
 
-        internal NSNumberFormatter(IntPtr handle) : base(handle) { }
+        internal NSNumberFormatter(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public NSNumberFormatterBehavior FormatterBehavior
         {

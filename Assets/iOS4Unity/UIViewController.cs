@@ -2,7 +2,7 @@
 
 namespace iOS4Unity
 {
-    public class UIViewController : NSObject 
+    public class UIViewController : NSObject
     {
         private static readonly IntPtr _classHandle;
 
@@ -11,14 +11,19 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("UIViewController");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        public UIViewController() { }
+        public UIViewController()
+        {
+        }
 
-        internal UIViewController(IntPtr handle) : base(handle) { }
+        internal UIViewController(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public string Title
         {
@@ -66,7 +71,7 @@ namespace iOS4Unity
         //TODO: need to add the callback instead of using IntPtr.Zero
         public void DismissViewController(bool animated = true)
         {
-            ObjC.MessageSend(Handle, "dismissViewControllerAnimated:completion:", animated, IntPtr.Zero);  
+            ObjC.MessageSend(Handle, "dismissViewControllerAnimated:completion:", animated, IntPtr.Zero);
         }
     }
 }

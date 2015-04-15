@@ -1,9 +1,9 @@
-﻿using System;
+﻿using iOS4Unity;
 using NUnit.Framework;
-using iOS4Unity;
+using System;
 
 [TestFixture]
-public class NSBundleTests 
+public class NSBundleTests
 {
     [Test]
     public void MainBundle()

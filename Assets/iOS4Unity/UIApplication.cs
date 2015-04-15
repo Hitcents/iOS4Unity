@@ -7,19 +7,20 @@ namespace iOS4Unity
     {
         private static readonly IntPtr _classHandle;
 
-        private Dictionary<object, IntPtrHandler2>  _failed;
+        private Dictionary<object, IntPtrHandler2> _failed;
 
         static UIApplication()
         {
             _classHandle = ObjC.GetClass("UIApplication");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal UIApplication(IntPtr handle) : base(handle)
+        internal UIApplication(IntPtr handle)
+            : base(handle)
         {
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
@@ -56,21 +57,21 @@ namespace iOS4Unity
 
         public event EventHandler<NSErrorEventArgs> FailedToRegisterForRemoteNotifications
         {
-            add 
-            { 
+            add
+            {
                 if (_failed == null)
                     _failed = new Dictionary<object, IntPtrHandler2>();
                 IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = Runtime.GetNSObject<NSError>(i) });
                 _failed[value] = callback;
-                Callbacks.Subscribe(this, "application:didFailToRegisterForRemoteNotificationsWithError:", callback); 
-            } 
-            remove 
-            { 
+                Callbacks.Subscribe(this, "application:didFailToRegisterForRemoteNotificationsWithError:", callback);
+            }
+            remove
+            {
                 IntPtrHandler2 callback;
                 if (_failed != null && _failed.TryGetValue(value, out callback))
                 {
                     _failed.Remove(value);
-                    Callbacks.Unsubscribe(this, "application:didFailToRegisterForRemoteNotificationsWithError:", callback); 
+                    Callbacks.Unsubscribe(this, "application:didFailToRegisterForRemoteNotificationsWithError:", callback);
                 }
             }
         }

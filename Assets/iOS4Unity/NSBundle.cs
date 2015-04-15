@@ -11,12 +11,15 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("NSBundle");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal NSBundle(IntPtr handle) : base(handle) { }
+        internal NSBundle(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public string BundleIdentifier
         {

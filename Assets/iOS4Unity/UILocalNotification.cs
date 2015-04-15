@@ -2,74 +2,77 @@
 
 namespace iOS4Unity
 {
-	public class UILocalNotification : NSObject 
-	{
-		private static readonly IntPtr _classHandle;
+    public class UILocalNotification : NSObject
+    {
+        private static readonly IntPtr _classHandle;
 
-		static UILocalNotification()
-		{
-			_classHandle = ObjC.GetClass("UILocalNotification");
-		}
+        static UILocalNotification()
+        {
+            _classHandle = ObjC.GetClass("UILocalNotification");
+        }
 
-		public override IntPtr ClassHandle 
-		{
-			get { return _classHandle; }
-		}
+        public override IntPtr ClassHandle
+        {
+            get { return _classHandle; }
+        }
 
-		public UILocalNotification() 
-		{
-			ObjC.MessageSendIntPtr(Handle, "init");
-		}
+        public UILocalNotification()
+        {
+            ObjC.MessageSendIntPtr(Handle, "init");
+        }
 
-		internal UILocalNotification(IntPtr handle) : base(handle) { }
+        internal UILocalNotification(IntPtr handle)
+            : base(handle)
+        {
+        }
 
-		public string AlertAction 
+        public string AlertAction
         {
             get { return ObjC.MessageSendString(Handle, "alertAction"); }
             set { ObjC.MessageSend(Handle, "setAlertAction:", value); }
-		}
+        }
 
-		public string AlertBody 
+        public string AlertBody
         {
             get { return ObjC.MessageSendString(Handle, "alertBody"); }
             set { ObjC.MessageSend(Handle, "setAlertBody:", value); }
-		}
+        }
 
-		public string AlertLaunchImage 
+        public string AlertLaunchImage
         {
             get { return ObjC.MessageSendString(Handle, "alertLaunchImage"); }
             set { ObjC.MessageSend(Handle, "setAlertLaunchImage:", value); }
-		}
+        }
 
         /// <summary>
         /// Introduced in iOS 8.2
         /// </summary>
-		public string AlertTitle 
+        public string AlertTitle
         {
             get { return ObjC.MessageSendString(Handle, "alertTitle"); }
             set { ObjC.MessageSend(Handle, "setAlertTitle:", value); }
-		}
+        }
 
-		public int ApplicationIconBadgeNumber 
+        public int ApplicationIconBadgeNumber
         {
             get { return ObjC.MessageSendInt(Handle, "applicationIconBadgeNumber"); }
             set { ObjC.MessageSend(Handle, "setApplicationIconBadgeNumber:", value); }
-		}
+        }
 
         /// <summary>
         /// Introduced in iOS 8.0
         /// </summary>
-		public string Category 
+        public string Category
         {
             get { return ObjC.MessageSendString(Handle, "category"); }
             set { ObjC.MessageSend(Handle, "setCategory:", value); }
-		}
+        }
 
-		public DateTime FireDate 
+        public DateTime FireDate
         {
             get { return (DateTime)ObjC.MessageSendDate(Handle, "fireDate"); }
             set { ObjC.MessageSend(Handle, "setFireDate:", value); }
-		}
+        }
 
         public bool HasAction
         {
@@ -77,24 +80,24 @@ namespace iOS4Unity
             set { ObjC.MessageSend(Handle, "setHasAction:", value); }
         }
 
-		public string SoundName 
+        public string SoundName
         {
             get { return ObjC.MessageSendString(Handle, "soundName"); }
             set { ObjC.MessageSend(Handle, "setSoundName:", value); }
-		}
+        }
 
         //TODO: need NSTimeZone
-//		public NSTimeZone TimeZone {
-//			[Export ("timeZone", ArgumentSemantic.Copy)]
-//			get;
-//			[Export ("setTimeZone:", ArgumentSemantic.Copy)]
-//			set;
-//		}
+        //		public NSTimeZone TimeZone {
+        //			[Export ("timeZone", ArgumentSemantic.Copy)]
+        //			get;
+        //			[Export ("setTimeZone:", ArgumentSemantic.Copy)]
+        //			set;
+        //		}
 
-		public NSDictionary UserInfo 
+        public NSDictionary UserInfo
         {
             get { return Runtime.GetNSObject<NSDictionary>(ObjC.MessageSendIntPtr(Handle, "userInfo")); }
             set { ObjC.MessageSend(Handle, "setUserInfo:", value == null ? IntPtr.Zero : value.Handle); }
-		}
-	}
+        }
+    }
 }

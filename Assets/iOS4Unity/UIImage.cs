@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Collections;
 using System.Runtime.InteropServices;
 
 namespace iOS4Unity
@@ -11,8 +10,10 @@ namespace iOS4Unity
 
         [DllImport("/System/Library/Frameworks/UIKit.framework/UIKit")]
         private static extern IntPtr UIImageJPEGRepresentation(IntPtr image, float compressionQuality);
+
         [DllImport("/System/Library/Frameworks/UIKit.framework/UIKit")]
         private static extern IntPtr UIImagePNGRepresentation(IntPtr image);
+
         [DllImport("/System/Library/Frameworks/UIKit.framework/UIKit")]
         private static extern void UIImageWriteToSavedPhotosAlbum(IntPtr image, IntPtr obj, IntPtr selector, IntPtr ctx);
 
@@ -45,12 +46,15 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("UIImage");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal UIImage(IntPtr handle) : base(handle) { }
+        internal UIImage(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public NSData AsJPEG(float compressionQuality = 1)
         {
@@ -74,9 +78,9 @@ namespace iOS4Unity
 
         public static UIImage FromFile(string filename)
         {
-            #if !XAMARIN
+#if !XAMARIN
             filename = Path.Combine(UnityEngine.Application.streamingAssetsPath, filename);
-            #endif
+#endif
 
             return Runtime.GetNSObject<UIImage>(ObjC.MessageSendIntPtr(_classHandle, "imageWithContentsOfFile:", filename));
         }
@@ -105,7 +109,7 @@ namespace iOS4Unity
             else
             {
                 var dispatcher = new UIImageDispatcher(callback);
-                Callbacks.Subscribe(dispatcher, SelectorName, (IntPtr obj, IntPtr e, IntPtr ctx) => 
+                Callbacks.Subscribe(dispatcher, SelectorName, (IntPtr obj, IntPtr e, IntPtr ctx) =>
                 {
                     callback(e == IntPtr.Zero ? null : Runtime.GetNSObject<NSError>(e));
                     dispatcher.Dispose();

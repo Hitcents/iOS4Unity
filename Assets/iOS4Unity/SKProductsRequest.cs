@@ -12,12 +12,12 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("SKProductsRequest");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        private Dictionary<object, IntPtrHandler2> _receivedResponse , _failed;
+        private Dictionary<object, IntPtrHandler2> _receivedResponse, _failed;
 
         public SKProductsRequest(params string[] productIds)
         {
@@ -25,7 +25,10 @@ namespace iOS4Unity
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 
-        internal SKProductsRequest(IntPtr handle) : base(handle) { }
+        internal SKProductsRequest(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public void Cancel()
         {
@@ -39,42 +42,42 @@ namespace iOS4Unity
 
         public event EventHandler<SKProductsResponseEventArgs> ReceivedResponse
         {
-            add 
-            { 
+            add
+            {
                 if (_receivedResponse == null)
                     _receivedResponse = new Dictionary<object, IntPtrHandler2>();
                 IntPtrHandler2 callback = (_, i) => value(this, new SKProductsResponseEventArgs { Response = Runtime.GetNSObject<SKProductsResponse>(i) });
                 _receivedResponse[value] = callback;
-                Callbacks.Subscribe(this, "productsRequest:didReceiveResponse:", callback); 
-            } 
-            remove 
-            { 
+                Callbacks.Subscribe(this, "productsRequest:didReceiveResponse:", callback);
+            }
+            remove
+            {
                 IntPtrHandler2 callback;
                 if (_receivedResponse != null && _receivedResponse.TryGetValue(value, out callback))
                 {
                     _receivedResponse.Remove(value);
-                    Callbacks.Unsubscribe(this, "productsRequest:didReceiveResponse:", callback); 
+                    Callbacks.Unsubscribe(this, "productsRequest:didReceiveResponse:", callback);
                 }
             }
         }
 
         public event EventHandler<NSErrorEventArgs> Failed
         {
-            add 
-            { 
+            add
+            {
                 if (_failed == null)
                     _failed = new Dictionary<object, IntPtrHandler2>();
                 IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = Runtime.GetNSObject<NSError>(i) });
                 _failed[value] = callback;
-                Callbacks.Subscribe(this, "request:didFailWithError:", callback); 
-            } 
-            remove 
-            { 
+                Callbacks.Subscribe(this, "request:didFailWithError:", callback);
+            }
+            remove
+            {
                 IntPtrHandler2 callback;
                 if (_failed != null && _failed.TryGetValue(value, out callback))
                 {
                     _failed.Remove(value);
-                    Callbacks.Unsubscribe(this, "request:didFailWithError:", callback); 
+                    Callbacks.Unsubscribe(this, "request:didFailWithError:", callback);
                 }
             }
         }

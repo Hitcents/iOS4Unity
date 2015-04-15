@@ -1,9 +1,9 @@
-﻿using System;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
+using System;
 
 [TestFixture]
-public class NSErrorTests 
+public class NSErrorTests
 {
     [Test]
     public void NewObject()

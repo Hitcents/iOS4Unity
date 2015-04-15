@@ -1,7 +1,6 @@
-﻿using System;
-using System.IO;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
+using System;
 
 #if !UNITY_EDITOR
 
@@ -65,9 +64,9 @@ public class UIImageTests
     public void FromBundle()
     {
         string path = "chuck.jpg";
-        #if !XAMARIN
+#if !XAMARIN
         path = Path.Combine(UnityEngine.Application.streamingAssetsPath, path);
-        #endif
+#endif
         var image = UIImage.FromBundle(path);
         Assert.IsNotNull(image);
         Assert.AreNotEqual(IntPtr.Zero, image.Handle);

@@ -1,6 +1,6 @@
-﻿using System;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
+using System;
 
 #if !UNITY_EDITOR
 
@@ -131,7 +131,7 @@ public class UIScreenTests
     public void WantsSoftwareDimming()
     {
         //Just to make sure this doesn't crash
-		UIScreen.MainScreen.WantsSoftwareDimming.ToString();
+        UIScreen.MainScreen.WantsSoftwareDimming.ToString();
     }
 
     [Test]

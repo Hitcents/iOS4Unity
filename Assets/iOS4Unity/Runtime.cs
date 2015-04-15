@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace iOS4Unity
 {
-    public static class Runtime 
+    public static class Runtime
     {
         private static object _contructorLock = new object(), _objectLock = new object();
 
@@ -39,8 +39,9 @@ namespace iOS4Unity
             { typeof(UIViewController), h => new UIViewController(h) },
             { typeof(UIWindow), h => new UIWindow(h) },
         };
+
         private static readonly Dictionary<IntPtr, object> _objects = new Dictionary<IntPtr, object>();
-    	
+
         public static void RegisterType<T>(Func<IntPtr, object> constructor) where T : NSObject
         {
             lock (_contructorLock)

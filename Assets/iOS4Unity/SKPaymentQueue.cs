@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace iOS4Unity
 {
-    public class SKPaymentQueue : NSObject 
+    public class SKPaymentQueue : NSObject
     {
         private static readonly IntPtr _classHandle;
 
@@ -12,15 +12,16 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("SKPaymentQueue");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
         private Dictionary<object, IntPtrHandler2> _restoreFailed, _updatedTransactions;
 
-        internal SKPaymentQueue(IntPtr handle) : base(handle) 
-        { 
+        internal SKPaymentQueue(IntPtr handle)
+            : base(handle)
+        {
             ObjC.MessageSend(Handle, "addTransactionObserver:", Handle);
         }
 
@@ -41,27 +42,27 @@ namespace iOS4Unity
 
         public event EventHandler RestoreCompleted
         {
-            add { Callbacks.Subscribe(this, "paymentQueueRestoreCompletedTransactionsFinished:", value); } 
+            add { Callbacks.Subscribe(this, "paymentQueueRestoreCompletedTransactionsFinished:", value); }
             remove { Callbacks.Unsubscribe(this, "paymentQueueRestoreCompletedTransactionsFinished:", value); }
         }
 
         public event EventHandler<NSErrorEventArgs> RestoreFailed
         {
-            add 
-            { 
+            add
+            {
                 if (_restoreFailed == null)
                     _restoreFailed = new Dictionary<object, IntPtrHandler2>();
                 IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = Runtime.GetNSObject<NSError>(i) });
                 _restoreFailed[value] = callback;
-                Callbacks.Subscribe(this, "paymentQueue:restoreCompletedTransactionsFailedWithError:", callback); 
-            } 
-            remove 
-            { 
+                Callbacks.Subscribe(this, "paymentQueue:restoreCompletedTransactionsFailedWithError:", callback);
+            }
+            remove
+            {
                 IntPtrHandler2 callback;
                 if (_restoreFailed != null && _restoreFailed.TryGetValue(value, out callback))
                 {
                     _restoreFailed.Remove(value);
-                    Callbacks.Unsubscribe(this, "paymentQueue:restoreCompletedTransactionsFailedWithError:", callback); 
+                    Callbacks.Unsubscribe(this, "paymentQueue:restoreCompletedTransactionsFailedWithError:", callback);
                 }
             }
         }

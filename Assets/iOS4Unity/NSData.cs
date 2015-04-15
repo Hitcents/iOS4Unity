@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace iOS4Unity
 {
@@ -13,18 +13,19 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("NSData");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
         private class UnmanagedMemoryStreamWithRef : UnmanagedMemoryStream
         {
-            #pragma warning disable 414
+#pragma warning disable 414
             private NSData _data;
-            #pragma warning restore 414
+#pragma warning restore 414
 
-            public unsafe UnmanagedMemoryStreamWithRef(NSData source) : base((byte*)((void*)source.Bytes), (long)((ulong)source.Length))
+            public unsafe UnmanagedMemoryStreamWithRef(NSData source)
+                : base((byte*)((void*)source.Bytes), (long)((ulong)source.Length))
             {
                 _data = source;
             }
@@ -37,7 +38,10 @@ namespace iOS4Unity
             }
         }
 
-        internal NSData(IntPtr handle) : base(handle) { }
+        internal NSData(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public unsafe static NSData FromArray(byte[] buffer)
         {
@@ -73,9 +77,9 @@ namespace iOS4Unity
 
         public static NSData FromFile(string path, NSDataReadingOptions mask, out NSError error)
         {
-            #if !XAMARIN
+#if !XAMARIN
             path = Path.Combine(UnityEngine.Application.streamingAssetsPath, path);
-            #endif
+#endif
 
             IntPtr errorHandle;
             var data = Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr(_classHandle, "dataWithContentsOfFile:options:error:", path, (uint)mask, out errorHandle));
@@ -85,9 +89,9 @@ namespace iOS4Unity
 
         public static NSData FromFile(string path)
         {
-            #if !XAMARIN
+#if !XAMARIN
             path = Path.Combine(UnityEngine.Application.streamingAssetsPath, path);
-            #endif
+#endif
 
             return Runtime.GetNSObject<NSData>(ObjC.MessageSendIntPtr(_classHandle, "dataWithContentsOfFile:", path));
         }
@@ -140,10 +144,10 @@ namespace iOS4Unity
         public Stream AsStream()
         {
             //TODO: if we ever implement NSMutableData
-//            if (this is NSMutableData)
-//            {
-//                return new NSData.UnmanagedMemoryStreamWithMutableRef(this);
-//            }
+            //            if (this is NSMutableData)
+            //            {
+            //                return new NSData.UnmanagedMemoryStreamWithMutableRef(this);
+            //            }
             return new NSData.UnmanagedMemoryStreamWithRef(this);
         }
 

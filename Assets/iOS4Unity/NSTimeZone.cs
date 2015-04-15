@@ -11,21 +11,24 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("NSTimeZone");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal NSTimeZone(IntPtr handle) : base(handle) { }
+        internal NSTimeZone(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public string Abbreviation(DateTime date)
         {
-            return ObjC.MessageSendString(Handle, "abbreviationForDate:", date); 
+            return ObjC.MessageSendString(Handle, "abbreviationForDate:", date);
         }
 
         public virtual string Abbreviation()
         {
-            return ObjC.MessageSendString(Handle, "abbreviation"); 
+            return ObjC.MessageSendString(Handle, "abbreviation");
         }
 
         public double DaylightSavingTimeOffset(DateTime date)
@@ -55,7 +58,7 @@ namespace iOS4Unity
 
         public DateTime NextDaylightSavingTimeTransitionAfter(DateTime date)
         {
-            return (DateTime)ObjC.MessageSendDate(Handle, "nextDaylightSavingTimeTransitionAfterDate:", date); 
+            return (DateTime)ObjC.MessageSendDate(Handle, "nextDaylightSavingTimeTransitionAfterDate:", date);
         }
 
         public static void ResetSystemTimeZone()

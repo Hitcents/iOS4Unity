@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace iOS4Unity 
+namespace iOS4Unity
 {
     public class NSDictionary : NSObject
     {
@@ -11,12 +11,15 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("NSDictionary");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal NSDictionary (IntPtr handle) : base(handle) { }
+        internal NSDictionary(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public NSDictionary()
         {

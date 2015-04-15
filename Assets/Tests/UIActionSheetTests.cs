@@ -1,11 +1,11 @@
-﻿using System;
+﻿using iOS4Unity;
 using NUnit.Framework;
-using iOS4Unity;
+using System;
 
 #if !UNITY_EDITOR
 
 [TestFixture]
-public class UIActionSheetTests 
+public class UIActionSheetTests
 {
     [Test]
     public void NewObject()
@@ -76,29 +76,29 @@ public class UIActionSheetTests
     public void ShowInView()
     {
         var actionSheet = new UIActionSheet();
-        actionSheet.AddButton ("OK");
-        actionSheet.AddButton ("Cancel");
-        actionSheet.Dismissed += (sender, e) => 
+        actionSheet.AddButton("OK");
+        actionSheet.AddButton("Cancel");
+        actionSheet.Dismissed += (sender, e) =>
         {
             Console.WriteLine("Dismissed: " + e.Index);
         };
-        actionSheet.Clicked += (sender, e) => 
+        actionSheet.Clicked += (sender, e) =>
         {
             Console.WriteLine("Clicked: " + e.Index);
         };
-        actionSheet.Canceled += (sender, e) => 
+        actionSheet.Canceled += (sender, e) =>
         {
             Console.WriteLine("Canceled!");
         };
-        actionSheet.Presented += (sender, e) => 
+        actionSheet.Presented += (sender, e) =>
         {
             Console.WriteLine("Presented!");
         };
-        actionSheet.WillDismiss += (sender, e) => 
+        actionSheet.WillDismiss += (sender, e) =>
         {
             Console.WriteLine("WillDismiss: " + e.Index);
         };
-        actionSheet.WillPresent += (sender, e) => 
+        actionSheet.WillPresent += (sender, e) =>
         {
             Console.WriteLine("WillPresent!");
         };
@@ -110,8 +110,8 @@ public class UIActionSheetTests
     public void Dismiss()
     {
         var actionSheet = new UIActionSheet();
-        actionSheet.AddButton ("OK");
-        actionSheet.AddButton ("Cancel");
+        actionSheet.AddButton("OK");
+        actionSheet.AddButton("Cancel");
         actionSheet.DismissWithClickedButtonIndex(-1, false);
     }
 
@@ -119,7 +119,7 @@ public class UIActionSheetTests
     public void DoubleSubscribe()
     {
         int count = 0;
-        EventHandler callback = (sender, e) => 
+        EventHandler callback = (sender, e) =>
         {
             count++;
         };
@@ -139,7 +139,7 @@ public class UIActionSheetTests
     public void Unsubscribe()
     {
         int count = 0;
-        EventHandler callback = (sender, e) => 
+        EventHandler callback = (sender, e) =>
         {
             count++;
         };

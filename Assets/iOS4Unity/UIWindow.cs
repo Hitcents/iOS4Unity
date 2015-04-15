@@ -11,16 +11,24 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("UIWindow");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        public UIWindow() { }
+        public UIWindow()
+        {
+        }
 
-        public UIWindow(CGRect frame) : base(frame) { }
+        public UIWindow(CGRect frame)
+            : base(frame)
+        {
+        }
 
-        internal UIWindow(IntPtr handle) : base(handle) { }
+        internal UIWindow(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public bool IsKeyWindow
         {

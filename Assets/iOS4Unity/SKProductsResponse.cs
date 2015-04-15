@@ -11,12 +11,15 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("SKProductsResponse");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal SKProductsResponse(IntPtr handle) : base(handle) { }
+        internal SKProductsResponse(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public string[] InvalidProducts
         {

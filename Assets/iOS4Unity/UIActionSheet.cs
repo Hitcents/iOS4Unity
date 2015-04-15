@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 
 namespace iOS4Unity
 {
@@ -12,18 +11,21 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("UIActionSheet");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        public UIActionSheet() 
+        public UIActionSheet()
         {
             Handle = ObjC.MessageSendIntPtr(Handle, "init");
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 
-        internal UIActionSheet(IntPtr handle) : base(handle) { }
+        internal UIActionSheet(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public int AddButton(string title)
         {
@@ -78,7 +80,7 @@ namespace iOS4Unity
 
         public int CancelButtonIndex
         {
-            get { return ObjC.MessageSendInt (Handle, "cancelButtonIndex"); }
+            get { return ObjC.MessageSendInt(Handle, "cancelButtonIndex"); }
             set { ObjC.MessageSend(Handle, "setCancelButtonIndex:", value); }
         }
 

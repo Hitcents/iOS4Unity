@@ -11,28 +11,31 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("SKPaymentTransaction");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal SKPaymentTransaction(IntPtr handle) : base(handle) { }
+        internal SKPaymentTransaction(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public NSError Error
         {
-            get 
-            { 
+            get
+            {
                 IntPtr handle = ObjC.MessageSendIntPtr(Handle, "error");
-                return handle == IntPtr.Zero ? null : Runtime.GetNSObject<NSError>(handle); 
+                return handle == IntPtr.Zero ? null : Runtime.GetNSObject<NSError>(handle);
             }
         }
 
         public SKPaymentTransaction OriginalTransaction
         {
-            get 
-            { 
+            get
+            {
                 IntPtr handle = ObjC.MessageSendIntPtr(Handle, "originalTransaction");
-                return handle == IntPtr.Zero ? null : Runtime.GetNSObject<SKPaymentTransaction>(handle); 
+                return handle == IntPtr.Zero ? null : Runtime.GetNSObject<SKPaymentTransaction>(handle);
             }
         }
 

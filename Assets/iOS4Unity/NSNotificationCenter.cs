@@ -1,33 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace iOS4Unity
 {
-	public sealed class NSNotificationCenter : NSObject
-	{
-		private const string SelectorName = "__onNotification:";
-		private static readonly IntPtr _classHandle;
+    public sealed class NSNotificationCenter : NSObject
+    {
+        private const string SelectorName = "__onNotification:";
+        private static readonly IntPtr _classHandle;
 
-		private class Observer : NSObject
-		{
-			private static readonly IntPtr _classHandle;
-			
-			static Observer()
-			{
-				_classHandle = ObjC.AllocateClassPair(ObjC.GetClass("NSObject"), "__Observer", 0);
-			}
-			
-			public override IntPtr ClassHandle
-			{
-				get { return _classHandle; }
-			}
+        private class Observer : NSObject
+        {
+            private static readonly IntPtr _classHandle;
 
-			public Observer(Action<NSNotification> action)
-			{
-				Action = action;
-			}
+            static Observer()
+            {
+                _classHandle = ObjC.AllocateClassPair(ObjC.GetClass("NSObject"), "__Observer", 0);
+            }
 
-			public readonly Action<NSNotification> Action;
+            public override IntPtr ClassHandle
+            {
+                get { return _classHandle; }
+            }
+
+            public Observer(Action<NSNotification> action)
+            {
+                Action = action;
+            }
+
+            public readonly Action<NSNotification> Action;
 
             public override void Dispose()
             {
@@ -35,41 +34,44 @@ namespace iOS4Unity
 
                 base.Dispose();
             }
-		}
+        }
 
-		static NSNotificationCenter()
-		{
-			_classHandle = ObjC.GetClass("NSNotificationCenter");
-		}
-		
-		public override IntPtr ClassHandle 
-		{
-			get { return _classHandle; }
-		}
-		
-        internal NSNotificationCenter(IntPtr handle) : base(handle) { }
+        static NSNotificationCenter()
+        {
+            _classHandle = ObjC.GetClass("NSNotificationCenter");
+        }
 
-		public static NSNotificationCenter DefaultCenter
-		{
-			get { return Runtime.GetNSObject<NSNotificationCenter>(ObjC.MessageSendIntPtr(_classHandle, "defaultCenter")); }
-		}
+        public override IntPtr ClassHandle
+        {
+            get { return _classHandle; }
+        }
 
-		public NSObject AddObserver(string name, Action<NSNotification> action, NSObject fromObject = null)
-		{
-			var handler = new Observer(action);
-			Callbacks.Subscribe(handler, SelectorName, n => action(Runtime.GetNSObject<NSNotification>(n)));
-			ObjC.MessageSend(Handle, "addObserver:selector:name:object:", handler.Handle, ObjC.GetSelector(SelectorName), name, fromObject == null ? IntPtr.Zero : fromObject.Handle); 
-			return handler;
-		}
+        internal NSNotificationCenter(IntPtr handle)
+            : base(handle)
+        {
+        }
 
-		public void PostNotificationName(string name, NSObject obj = null)
-		{
-			ObjC.MessageSend(Handle, "postNotificationName:object:", name, obj == null ? IntPtr.Zero : obj.Handle);
-		}
+        public static NSNotificationCenter DefaultCenter
+        {
+            get { return Runtime.GetNSObject<NSNotificationCenter>(ObjC.MessageSendIntPtr(_classHandle, "defaultCenter")); }
+        }
 
-		public void RemoveObserver(NSObject observer)
-		{
-			ObjC.MessageSend(Handle, "removeObserver:", observer.Handle);
-		}
-	}
+        public NSObject AddObserver(string name, Action<NSNotification> action, NSObject fromObject = null)
+        {
+            var handler = new Observer(action);
+            Callbacks.Subscribe(handler, SelectorName, n => action(Runtime.GetNSObject<NSNotification>(n)));
+            ObjC.MessageSend(Handle, "addObserver:selector:name:object:", handler.Handle, ObjC.GetSelector(SelectorName), name, fromObject == null ? IntPtr.Zero : fromObject.Handle);
+            return handler;
+        }
+
+        public void PostNotificationName(string name, NSObject obj = null)
+        {
+            ObjC.MessageSend(Handle, "postNotificationName:object:", name, obj == null ? IntPtr.Zero : obj.Handle);
+        }
+
+        public void RemoveObserver(NSObject observer)
+        {
+            ObjC.MessageSend(Handle, "removeObserver:", observer.Handle);
+        }
+    }
 }

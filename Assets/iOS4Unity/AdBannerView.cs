@@ -12,7 +12,7 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("ADBannerView");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
@@ -24,7 +24,8 @@ namespace iOS4Unity
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 
-        public AdBannerView(CGRect frame) : base(frame)
+        public AdBannerView(CGRect frame)
+            : base(frame)
         {
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
@@ -35,7 +36,10 @@ namespace iOS4Unity
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 
-        internal AdBannerView(IntPtr handle) : base(handle) { }
+        internal AdBannerView(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public AdType AdType
         {
@@ -61,21 +65,21 @@ namespace iOS4Unity
 
         public event EventHandler<NSErrorEventArgs> FailedToReceiveAd
         {
-            add 
-            { 
+            add
+            {
                 if (_failedToReceiveAd == null)
                     _failedToReceiveAd = new Dictionary<object, IntPtrHandler2>();
                 IntPtrHandler2 callback = (_, i) => value(this, new NSErrorEventArgs { Error = Runtime.GetNSObject<NSError>(i) });
                 _failedToReceiveAd[value] = callback;
-                Callbacks.Subscribe(this, "bannerView:didFailToReceiveAdWithError:", callback); 
-            } 
-            remove 
-            { 
+                Callbacks.Subscribe(this, "bannerView:didFailToReceiveAdWithError:", callback);
+            }
+            remove
+            {
                 IntPtrHandler2 callback;
                 if (_failedToReceiveAd != null && _failedToReceiveAd.TryGetValue(value, out callback))
                 {
                     _failedToReceiveAd.Remove(value);
-                    Callbacks.Unsubscribe(this, "bannerView:didFailToReceiveAdWithError:", callback); 
+                    Callbacks.Unsubscribe(this, "bannerView:didFailToReceiveAdWithError:", callback);
                 }
             }
         }

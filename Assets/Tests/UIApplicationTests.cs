@@ -1,10 +1,10 @@
-﻿using System;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
+using System;
 
 #if !UNITY_EDITOR
 
-public class UIApplicationTests 
+public class UIApplicationTests
 {
     [Test]
     public void SharedApplication()
@@ -19,7 +19,7 @@ public class UIApplicationTests
     {
         var app = UIApplication.SharedApplication;
 
-        app.DidBecomeActive += (sender, e) => 
+        app.DidBecomeActive += (sender, e) =>
         {
             Console.WriteLine("DidBecomeActive!");
         };
@@ -84,11 +84,11 @@ public class UIApplicationTests
     [Test]
     public void StatusBarHidden()
     {
-        #if XAMARIN
+#if XAMARIN
         Assert.IsFalse(UIApplication.SharedApplication.StatusBarHidden);
-        #else
+#else
         Assert.IsTrue(UIApplication.SharedApplication.StatusBarHidden);
-        #endif
+#endif
     }
 
     [Test]

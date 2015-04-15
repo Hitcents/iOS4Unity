@@ -11,7 +11,7 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("UIPopoverController");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
@@ -22,7 +22,10 @@ namespace iOS4Unity
             ObjC.MessageSend(Handle, "setDelegate:", Handle);
         }
 
-        internal UIPopoverController(IntPtr handle) : base(handle) { }
+        internal UIPopoverController(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public void PresentFromRect(CGRect rect, UIView view, UIPopoverArrowDirection arrowDirections, bool animated)
         {

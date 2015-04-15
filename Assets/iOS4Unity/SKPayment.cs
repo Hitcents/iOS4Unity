@@ -11,12 +11,15 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("SKPayment");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal SKPayment(IntPtr handle) : base(handle) { }
+        internal SKPayment(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public static SKPayment PaymentWithProduct(SKProduct product)
         {

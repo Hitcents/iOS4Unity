@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 
 namespace iOS4Unity
 {
@@ -12,12 +11,15 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("UIScreenMode");
         }
 
-        public override IntPtr ClassHandle 
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal UIScreenMode(IntPtr handle) : base(handle) { }
+        internal UIScreenMode(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public float PixelAspectRatio
         {
@@ -26,8 +28,7 @@ namespace iOS4Unity
 
         public CGSize Size
         {
-            get{ return ObjC.MessageSendCGSize(Handle, "size"); }
+            get { return ObjC.MessageSendCGSize(Handle, "size"); }
         }
     }
 }
-

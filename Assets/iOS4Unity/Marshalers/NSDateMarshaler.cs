@@ -57,4 +57,3 @@ namespace iOS4Unity.Marshalers
         }
     }
 }
-

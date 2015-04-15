@@ -1,11 +1,11 @@
-﻿using System;
-using iOS4Unity;
+﻿using iOS4Unity;
 using NUnit.Framework;
+using System;
 
 #if !UNITY_EDITOR
 
 [TestFixture]
-public class UIPopoverControllerTests 
+public class UIPopoverControllerTests
 {
     private UIUserInterfaceIdiom _device = UIDevice.CurrentDevice.UserInterfaceIdiom;
     private UIViewController _controller = new UIViewController();

@@ -3,58 +3,61 @@ using System.Globalization;
 
 namespace iOS4Unity
 {
-	public sealed class UIDevice : NSObject 
-	{
-		private static readonly IntPtr _classHandle;
+    public sealed class UIDevice : NSObject
+    {
+        private static readonly IntPtr _classHandle;
         private static int _majorVersion = -1;
         private static int _minorVersion = -1;
-		
-		static UIDevice()
-		{
-			_classHandle = ObjC.GetClass("UIDevice");
-		}
-		
-		public override IntPtr ClassHandle 
-		{
-			get { return _classHandle; }
-		}
 
-		public static string BatteryLevelDidChangeNotification
-		{
-			get	{ return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceBatteryLevelDidChangeNotification"); }
-		}
-		
-		public static string BatteryStateDidChangeNotification
-		{
-			get	{ return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceBatteryStateDidChangeNotification"); }
-		}
-		
-		public static string OrientationDidChangeNotification
-		{
-			get	{ return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceOrientationDidChangeNotification"); }
-		}
-		
-		public static string ProximityStateDidChangeNotification
-		{
-			get	{ return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceProximityStateDidChangeNotification"); }
-		}
-
-        internal UIDevice(IntPtr handle) : base(handle) { }
-
-		public static UIDevice CurrentDevice
-		{
-			get { return Runtime.GetNSObject<UIDevice>(ObjC.MessageSendIntPtr(_classHandle, "currentDevice")); }
-		}
-
-		public float BatteryLevel
-		{
-			get { return ObjC.MessageSendFloat(Handle, "batteryLevel"); }
-		}
-
-		public bool BatteryMonitoringEnabled
+        static UIDevice()
         {
-            get { return  ObjC.MessageSendBool(Handle, "isBatteryMonitoringEnabled"); }
-            set  { ObjC.MessageSend(Handle, "setBatteryMonitoringEnabled:", value); }
+            _classHandle = ObjC.GetClass("UIDevice");
+        }
+
+        public override IntPtr ClassHandle
+        {
+            get { return _classHandle; }
+        }
+
+        public static string BatteryLevelDidChangeNotification
+        {
+            get { return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceBatteryLevelDidChangeNotification"); }
+        }
+
+        public static string BatteryStateDidChangeNotification
+        {
+            get { return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceBatteryStateDidChangeNotification"); }
+        }
+
+        public static string OrientationDidChangeNotification
+        {
+            get { return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceOrientationDidChangeNotification"); }
+        }
+
+        public static string ProximityStateDidChangeNotification
+        {
+            get { return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIDeviceProximityStateDidChangeNotification"); }
+        }
+
+        internal UIDevice(IntPtr handle)
+            : base(handle)
+        {
+        }
+
+        public static UIDevice CurrentDevice
+        {
+            get { return Runtime.GetNSObject<UIDevice>(ObjC.MessageSendIntPtr(_classHandle, "currentDevice")); }
+        }
+
+        public float BatteryLevel
+        {
+            get { return ObjC.MessageSendFloat(Handle, "batteryLevel"); }
+        }
+
+        public bool BatteryMonitoringEnabled
+        {
+            get { return ObjC.MessageSendBool(Handle, "isBatteryMonitoringEnabled"); }
+            set { ObjC.MessageSend(Handle, "setBatteryMonitoringEnabled:", value); }
         }
 
         public UIDeviceBatteryState BatteryState
@@ -108,13 +111,13 @@ namespace iOS4Unity
 
         public void PlayInputClick()
         {
-            ObjC.MessageSend(Handle, "playInputClick"); 
+            ObjC.MessageSend(Handle, "playInputClick");
         }
 
         public bool ProximityMonitoringEnabled
         {
-            get { return  ObjC.MessageSendBool(Handle, "isProximityMonitoringEnabled"); }
-            set  { ObjC.MessageSend(Handle, "setProximityMonitoringEnabled:", value); }
+            get { return ObjC.MessageSendBool(Handle, "isProximityMonitoringEnabled"); }
+            set { ObjC.MessageSend(Handle, "setProximityMonitoringEnabled:", value); }
         }
 
         public bool ProximityState
@@ -136,26 +139,26 @@ namespace iOS4Unity
         {
             get { return (UIUserInterfaceIdiom)ObjC.MessageSendInt(Handle, "userInterfaceIdiom"); }
         }
-	}
+    }
 
-	public enum UIDeviceBatteryState
-	{
-		Unknown,
-		Unplugged,
-		Charging,
-		Full
-	}
-	
-	public enum UIDeviceOrientation
-	{
-		Unknown,
-		Portrait,
-		PortraitUpsideDown,
-		LandscapeLeft,
-		LandscapeRight,
-		FaceUp,
-		FaceDown
-	}
+    public enum UIDeviceBatteryState
+    {
+        Unknown,
+        Unplugged,
+        Charging,
+        Full
+    }
+
+    public enum UIDeviceOrientation
+    {
+        Unknown,
+        Portrait,
+        PortraitUpsideDown,
+        LandscapeLeft,
+        LandscapeRight,
+        FaceUp,
+        FaceDown
+    }
 
     public enum UIUserInterfaceIdiom
     {

@@ -4,7 +4,7 @@ using System.Globalization;
 namespace iOS4Unity
 {
     [Serializable]
-    public struct CGPoint 
+    public struct CGPoint
     {
         public static readonly CGPoint Empty;
 

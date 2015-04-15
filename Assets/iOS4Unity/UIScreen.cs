@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 
 namespace iOS4Unity
 {
-    public class UIScreen : NSObject 
+    public class UIScreen : NSObject
     {
         private static readonly IntPtr _classHandle;
 
@@ -11,13 +10,16 @@ namespace iOS4Unity
         {
             _classHandle = ObjC.GetClass("UIScreen");
         }
-        
-        public override IntPtr ClassHandle 
+
+        public override IntPtr ClassHandle
         {
             get { return _classHandle; }
         }
 
-        internal UIScreen(IntPtr handle) : base(handle) { }
+        internal UIScreen(IntPtr handle)
+            : base(handle)
+        {
+        }
 
         public CGRect ApplicationFrame
         {
@@ -50,7 +52,7 @@ namespace iOS4Unity
             get { return Runtime.GetNSObject<UIScreenMode>(ObjC.MessageSendIntPtr(Handle, "currentMode")); }
             set { ObjC.MessageSend(Handle, "setCurrentMode", value.Handle); }
         }
-            
+
         public static string DidConnectNotification
         {
             get { return ObjC.GetStringConstant(ObjC.Libraries.UIKit, "UIScreenDidConnectNotification"); }
@@ -110,7 +112,7 @@ namespace iOS4Unity
         public bool WantsSoftwareDimming
         {
             get { return ObjC.MessageSendBool(Handle, "wantsSoftwareDimming"); }
-            set{ ObjC.MessageSend(Handle, "setWantsSoftwareDimming", value); }
+            set { ObjC.MessageSend(Handle, "setWantsSoftwareDimming", value); }
         }
     }
 }
