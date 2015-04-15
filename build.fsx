@@ -17,11 +17,6 @@ Target "clean" (fun () ->
     Exec "git" "clean -d -f"
 )
 
-Target "unity-open" (fun () ->
-    //We use this because Unity will open the project and copy it's DLLs to the Library folder
-    UnityOpen
-)
-
 Target "dll" (fun () ->
     let output = Path.Combine(project, "bin", "Release")
     let csproj = Path.Combine(project, project + ".csproj")
