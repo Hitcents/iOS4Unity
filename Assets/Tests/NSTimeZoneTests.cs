@@ -58,11 +58,52 @@ public class NSTimeZoneTests
     }
 
     [Test]
-    public void TimeZoneiSDaylightSavings()
+    public void DefaultTimeZone()
     {
-        var obj1 = NSTimeZone.FromName(NSTimeZone.KnownTimeZoneNames[0]);
-        var isdaylightSavings = obj1.IsDaylightSavingsTime(DateTime.UtcNow);
+        var defaultTimeZone = NSTimeZone.DefaultTimeZone;
 
-        Assert.AreEqual(false, isdaylightSavings);
+        Assert.AreNotEqual(IntPtr.Zero, defaultTimeZone.ClassHandle);
+        Assert.AreNotEqual(IntPtr.Zero, defaultTimeZone.Handle);
     }
+
+    [Test]
+    public void SystemTimeZone()
+    {
+        var systemTimeZone = NSTimeZone.SystemTimeZone;
+
+        Assert.AreNotEqual(IntPtr.Zero, systemTimeZone.ClassHandle);
+        Assert.AreNotEqual(IntPtr.Zero, systemTimeZone.Handle);
+    }
+
+    [Test]
+    public void DataVersion()
+    {
+        var defaultTimeZone = NSTimeZone.DefaultTimeZone;
+        var data = defaultTimeZone.Data;
+        var dataVersion = NSTimeZone.DataVersion;
+
+        Assert.IsNotNull(dataVersion);
+        Assert.AreNotEqual(IntPtr.Zero, data.ClassHandle);
+        Assert.AreNotEqual(IntPtr.Zero, data.Handle);
+    }
+
+    [Test]
+    public void GetSecondsFromGMT()
+    {
+        var defaultTimeZone = NSTimeZone.DefaultTimeZone;
+        var seconds = defaultTimeZone.GetSecondsFromGMT;
+
+        Assert.IsNotNull(seconds);
+        Assert.AreNotEqual(IntPtr.Zero, defaultTimeZone.ClassHandle);
+        Assert.AreNotEqual(IntPtr.Zero, defaultTimeZone.Handle);
+    }
+
+//    [Test]
+//    public void TimeZoneIsDaylightSavings()
+//    {
+//        var obj1 = NSTimeZone.FromName(NSTimeZone.KnownTimeZoneNames[0]);
+//        var isdaylightSavings = obj1.IsDaylightSavingsTime(DateTime.UtcNow);
+//
+//        Assert.AreEqual(false, isdaylightSavings);
+//    }
 }

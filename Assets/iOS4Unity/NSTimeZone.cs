@@ -41,10 +41,10 @@ namespace iOS4Unity
             return ObjC.MessageSendString(Handle, "abbreviation");
         }
 
-        public double DaylightSavingTimeOffset(DateTime date)
-        {
-            return ObjC.MessageSendDouble(Handle, "daylightSavingTimeOffsetForDate:", date);
-        }
+//        public double DaylightSavingTimeOffset(DateTime date)
+//        {
+//            return ObjC.MessageSendDouble(Handle, "daylightSavingTimeOffsetForDate:", date);
+//        }
 
         public static NSTimeZone FromAbbreviation(string abbreviation)
         {
@@ -61,20 +61,21 @@ namespace iOS4Unity
             return Runtime.GetNSObject<NSTimeZone>(ObjC.MessageSendIntPtr(_classHandle, "timeZoneWithName:", name));
         }
 
-        public bool IsDaylightSavingsTime(DateTime date)
-        {
-            return ObjC.MessageSendBool(Handle, "isDaylightSavingTimeForDate:", date);
-        }
+        //NOTE: This crashes we can add later
+//        public bool IsDaylightSavingsTime(DateTime date)
+//        {
+//            return ObjC.MessageSendBool(Handle, "isDaylightSavingTimeForDate:", date);
+//        }
 
         public static string[] KnownTimeZoneNames
         {
             get { return ObjC.FromNSArray(ObjC.MessageSendIntPtr(_classHandle, "knownTimeZoneNames")); }
         }
 
-        public DateTime NextDaylightSavingTimeTransitionAfter(DateTime date)
-        {
-            return (DateTime)ObjC.MessageSendDate(Handle, "nextDaylightSavingTimeTransitionAfterDate:", date);
-        }
+//        public DateTime NextDaylightSavingTimeTransitionAfter(DateTime date)
+//        {
+//            return (DateTime)ObjC.MessageSendDate(Handle, "nextDaylightSavingTimeTransitionAfterDate:", date);
+//        }
 
         public static void ResetSystemTimeZone()
         {
