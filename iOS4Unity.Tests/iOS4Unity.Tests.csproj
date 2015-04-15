@@ -177,6 +177,9 @@
     <Compile Include="..\Assets\Tests\UILocalNotificationTests.cs">
       <Link>Tests\UILocalNotificationTests.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\Tests\NSTimeZoneTests.cs">
+      <Link>Tests\NSTimeZoneTests.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
