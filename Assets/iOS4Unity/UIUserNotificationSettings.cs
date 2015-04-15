@@ -28,7 +28,7 @@ namespace iOS4Unity
 
         public static UIUserNotificationSettings GetSettingsForTypes(UIUserNotificationType types)
         {
-            //NOTE: right now we don't have support for categories, it required NSSet
+            //NOTE: right now we don't have support for categories, it required UIUserNotificationCategory, which is a somewhat advanced scenario I'd say
             IntPtr handle = ObjC.MessageSendIntPtr(_classHandle, "settingsForTypes:categories:", (uint)types, IntPtr.Zero);
             return Runtime.GetNSObject<UIUserNotificationSettings>(handle);
         }
