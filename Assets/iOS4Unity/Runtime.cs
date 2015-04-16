@@ -10,6 +10,8 @@ namespace iOS4Unity
         private static readonly Dictionary<Type, Func<IntPtr, object>> _constructors = new Dictionary<Type, Func<IntPtr, object>>
         {
             { typeof(AdBannerView), h => new AdBannerView(h) },
+            { typeof(GKAchievement), h => new GKAchievement(h) },
+            { typeof(GKPlayer), h => new GKPlayer(h) },
             { typeof(NSBundle), h => new NSBundle(h) },
             { typeof(NSData), h => new NSData(h) },
             { typeof(NSDictionary), h => new NSDictionary(h) },

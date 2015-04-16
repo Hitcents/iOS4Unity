@@ -11,6 +11,11 @@ namespace iOS4Unity
             _classHandle = ObjC.GetClass("GKAchievement");
         }
 
+        internal GKAchievement(IntPtr handle)
+            : base(handle)
+        {
+        }
+
         public override IntPtr ClassHandle
         {
             get { return _classHandle; }
@@ -33,7 +38,7 @@ namespace iOS4Unity
             
         public GKAchievement(string identifier, GKPlayer player)
         {
-            ObjC.MessageSendIntPtr(Handle, "initWithIdentifier:Player:", identifier, player);
+            ObjC.MessageSendIntPtr(Handle, "initWithIdentifier:player:", identifier, player.Handle);
         }
 
         //NOTE: Needs completion handler

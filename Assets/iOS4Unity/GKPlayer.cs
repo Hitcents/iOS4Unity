@@ -16,6 +16,11 @@ namespace iOS4Unity
             get { return _classHandle; }
         }
 
+        internal GKPlayer(IntPtr handle)
+            : base(handle)
+        {
+        }
+
         public GKPlayer()
         {
             ObjC.MessageSendIntPtr(Handle, "init");
