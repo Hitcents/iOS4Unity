@@ -1,4 +1,4 @@
-<strong>FREE FOR A LIMITED TIME!</strong>
+<strong>Now open sourced on <a href="https://github.com/Hitcents/iOS4Unity">Github</a>!</strong>
 <br>
 <br>
 <strong>iOS4Unity</strong> is a plugin that finally brings native iOS APIs to C# using only managed code -- with no Objective-C libraries involved! <strong>iOS4Unity</strong> takes advantage of the core C functions that comprise the building blocks of Objective-C to expose native iOS APIs to C#. <strong>iOS4Unity</strong> also provides native callbacks to C# without using UnitySendMessage that is completed supported under AOT!
@@ -8,7 +8,7 @@ APIs include:
 <br>
 - UIAlertView and UIActionSheet - for displaying native popups
 <br>
-- UIApplication and NSNotificationCenter - for native notifications
+- UIApplication and UILocalNotification - Local and remote notifications
 <br>
 - UIDevice, NSLocal, and UIScreen - for native iOS settings
 <br>
@@ -21,4 +21,4 @@ APIs include:
 - Setup third party Obj-C libraries for use from C# - bind libraries missing a Unity plugin!
 <br>
 <br>
-Built by <a href="http://hitcents.com">Hitcents</a>, contact us <a href="http://hitcents.com/contact">here</a> for questions.
+Built by <a href="http://hitcents.com">Hitcents</a>. Get involved on <a href="https://github.com/Hitcents/iOS4Unity">Github</a>!
