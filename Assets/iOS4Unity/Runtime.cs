@@ -11,6 +11,7 @@ namespace iOS4Unity
         {
             { typeof(AdBannerView), h => new AdBannerView(h) },
             { typeof(GKAchievement), h => new GKAchievement(h) },
+            { typeof(GKInvite), h => new GKInvite(h) },
             { typeof(GKPlayer), h => new GKPlayer(h) },
             { typeof(NSBundle), h => new NSBundle(h) },
             { typeof(NSData), h => new NSData(h) },

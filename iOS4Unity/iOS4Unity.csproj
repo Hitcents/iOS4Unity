@@ -190,5 +190,8 @@
     <Compile Include="..\Assets\iOS4Unity\GKPlayer.cs">
       <Link>GKPlayer.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\GKInvite.cs">
+      <Link>GKInvite.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>
