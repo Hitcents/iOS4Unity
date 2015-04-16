@@ -184,5 +184,11 @@
     <Compile Include="..\Assets\iOS4Unity\UIUserNotificationSettings.cs">
       <Link>UIUserNotificationSettings.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\GKAchievement.cs">
+      <Link>GKAchievement.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\iOS4Unity\GKPlayer.cs">
+      <Link>GKPlayer.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>
