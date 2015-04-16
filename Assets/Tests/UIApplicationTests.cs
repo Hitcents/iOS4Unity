@@ -14,20 +14,21 @@ public class UIApplicationTests
         Assert.AreNotEqual(IntPtr.Zero, app.Handle);
     }
 
-    [Test]
-    public void ApplicationEvents()
-    {
-        var app = UIApplication.SharedApplication;
-
-        app.DidBecomeActive += (sender, e) =>
-        {
-            Console.WriteLine("DidBecomeActive!");
-        };
-        app.WillResignActive += (sender, e) =>
-        {
-            Console.WriteLine("WillResignActive!");
-        };
-    }
+// These events are removed temporarily until we find a workaround
+//    [Test]
+//    public void ApplicationEvents()
+//    {
+//        var app = UIApplication.SharedApplication;
+//
+//        app.DidBecomeActive += (sender, e) =>
+//        {
+//            Console.WriteLine("DidBecomeActive!");
+//        };
+//        app.WillResignActive += (sender, e) =>
+//        {
+//            Console.WriteLine("WillResignActive!");
+//        };
+//    }
 
     [Test]
     public void SharedApplicationDispose()
