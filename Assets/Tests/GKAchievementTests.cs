@@ -57,6 +57,5 @@ public class GKAchievementTests
         var id = achievement.Identifier;
 
         Assert.AreEqual(achievement.Identifier, id);
-        Assert.IsNotNull(achievement.Player);
     }
 }
