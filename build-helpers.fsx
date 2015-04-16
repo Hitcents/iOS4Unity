@@ -31,6 +31,16 @@ let UpdatePlist version project =
         let finalVersion = version + "." + build
         Exec "/usr/libexec/PlistBuddy" ("-c 'Set :CFBundleVersion " + finalVersion + "' " + info)
 
-let UnityPackage folder =
+let UnityPath =
+    if isUnix then @"/Applications/Unity/Unity.app/Contents/MacOS/Unity" else @"C:\Program Files (x86)\Unity\Editor\Unity.exe"
+
+let Unity args =
     let fullPath = Path.GetFullPath(".")
-    Exec "/Applications/Unity/Unity.app/Contents/MacOS/Unity" ("-quit -batchmode -logFile -projectPath '" + fullPath + "' -exportPackage " + folder + " iOS4Unity.unitypackage")
+    let result = Shell.Exec(UnityPath, "-quit -batchmode -logFile -projectPath \"" + fullPath + "\" " + args)
+    if result < 0 then failwithf "Unity exited with error %d" result
+
+let UnityPackage folder =
+    Unity ("-exportPackage " + folder + " iOS4Unity.unitypackage")
+
+let Xcode args =
+    Exec "xcodebuild" args
