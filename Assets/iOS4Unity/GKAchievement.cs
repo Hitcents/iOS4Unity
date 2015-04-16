@@ -30,12 +30,56 @@ namespace iOS4Unity
         {
             ObjC.MessageSendIntPtr(Handle, "initWithIdentifier:forPlayer:", identifier, playerId);
         }
+            
+        public GKAchievement(string identifier, GKPlayer player)
+        {
+            ObjC.MessageSendIntPtr(Handle, "initWithIdentifier:Player:", identifier, player);
+        }
 
-        //TODO: GKPlayer
-//        public GKAchievement(string identifier, GKPlayer player)
+        //NOTE: Needs completion handler
+        public static void LoadAchievements()
+        {
+            ObjC.MessageSend(_classHandle, "loadAchievementsWithCompletionHandler:", IntPtr.Zero);
+        }
+
+        //NOTE: Needs completion handler
+        public void ReportAchievement()
+        {
+            ObjC.MessageSend(_classHandle, "reportAchievementWithCompletionHandler:", IntPtr.Zero);
+        }
+
+        //TODO: Need GKChallenge
+//        public static void ReportAchievements(GKAchievement[] achievements, GKChallenge[] challenges)
 //        {
-//            ObjC.MessageSendIntPtr(Handle, "initWithIdentifier:Player:", identifier, player);
+//            Messaging.void_objc_msgSend_IntPtr_IntPtr_IntPtr(GKAchievement.class_ptr, Selector.GetHandle("reportAchievements:withEligibleChallenges:withCompletionHandler:"), nSArray.Handle, (nSArray2 != null) ? nSArray2.Handle : IntPtr.Zero, (IntPtr)((void*)(&blockLiteral)));
 //        }
+
+        //NOTE: Needs completion handler
+        public static void ReportAchievements(GKAchievement[] achievements)
+        {
+            var achievementsHandle = ObjC.ToNSArray(achievements);
+            ObjC.MessageSend(_classHandle, "reportAchievements:withCompletionHandler:", achievementsHandle,  IntPtr.Zero);
+        }
+
+        //NOTE: Needs completion handler
+        public static void ResetAchivements()
+        {
+            ObjC.MessageSend(_classHandle, "resetAchievementsWithCompletionHandler:", IntPtr.Zero);
+        }
+
+        //NOTE: Needs completion handler
+        public void SelectChallengeablePlayerIDs(string[] playerIDs)
+        {
+            var playerIdsHandle = ObjC.ToNSArray(playerIDs);
+            ObjC.MessageSend(_classHandle, "reportAchievements:withCompletionHandler:", playerIdsHandle,  IntPtr.Zero);
+        }
+
+        //NOTE: Needs completion handler
+        public unsafe virtual void SelectChallengeablePlayers(GKPlayer[] players)
+        {
+            var playersHandle = ObjC.ToNSArray(players);
+            ObjC.MessageSend(_classHandle, "reportAchievements:withCompletionHandler:", playersHandle,  IntPtr.Zero);
+        }
 
         public bool Completed
         {
@@ -63,16 +107,11 @@ namespace iOS4Unity
             get { return ObjC.MessageSendDouble(Handle, "percentComplete"); }
             set { ObjC.MessageSend(Handle, "setPercentComplete:", value); }
         }
-
-        //TODO: GKPLAYER
-//        public GKPlayer Player
-//        {
-//            get
-//            {
-//                GKPlayer nSObject = Runtime.GetNSObject<GKPlayer>(Messaging.IntPtr_objc_msgSendSuper(base.SuperHandle, Selector.GetHandle("player")));
-//                return nSObject;
-//            }
-//        }
+            
+        public GKPlayer Player
+        {
+            get { return Runtime.GetNSObject<GKPlayer>(ObjC.MessageSendIntPtr(Handle, "player")); }
+        }
 
         public string PlayerID
         {

@@ -86,13 +86,11 @@ namespace iOS4Unity
             set { ObjC.MessageSend(Handle, "setSoundName:", value); }
         }
 
-        //TODO: need NSTimeZone
-        //		public NSTimeZone TimeZone {
-        //			[Export ("timeZone", ArgumentSemantic.Copy)]
-        //			get;
-        //			[Export ("setTimeZone:", ArgumentSemantic.Copy)]
-        //			set;
-        //		}
+        public NSTimeZone TimeZone 
+        {
+            get { return Runtime.GetNSObject<NSTimeZone>(ObjC.MessageSendIntPtr(Handle, "timeZone")); }
+            set { ObjC.MessageSend(Handle, "setTimeZone:", value); }
+        }
 
         public NSDictionary UserInfo
         {

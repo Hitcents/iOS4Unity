@@ -58,6 +58,9 @@ namespace iOS4Unity
         public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1, IntPtr arg2);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, GKPhotoSize arg1, IntPtr arg2);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1, int arg2);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
@@ -65,6 +68,9 @@ namespace iOS4Unity
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1, IntPtr arg2, double arg3);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1, IntPtr arg2);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern void MessageSend(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, IntPtr arg1, bool arg2, IntPtr arg3);
@@ -149,6 +155,9 @@ namespace iOS4Unity
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1, IntPtr arg2);
+
+        [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
+        public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1, GKPlayer arg2);
 
         [DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
         public static extern IntPtr MessageSendIntPtr(IntPtr receiver, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(SelectorMarshaler))] string selector, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg1, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NSStringReleaseMarshaler))] string arg2);

@@ -21,6 +21,19 @@ namespace iOS4Unity
             ObjC.MessageSendIntPtr(Handle, "init");
         }
 
+        //Note: Needs completion handler
+        public void LoadPhoto(GKPhotoSize size)
+        {
+            ObjC.MessageSend(Handle, "loadPhotoForSize:withCompletionHandler:", size,  IntPtr.Zero);
+        }
+
+        //Note: Needs completion handler
+        public static void LoadPlayersForIdentifiers(string[] identifiers)
+        {
+            var identifiersHandle = ObjC.ToNSArray(identifiers);
+            ObjC.MessageSend(_classHandle, "loadPlayersForIdentifiers:withCompletionHandler:", identifiersHandle,  IntPtr.Zero);
+        }
+
         public string Alias
         {
             get { return ObjC.MessageSendString(Handle, "alias"); }
@@ -50,5 +63,11 @@ namespace iOS4Unity
         {
             get { return ObjC.MessageSendString(Handle, "playerID"); }
         }
+    }
+
+    public enum GKPhotoSize
+    {
+        Small,
+        Normal
     }
 }
