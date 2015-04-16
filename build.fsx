@@ -42,14 +42,14 @@ Target "tests" (fun () ->
     CreateDir "build"
     DeleteFile ("build/" + project + ".ipa")
     Xcode ("-exportArchive -archivePath Scratch/Xcode/" + project + ".xcarchive -exportPath build/" + project + ".ipa -exportProvisioningProfile " + provisioningName)
-    TeamCityHelper.PublishArtifact (project + ".ipa")
+    TeamCityHelper.PublishArtifact ("build/" + project + ".ipa")
 )
 
 Target "tests-64" (fun () ->
     CreateDir "build"
     DeleteFile ("build/" + project + ".ipa")
     Xcode ("-exportArchive -archivePath Scratch/Xcode/" + project + ".xcarchive -exportPath build/" + project + "-64.ipa -exportProvisioningProfile " + provisioningName)
-    TeamCityHelper.PublishArtifact (project + "-64.ipa")
+    TeamCityHelper.PublishArtifact ("build/" + project + "-64.ipa")
 )
 
 Target "unity" (fun () ->
