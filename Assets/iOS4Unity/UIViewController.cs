@@ -18,6 +18,7 @@ namespace iOS4Unity
 
         public UIViewController()
         {
+            ObjC.MessageSendIntPtr(Handle, "init");
         }
 
         internal UIViewController(IntPtr handle)

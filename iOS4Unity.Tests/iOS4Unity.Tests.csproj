@@ -192,6 +192,9 @@
     <Compile Include="..\Assets\Tests\GKInviteTests.cs">
       <Link>Tests\GKInviteTests.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\Tests\UINavigationControllerTests.cs">
+      <Link>Tests\UINavigationControllerTests.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>

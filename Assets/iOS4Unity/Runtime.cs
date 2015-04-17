@@ -37,6 +37,7 @@ namespace iOS4Unity
             { typeof(UIDevice), h => new UIDevice(h) },
             { typeof(UIImage), h => new UIImage(h) },
 			{ typeof(UILocalNotification), h => new UILocalNotification(h) },
+            { typeof(UINavigationController), h => new UINavigationController(h) },
             { typeof(UIScreen), h => new UIScreen(h) },
             { typeof(UIScreenMode), h => new UIScreenMode(h) },
             { typeof(UIUserNotificationSettings), h => new UIUserNotificationSettings(h) },

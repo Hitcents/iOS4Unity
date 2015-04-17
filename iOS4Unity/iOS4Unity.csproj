@@ -193,5 +193,8 @@
     <Compile Include="..\Assets\iOS4Unity\GKInvite.cs">
       <Link>GKInvite.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\UINavigationController.cs">
+      <Link>UINavigationController.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>
