@@ -196,5 +196,8 @@
     <Compile Include="..\Assets\iOS4Unity\UINavigationController.cs">
       <Link>UINavigationController.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\iOS4Unity\GKGameCenterViewController.cs">
+      <Link>GKGameCenterViewController.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>
