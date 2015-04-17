@@ -31,5 +31,26 @@ namespace iOS4Unity
             get { return ObjC.MessageSendString(Handle, "leaderboardCategory"); }
             set { ObjC.MessageSend(Handle, "setLeaderboardCategory:", value); }
         }
+
+        public string LeaderboardIdentifier
+        {
+            get { return ObjC.MessageSendString(Handle, "leaderboardIdentifier"); }
+            set { ObjC.MessageSend(Handle, "setLeaderboardIdentifier:", value); }
+
+        }
+
+        public GKGameCenterViewControllerState ViewState
+        {
+            get { return (GKGameCenterViewControllerState)ObjC.MessageSendInt(Handle, "viewState"); }
+            set { ObjC.MessageSend(Handle, "setViewState:", (int)value); }
+        }
+    }
+
+    public enum GKGameCenterViewControllerState
+    {
+        Default = -1,
+        Leaderboards,
+        Achievements,
+        Challenges
     }
 }
