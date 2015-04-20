@@ -13,6 +13,7 @@ namespace iOS4Unity
             { typeof(GKAchievement), h => new GKAchievement(h) },
             { typeof(GKGameCenterViewController), h => new GKGameCenterViewController(h) },
             { typeof(GKInvite), h => new GKInvite(h) },
+            { typeof(GKMatchRequest), h => new GKMatchRequest(h) },
             { typeof(GKPlayer), h => new GKPlayer(h) },
             { typeof(NSBundle), h => new NSBundle(h) },
             { typeof(NSData), h => new NSData(h) },

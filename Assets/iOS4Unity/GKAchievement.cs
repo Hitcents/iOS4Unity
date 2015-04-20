@@ -80,7 +80,7 @@ namespace iOS4Unity
         }
 
         //NOTE: Needs completion handler
-        public unsafe virtual void SelectChallengeablePlayers(GKPlayer[] players)
+        public void SelectChallengeablePlayers(GKPlayer[] players)
         {
             var playersHandle = ObjC.ToNSArray(players);
             ObjC.MessageSend(_classHandle, "reportAchievements:withCompletionHandler:", playersHandle,  IntPtr.Zero);
